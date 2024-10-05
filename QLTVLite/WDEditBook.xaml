@@ -1,0 +1,31 @@
+﻿<Window x:Class="QLTVLite.WDEditBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLTVLite"
+        mc:Ignorable="d"
+        Title="WDEditBook" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Mã Sách" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtMaSach" IsReadOnly="True"/>
+            <!-- Không cho phép sửa mã sách -->
+
+            <TextBlock Text="Tên Sách" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtTenSach"/>
+
+            <TextBlock Text="Tác Giả" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtTacGia"/>
+
+            <TextBlock Text="Thể Loại" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtTheLoai"/>
+
+            <TextBlock Text="Năm Xuất Bản" Margin="0,10,0,0"/>
+            <TextBox x:Name="txtNamXuatBan"/>
+
+            <Button Content="Lưu" Click="SaveBook_Click" 
+                    HorizontalAlignment="Center" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Window>
