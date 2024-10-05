@@ -18,7 +18,5 @@ namespace QLTVLite.Models
         public int NamXuatBan {  get; set; }
 
         // hello moi them cmt test git
-        // them cmt l2
-        public int test { get; set; }
     }
 }
