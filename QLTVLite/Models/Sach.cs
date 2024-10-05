@@ -16,7 +16,5 @@ namespace QLTVLite.Models
         public string TacGia { get; set; }
         public string TheLoai { get; set; }
         public int NamXuatBan {  get; set; }
-
-        // hello moi them cmt test git
     }
 }

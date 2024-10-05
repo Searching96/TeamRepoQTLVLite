@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 
 namespace QLTVLite
 {
+    // Da lam roi
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
