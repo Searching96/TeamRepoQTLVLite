@@ -25,12 +25,14 @@
 
         <!-- DataGrid will fill the remaining space -->
         <DataGrid x:Name="BooksDataGrid"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
                   Margin="10"
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
-                  IsReadOnly="True">
+                  IsReadOnly="True" Height="272" Width="483">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Mã Sách" Binding="{Binding MaSach}"/>
                 <DataGridTextColumn Header="Tên Sách" Binding="{Binding TenSach}"/>
