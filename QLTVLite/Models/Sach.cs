@@ -10,6 +10,7 @@ namespace QLTVLite.Models
     public class Sach
     {
         // tai sao thuoc tinh lai public, co phai vi internal?
+        // quay lai day
         [Key]
         public string MaSach { get; set; }
         public string TenSach {  get; set; }
