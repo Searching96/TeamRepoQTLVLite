@@ -77,7 +77,7 @@ namespace QLTVLite
                     using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
                     {
                         // Tìm sách trong cơ sở dữ liệu bằng mã sách
-                        var bookToDelete = context.SACH.Find(selectedBook.ID);
+                        var bookToDelete = context.SACH.Find(selectedBook.MaSach);
                         if (bookToDelete != null)
                         {
                             // Xóa sách và lưu thay đổi
