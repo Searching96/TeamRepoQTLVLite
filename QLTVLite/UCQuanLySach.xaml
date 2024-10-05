@@ -10,14 +10,6 @@
 
         <!-- StackPanel for buttons, docked to the top -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="10">
-            <!--Con thieu place holder-->
-            <TextBox x:Name="SearchTextBox" Width="200" Margin="5"/>
-            <ComboBox x:Name="SearchPropertyComboBox" Width="120" Margin="5">
-                <ComboBoxItem Content="Tên Sách"/>
-                <ComboBoxItem Content="Tác Giả"/>
-                <ComboBoxItem Content="Thể Loại"/>
-            </ComboBox>
-            <Button Content="Tìm kiếm" Width="75" Margin="5" Click="SearchBook_Click"/>
             <Button Content="Thêm" Width="75" Margin="5" Click="AddBook_Click"/>
             <Button Content="Sửa" Width="75" Margin="5" Click="EditBook_Click"/>
             <Button Content="Xóa" Width="75" Margin="5" Click="DeleteBook_Click"/>
