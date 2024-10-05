@@ -8,8 +8,6 @@
         Title="WDAddBook" Height="450" Width="800">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Mã Sách" Margin="0,10,0,0"/>
-            <TextBox x:Name="txtMaSach"/>
 
             <TextBlock Text="Tên Sách" Margin="0,10,0,0"/>
             <TextBox x:Name="txtTenSach"/>
