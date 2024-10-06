@@ -179,6 +179,8 @@ namespace QLTVLite
             }
         }
 
+        // dhqidquwdqwd
+        // dqwdqwdqwhkdqwd
         private void SearchBook_Click(object sender, RoutedEventArgs e)
         {
             string searchTerm = SearchTextBox.Text.Trim();
