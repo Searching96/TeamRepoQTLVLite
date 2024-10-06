@@ -9,11 +9,15 @@ namespace QLTVLite.Models
         // quay lai day
         [Key]
         public int ID { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string MaSach { get; set; }
         public string TenSach {  get; set; }
         public string TheLoai { get; set; }
         public int NamXuatBan {  get; set; }
+
+        [NotMapped]
+        public string TacGiaString { get; set; }
         public ICollection<Sach_TacGia> Sach_TacGia { get; set; }
     }
 }

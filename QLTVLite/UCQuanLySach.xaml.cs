@@ -59,28 +59,63 @@ namespace QLTVLite
         }
         private void EditBook_Click(object sender, RoutedEventArgs e)
         {
-            if (BooksDataGrid.SelectedItem is Sach selectedBook)
-            {
-                WDEditBook wdEditBook = new WDEditBook(selectedBook);
+            // Lấy đối tượng sách được chọn từ DataGrid
+            var selectedItem = BooksDataGrid.SelectedItem;
+            var maSach = (string)selectedItem.GetType().GetProperty("MaSach").GetValue(selectedItem, null);
 
-                if (wdEditBook.ShowDialog() == true)
+            if (selectedItem != null)
+            {
+                // Sử dụng dynamic để không cần ép kiểu cụ thể
+                dynamic selectedBook = selectedItem;
+
+                try
                 {
-                    LoadBook();
+                    using (var context = new AppDbContext())
+                    {
+                        // Tìm sách từ DB theo MaSach
+                        var bookToUpdate = context.SACH.FirstOrDefault(b => b.MaSach == maSach);
+
+                        if (bookToUpdate != null)
+                        {
+                            // Cập nhật thông tin từ TextBox (trừ MaSach và Tác Giả)
+                            bookToUpdate.TenSach = txtTenSach.Text;
+                            bookToUpdate.NamXuatBan = int.Parse(txtNamXuatBan.Text);
+                            bookToUpdate.TheLoai = txtTheLoai.Text;
+
+                            // Lưu thay đổi vào DB
+                            context.SaveChanges();
+                            LoadBook();
+                            MessageBox.Show("Thông tin sách đã được cập nhật!", "Cập nhật thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy sách trong cơ sở dữ liệu.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Có lỗi xảy ra: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một sách để sửa");
+                MessageBox.Show("Vui lòng chọn một cuốn sách để chỉnh sửa.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private void DeleteBook_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra xem có sách nào được chọn không
-            if (BooksDataGrid.SelectedItem is Sach selectedBook)
+            var selectedItem = BooksDataGrid.SelectedItem;
+            if (selectedItem != null)
             {
+                // Cho nay can "if (BooksDataGrid.SelectedItem is Sach selectedBook)" ko???
+                // Lấy MaSach của sách được chọn
+                var maSach = (string)selectedItem.GetType().GetProperty("MaSach").GetValue(selectedItem, null);
+
                 // Hiển thị thông báo xác nhận trước khi xóa
                 MessageBoxResult result = MessageBox.Show(
-                    $"Bạn có chắc chắn muốn xóa sách: {selectedBook.TenSach}?",
+                    $"Bạn có chắc chắn muốn xóa sách có mã: {maSach}?",
                     "Xác nhận xóa",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
@@ -91,7 +126,7 @@ namespace QLTVLite
                     using (var context = new AppDbContext())
                     {
                         // Tìm sách trong cơ sở dữ liệu bằng mã sách
-                        var bookToDelete = context.SACH.Find(selectedBook.MaSach);
+                        var bookToDelete = context.SACH.FirstOrDefault(s => s.MaSach == maSach);
                         if (bookToDelete != null)
                         {
                             // Xóa sách và lưu thay đổi
@@ -111,37 +146,64 @@ namespace QLTVLite
             }
         }
 
-        //private void SearchBook_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string searchTerm = SearchTextBox.Text.Trim();
-        //    string selectedProperty = ((ComboBoxItem)SearchPropertyComboBox.SelectedItem)?.Content.ToString();
+        private void BooksDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Lấy đối tượng đã chọn từ DataGrid
+            var selectedItem = BooksDataGrid.SelectedItem;
 
-        //    using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
-        //    {
-        //        IEnumerable<Sach> results = Enumerable.Empty<Sach>();
+            // Kiểm tra xem selectedItem có dữ liệu không
+            if (selectedItem != null)
+            {
+                // Sử dụng dynamic để không cần ép kiểu cụ thể
+                dynamic selectedBook = selectedItem;
 
-        //        if (selectedProperty == "Tên Sách")
-        //        {
-        //            results = context.SACH
-        //                .Where(b => b.TenSach.Contains(searchTerm))
-        //                .ToList();
-        //        }
-        //        else if (selectedProperty == "Tác Giả")
-        //        {
-        //            results = context.SACH
-        //                .Where(b => b.TacGia.Contains(searchTerm))
-        //                .ToList();
-        //        }
-        //        else if (selectedProperty == "Thể Loại")
-        //        {
-        //            results = context.SACH
-        //                .Where(b => b.TheLoai.Contains(searchTerm))
-        //                .ToList();
-        //        }
+                // Hiển thị thông tin sách
+                txtMaSach.Text = selectedBook.MaSach;
+                txtTenSach.Text = selectedBook.TenSach;
+                txtTheLoai.Text = selectedBook.TheLoai;
+                txtNamXuatBan.Text = selectedBook.NamXuatBan.ToString();
 
-        //        BooksDataGrid.ItemsSource = results;
-        //    }
-        //}
+                // Hiển thị nguyên chuỗi TacGiaString
+                txtTenTacGia.Text = !string.IsNullOrWhiteSpace(selectedBook.TacGiaString)
+                    ? selectedBook.TacGiaString
+                    : "Không có tên tác giả";
+            }
+            else
+            {
+                // Nếu không có sách nào được chọn, xóa các TextBox
+                txtMaSach.Text = "";
+                txtTenSach.Text = "";
+                txtTenTacGia.Text = "";
+                txtNamXuatBan.Text = "";
+                txtTheLoai.Text = "";
+            }
+        }
+
+        private void SearchBook_Click(object sender, RoutedEventArgs e)
+        {
+            string searchTerm = SearchTextBox.Text.Trim();
+            string selectedProperty = ((ComboBoxItem)SearchPropertyComboBox.SelectedItem)?.Content.ToString();
+
+            using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
+            {
+                IEnumerable<Sach> results = Enumerable.Empty<Sach>();
+
+                if (selectedProperty == "Tên Sách")
+                {
+                    results = context.SACH
+                        .Where(b => b.TenSach.Contains(searchTerm))
+                        .ToList();
+                }
+                else if (selectedProperty == "Thể Loại")
+                {
+                    results = context.SACH
+                        .Where(b => b.TheLoai.Contains(searchTerm))
+                        .ToList();
+                }
+
+                BooksDataGrid.ItemsSource = results;
+            }
+        }
 
     }
 }

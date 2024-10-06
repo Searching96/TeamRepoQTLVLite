@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,20 +15,14 @@ using System.Windows.Shapes;
 
 namespace QLTVLite
 {
-    // Da lam roi
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UCThongKe.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCThongKe : UserControl
     {
-        public MainWindow()
+        public UCThongKe()
         {
             InitializeComponent();
-        }
-
-        private void NavigateToQLSach(object sender, RoutedEventArgs e)
-        {
-            MainContent.Content = new UCQuanLySach();
         }
     }
 }

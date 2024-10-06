@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace QLTVLite.Models
 {
-    public class TacGia
+    public class NguoiDung
     {
         [Key]
-        public int ID { get; set; }
+        public int ID {  get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string MaTacGia { get; set; }
-        public string TenTacGia { get; set; }
-        public ICollection<Sach_TacGia> Sach_TacGia { get; set; }
+        public string MaNguoiDung {  get; set; }
+        public string TenNguoiDung { get; set; }
+        public string MatKhau { get; set; }
+        public int PhanQuyen {  get; set; }
     }
 }

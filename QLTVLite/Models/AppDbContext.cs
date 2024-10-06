@@ -9,10 +9,10 @@ namespace QLTVLite.Models
 {
     internal class AppDbContext : DbContext
     {     
-    
     public DbSet<Sach> SACH { get; set; }
     public DbSet<TacGia> TACGIA { get; set; }
     public DbSet<Sach_TacGia> SACH_TACGIA { get; set; }
+    public DbSet<NguoiDung> NGUOIDUNG { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
