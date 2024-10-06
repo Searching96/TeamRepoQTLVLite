@@ -23,33 +23,67 @@ namespace QLTVLite
         public WDAddBook()
         {
             InitializeComponent();
+            LoadAuthors();
+        }
+
+        private void LoadAuthors()
+        {
+            using (var context = new AppDbContext())
+            {
+                var authors = context.TACGIA.ToList();
+                lstAuthors.ItemsSource = authors;
+                lstAuthors.DisplayMemberPath = "TenTacGia"; // Hiển thị tên tác giả
+            }
         }
 
         private void AddBook_Click(object sender, RoutedEventArgs e)
         {
-            string maSach = txtMaSach.Text;
             string tenSach = txtTenSach.Text;
-            string tacGia = txtTacGia.Text;
             string theLoai = txtTheLoai.Text;
             int namXuatBan;
+
             if (!int.TryParse(txtNamXuatBan.Text, out namXuatBan))
             {
                 MessageBox.Show("Năm xuất bản phải là số hợp lệ.");
                 return;
             }
 
+            // Lấy danh sách các tác giả đã chọn
+            var selectedAuthors = lstAuthors.SelectedItems.Cast<TacGia>().ToList();
+
+            // Kiểm tra nếu không có tác giả nào được chọn
+            if (selectedAuthors.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất một tác giả.");
+                return;
+            }
+
             using (var context = new AppDbContext())
             {
+                // Tạo một sách mới
                 var newBook = new Sach()
                 {
-                    MaSach = maSach,
                     TenSach = tenSach,
-                    TacGia = tacGia,
                     TheLoai = theLoai,
                     NamXuatBan = namXuatBan
                 };
 
+                // Thêm sách vào cơ sở dữ liệu
                 context.SACH.Add(newBook);
+                context.SaveChanges(); // MaSach sẽ được tự động tính toán
+
+                // Thêm các bản ghi vào bảng Sach_TacGia
+                foreach (var author in selectedAuthors)
+                {
+                    var sachTacGia = new Sach_TacGia
+                    {
+                        IDSach = newBook.ID, // ID của sách mới
+                        IDTacGia = author.ID // ID của tác giả đã chọn
+                    };
+                    context.SACH_TACGIA.Add(sachTacGia);
+                }
+
+                // Lưu các thay đổi cho Sach_TacGia
                 context.SaveChanges();
             }
 

@@ -1,4 +1,5 @@
-﻿using QLTVLite.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using QLTVLite.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +31,20 @@ namespace QLTVLite
         {
             using (var context = new AppDbContext())
             {
-                List<Sach> dsSach = context.SACH.ToList();
+                var dsSach = context.SACH
+                    .Select(s => new
+                    {
+                        s.MaSach,
+                        s.TenSach,
+                        s.TheLoai,
+                        s.NamXuatBan,
+                        TacGiaString = string.Join(", ", context.SACH_TACGIA
+                            .Where(stg => stg.IDSach == s.ID)
+                            .Select(stg => stg.TacGia.TenTacGia)
+                            .ToList())
+                    })
+                    .ToList();
+
                 BooksDataGrid.ItemsSource = dsSach;
             }
         }
@@ -74,7 +88,7 @@ namespace QLTVLite
                 // Nếu người dùng chọn "Yes", thực hiện xóa
                 if (result == MessageBoxResult.Yes)
                 {
-                    using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
+                    using (var context = new AppDbContext())
                     {
                         // Tìm sách trong cơ sở dữ liệu bằng mã sách
                         var bookToDelete = context.SACH.Find(selectedBook.MaSach);
@@ -97,36 +111,37 @@ namespace QLTVLite
             }
         }
 
-        private void SearchBook_Click(object sender, RoutedEventArgs e)
-        {
-            string searchTerm = SearchTextBox.Text.Trim();
-            string selectedProperty = ((ComboBoxItem)SearchPropertyComboBox.SelectedItem)?.Content.ToString();
+        //private void SearchBook_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string searchTerm = SearchTextBox.Text.Trim();
+        //    string selectedProperty = ((ComboBoxItem)SearchPropertyComboBox.SelectedItem)?.Content.ToString();
 
-            using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
-            {
-                IEnumerable<Sach> results = Enumerable.Empty<Sach>();
+        //    using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
+        //    {
+        //        IEnumerable<Sach> results = Enumerable.Empty<Sach>();
 
-                if (selectedProperty == "Tên Sách")
-                {
-                    results = context.SACH
-                        .Where(b => b.TenSach.Contains(searchTerm))
-                        .ToList();
-                }
-                else if (selectedProperty == "Tác Giả")
-                {
-                    results = context.SACH
-                        .Where(b => b.TacGia.Contains(searchTerm))
-                        .ToList();
-                }
-                else if (selectedProperty == "Thể Loại")
-                {
-                    results = context.SACH
-                        .Where(b => b.TheLoai.Contains(searchTerm))
-                        .ToList();
-                }
+        //        if (selectedProperty == "Tên Sách")
+        //        {
+        //            results = context.SACH
+        //                .Where(b => b.TenSach.Contains(searchTerm))
+        //                .ToList();
+        //        }
+        //        else if (selectedProperty == "Tác Giả")
+        //        {
+        //            results = context.SACH
+        //                .Where(b => b.TacGia.Contains(searchTerm))
+        //                .ToList();
+        //        }
+        //        else if (selectedProperty == "Thể Loại")
+        //        {
+        //            results = context.SACH
+        //                .Where(b => b.TheLoai.Contains(searchTerm))
+        //                .ToList();
+        //        }
 
-                BooksDataGrid.ItemsSource = results;
-            }
-        }
+        //        BooksDataGrid.ItemsSource = results;
+        //    }
+        //}
+
     }
 }

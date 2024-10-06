@@ -6,41 +6,133 @@
              xmlns:local="clr-namespace:QLTVLite"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel LastChildFill="True" Background="White">
-
+    <Grid Background="Cyan">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="LightGray" Height="25">
+            <TextBlock HorizontalAlignment="Center">Trang Quản lý sách</TextBlock>
+        </Grid>
         <!-- StackPanel for buttons, docked to the top -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="10">
-            <!--Con thieu place holder-->
-            <TextBox x:Name="SearchTextBox" Width="200" Margin="5"/>
-            <ComboBox x:Name="SearchPropertyComboBox" Width="120" Margin="5">
-                <ComboBoxItem Content="Tên Sách"/>
-                <ComboBoxItem Content="Tác Giả"/>
-                <ComboBoxItem Content="Thể Loại"/>
-            </ComboBox>
-            <Button Content="Tìm kiếm" Width="75" Margin="5" Click="SearchBook_Click"/>
-            <Button Content="Thêm" Width="75" Margin="5" Click="AddBook_Click"/>
-            <Button Content="Sửa" Width="75" Margin="5" Click="EditBook_Click"/>
-            <Button Content="Xóa" Width="75" Margin="5" Click="DeleteBook_Click"/>
-        </StackPanel>
+        <Grid Margin="5" Background="LightGray" 
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Dành không gian cho Menu 5 -->
+                </Grid.ColumnDefinitions>
+                <!--Con thieu place holder-->
+                <TextBox x:Name="SearchTextBox" Width="200" Margin="5" Grid.Column="0"/>
+                <ComboBox x:Name="SearchPropertyComboBox" Width="120" Margin="5" Grid.Column="1">
+                    <ComboBoxItem Content="Tên Sách"/>
+                    <ComboBoxItem Content="Tác Giả"/>
+                    <ComboBoxItem Content="Thể Loại"/>
+                </ComboBox>
+                <!--<Button Content="Tìm kiếm" Width="75" Margin="5" Grid.Column="2"
+                        Background="CornflowerBlue" Click="SearchBook_Click"/>-->
+                <Button Content="Thêm" Width="75" Margin="5" Grid.Column="4" 
+                        Background="CornflowerBlue" Click="AddBook_Click"/>
+                <Button Content="Sửa" Width="75" Margin="5" Grid.Column="5"
+                        Background="CornflowerBlue" Click="EditBook_Click"/>
+                <Button Content="Xóa" Width="75" Margin="5" Grid.Column="6"
+                        Background="Red" Click="DeleteBook_Click"/>
+            </Grid>
+        </Grid>
 
+        <Grid Grid.Row="2" Height="Auto" 
+              Background="LightGray" Margin="5" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Background="White" Grid.ColumnSpan="6">
+                Thông tin sách
+            </TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="2" 
+                       HorizontalAlignment="Stretch">
+                Mã Sách: 
+            </TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2" 
+                       HorizontalAlignment="Stretch" Background="White">
+                Ma quyen sach
+            </TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="2" 
+                       HorizontalAlignment="Stretch">
+                Tên Sách:
+            </TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="3" Margin="2" 
+                       HorizontalAlignment="Stretch" Background="White">
+                Ten quyen sach
+            </TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="2" 
+                       HorizontalAlignment="Stretch">
+                Mã Sách:
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="2" 
+                       HorizontalAlignment="Stretch" Background="White">
+                Ma quyen sach
+            </TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="2" 
+                       HorizontalAlignment="Stretch">
+                Mã Sách:
+            </TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="5" Margin="2" IsReadOnly="True" 
+                     HorizontalAlignment="Stretch" Background="White">
+                Ma quyen sach
+            </TextBox>
+            <TextBlock Grid.Row="4" Grid.Column="4" Margin="2" 
+                       HorizontalAlignment="Stretch">
+                Mã Sách:
+            </TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="5" Margin="2" IsReadOnly="True" 
+                     HorizontalAlignment="Stretch" Background="White">
+                Ma quyen sach
+            </TextBox>
+        </Grid>
         <!-- DataGrid will fill the remaining space -->
         <DataGrid x:Name="BooksDataGrid"
-                  VerticalAlignment="Top"
-                  HorizontalAlignment="Left"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
-                  Margin="10"
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
-                  IsReadOnly="True" Height="272" Width="483">
+                  IsReadOnly="True"
+                  Grid.Row="3">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã Sách" Binding="{Binding MaSach}"/>
-                <DataGridTextColumn Header="Tên Sách" Binding="{Binding TenSach}"/>
-                <DataGridTextColumn Header="Tác Giả" Binding="{Binding TacGia}"/>
-                <DataGridTextColumn Header="Thể Loại" Binding="{Binding TheLoai}"/>
-                <DataGridTextColumn Header="Năm Xuất Bản" Binding="{Binding NamXuatBan}"/>
+                <DataGridTextColumn Width="Auto" Header="Mã Sách" Binding="{Binding MaSach}"/>
+                <DataGridTextColumn Width="*" Header="Tên Sách" Binding="{Binding TenSach}"/>
+                <DataGridTextColumn Width="1.5*" Header="Tác Giả" Binding="{Binding TacGiaString}"/>
+                <DataGridTextColumn Width="0.75*" Header="Thể Loại" Binding="{Binding TheLoai}"/>
+                <DataGridTextColumn Width="Auto" Header="Năm Xuất Bản" Binding="{Binding NamXuatBan}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-    </DockPanel>
+    </Grid>
 </UserControl>

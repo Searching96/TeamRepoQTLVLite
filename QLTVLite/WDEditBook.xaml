@@ -24,8 +24,8 @@
             <TextBlock Text="Năm Xuất Bản" Margin="0,10,0,0"/>
             <TextBox x:Name="txtNamXuatBan"/>
 
-            <Button Content="Lưu" Click="SaveBook_Click" 
-                    HorizontalAlignment="Center" Margin="10"/>
+            <!--<Button Content="Lưu" Click="SaveBook_Click" 
+                    HorizontalAlignment="Center" Margin="10"/>-->
         </StackPanel>
     </Grid>
 </Window>

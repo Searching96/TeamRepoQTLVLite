@@ -8,14 +8,11 @@
         Title="WDAddBook" Height="450" Width="800">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Mã Sách" Margin="0,10,0,0"/>
-            <TextBox x:Name="txtMaSach"/>
-
             <TextBlock Text="Tên Sách" Margin="0,10,0,0"/>
             <TextBox x:Name="txtTenSach"/>
 
             <TextBlock Text="Tác Giả" Margin="0,10,0,0"/>
-            <TextBox x:Name="txtTacGia"/>
+            <ListBox x:Name="lstAuthors" SelectionMode="Multiple" Margin="0,10,0,0" />
 
             <TextBlock Text="Thể Loại" Margin="0,10,0,0"/>
             <TextBox x:Name="txtTheLoai"/>
