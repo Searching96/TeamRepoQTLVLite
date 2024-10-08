@@ -34,7 +34,15 @@ namespace Library_GUI
             Display.Text = "Login";
             CurrentControl = new InputLogin();
             (CurrentControl as InputLogin).SwitchControlRequested += OnSwitchControlRequested;
+            (CurrentControl as InputLogin).LoginSucceeded += OnLoginSucceeded;
         }
+
+        private void OnLoginSucceeded(object? sender, User user)
+        {
+            this.Close();
+
+        }
+
         private object _currentControl;
         public object CurrentControl
         {

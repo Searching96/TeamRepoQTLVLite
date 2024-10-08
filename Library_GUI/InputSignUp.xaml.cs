@@ -32,6 +32,7 @@ namespace Library_GUI
         private void btn_SignUp_Click(object sender, RoutedEventArgs e)
         {
             //Sign up code
+            
         }
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
