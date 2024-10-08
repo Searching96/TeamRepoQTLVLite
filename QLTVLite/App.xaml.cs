@@ -7,6 +7,7 @@ namespace QLTVLite
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+    // im not uptodate
     public partial class App : Application
     {
     }
