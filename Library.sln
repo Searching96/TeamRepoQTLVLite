@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library_GUI", "Library_GUI\Library_GUI.csproj", "{ECDD0E94-778F-43CD-852D-7FD57AB556E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library_BUS", "Library_BUS\Library_BUS.csproj", "{1A257446-4EC3-409B-B297-3994998BEBF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library_DAL", "Library_DAL\Library_DAL.csproj", "{59B2D5D5-F9F1-40AF-B16B-328040EB034F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library_DTO", "Library_DTO\Library_DTO.csproj", "{CC5AA307-24C4-4CAE-A2A7-7B497E3F5C25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A067D7EE-31B6-445C-A88D-E13BEEF78EC5}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\library-management-wpf.cs = ..\..\..\Downloads\library-management-wpf.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECDD0E94-778F-43CD-852D-7FD57AB556E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECDD0E94-778F-43CD-852D-7FD57AB556E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECDD0E94-778F-43CD-852D-7FD57AB556E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECDD0E94-778F-43CD-852D-7FD57AB556E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A257446-4EC3-409B-B297-3994998BEBF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A257446-4EC3-409B-B297-3994998BEBF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A257446-4EC3-409B-B297-3994998BEBF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A257446-4EC3-409B-B297-3994998BEBF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B2D5D5-F9F1-40AF-B16B-328040EB034F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B2D5D5-F9F1-40AF-B16B-328040EB034F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B2D5D5-F9F1-40AF-B16B-328040EB034F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B2D5D5-F9F1-40AF-B16B-328040EB034F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5AA307-24C4-4CAE-A2A7-7B497E3F5C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5AA307-24C4-4CAE-A2A7-7B497E3F5C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5AA307-24C4-4CAE-A2A7-7B497E3F5C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5AA307-24C4-4CAE-A2A7-7B497E3F5C25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BE76AEF-3845-40DC-82E1-88C16557AAC7}
+	EndGlobalSection
+EndGlobal
