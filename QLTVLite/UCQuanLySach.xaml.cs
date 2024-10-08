@@ -180,10 +180,6 @@ namespace QLTVLite
             }
         }
 
-        // dhqidquwdqwd
-        // dqwdqwdqwhkdqwd
-        decimal IComponentConnector;
-        ForeignKeyExtensions (IntersectionDetail dqwd)
         private void SearchBook_Click(object sender, RoutedEventArgs e)
         {
             string searchTerm = SearchTextBox.Text.Trim();
