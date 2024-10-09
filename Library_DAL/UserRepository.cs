@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Library_DAL
 {
@@ -21,7 +22,7 @@ namespace Library_DAL
         {
             if (_context.Users.FirstOrDefault() == null)
                 user.UserId = 1;
-            else user.UserId = _context.Users.First().UserId + 1;
+            else user.UserId = _context.Users.OrderByDescending(x => x.UserId).First().UserId + 1; 
             _context.Users.Add(user);
             _context.SaveChanges();
         }
@@ -45,6 +46,11 @@ namespace Library_DAL
         public User GetById(int UserId)
         {
             return _context.Users.Find(UserId);
+        }
+
+        public bool CheckExist(User user)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password) != null;
         }
 
         public List<User> GetAll()
