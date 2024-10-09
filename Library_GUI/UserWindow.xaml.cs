@@ -39,8 +39,9 @@ namespace Library_GUI
 
         private void OnLoginSucceeded(object? sender, User user)
         {
+            MainWindow MainContent = new MainWindow(user);
+            MainContent.Show();
             this.Close();
-
         }
 
         private object _currentControl;

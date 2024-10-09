@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\ASUS\source\repos\Library\Library_GUI\obj\Debug\net6.0-windows\
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\
 Library_GUI
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\ASUS\source\repos\Library\Library_GUI\App.xaml
-4-1965674602
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\App.xaml
+6-1125551006
 
-8-1991043891
-2391006564336
-InputLogin.xaml;InputSignUp.xaml;MainWindow.xaml;UserWindow.xaml;
+10594426123
+243-116133302
+MainWindow.xaml;UserControls\InfoCard.xaml;UserControls\InputLogin.xaml;UserControls\InputSignUp.xaml;UserControls\Item.xaml;UserWindow.xaml;
 
 False
 

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\App.xaml
-4-1965674602
+6-1125551006
 
-10-235503361
-239610660841
-InputLogin.xaml;InputSignUp.xaml;MainWindow.xaml;UserWindow.xaml;
+12-1945000643
+243-116133302
+MainWindow.xaml;UserControls\InfoCard.xaml;UserControls\InputLogin.xaml;UserControls\InputSignUp.xaml;UserControls\Item.xaml;UserWindow.xaml;
 
-False
+True
 

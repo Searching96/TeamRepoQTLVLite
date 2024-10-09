@@ -7,10 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="InputSignUp.xaml.cs">
+    <Compile Update="UserControls\InputSignUp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="InputLogin.xaml.cs">
+    <Compile Update="UserControls\InputLogin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserWindow.xaml.cs">
@@ -18,13 +18,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="InputSignUp.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="InputLogin.xaml">
+    <Page Update="UserControls\InfoCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\InputSignUp.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\InputLogin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\Item.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserWindow.xaml">
