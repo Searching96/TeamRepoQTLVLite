@@ -13,13 +13,13 @@ namespace Library_DTO
         [Required]
         public string Author { get; set; }
 
+        [Required]
         public string ISBN { get; set; }
 
         public override string ToString()
         {
             return $"{BookId}: {Title} by {Author}";
         }
-
     }
 }
 

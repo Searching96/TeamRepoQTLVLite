@@ -26,24 +26,27 @@ namespace Library_GUI
         public InputLogin()
         {
             InitializeComponent();
-
         }
         public event EventHandler<string> SwitchControlRequested;
         public event EventHandler<User> LoginSucceeded;
-        private UserRepository context;
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
             //login code
-            User user = new User { Username = txbUsername.Text, Password = txbPassword.Password };
-            context = new();
-            if (context.CheckExist(user))
+            string username = txbUsername.Text;
+            string password = txbPassword.Password;
+            using (var context = new LibraryContext())
             {
-                MessageBox.Show("Login succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoginSucceeded?.Invoke(this, user);
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var user = context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+
+                if (user != null)
+                {
+                    MessageBox.Show("Login succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoginSucceeded?.Invoke(this, user);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         private void btn_SignUp_Click(object sender, RoutedEventArgs e)

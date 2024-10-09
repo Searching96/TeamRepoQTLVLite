@@ -26,11 +26,12 @@ namespace Library_GUI
     public partial class UserWindow : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public UserManager Instance;
         public UserWindow()
         {
             InitializeComponent();
             DataContext = this;
-            Display = "Login";
+            Display.Text = "Login";
             CurrentControl = new InputLogin();
             (CurrentControl as InputLogin).SwitchControlRequested += OnSwitchControlRequested;
             (CurrentControl as InputLogin).LoginSucceeded += OnLoginSucceeded;
@@ -44,18 +45,6 @@ namespace Library_GUI
         }
 
         private object _currentControl;
-
-        private string _display;
-        public string Display
-        {
-            get => _display;
-            set
-            {
-                _display = value;
-                OnPropertyChanged();
-            }
-        }
-
         public object CurrentControl
         {
             get => _currentControl;
@@ -77,14 +66,10 @@ namespace Library_GUI
                 case "InputLogin":
                     CurrentControl = new InputLogin();
                     (CurrentControl as InputLogin).SwitchControlRequested += OnSwitchControlRequested;
-                    (CurrentControl as InputLogin).LoginSucceeded += OnLoginSucceeded;
-                    Display = "Login";
                     break;
                 case "InputSignUp":
                     CurrentControl = new InputSignUp();
                     (CurrentControl as InputSignUp).SwitchControlRequested += OnSwitchControlRequested;
-                    (CurrentControl as InputSignUp).LoginSucceeded += OnLoginSucceeded;
-                    Display = "Sign up";
                     break;
             }
         }

@@ -15,7 +15,6 @@ namespace Library_DTO
 
         [Required]
         public string DisplayName { get; set; }
-
     }
 }
 

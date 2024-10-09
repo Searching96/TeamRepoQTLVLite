@@ -8,7 +8,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" Margin="75 0">
             <TextBox x:Name="txbUsername" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Text="John.Doe_am" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            <TextBox x:Name="txbEmail" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Email" Text="JohnDoe@email.com" Margin="0 27 0 27" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Email" Text="JohnDoe@email.com" Margin="0 27 0 27" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             <PasswordBox x:Name="txbPassword" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Password" Password="1234567890" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
             <PasswordBox x:Name="txbRePassword" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Repeat Password" Password="1234567890" Margin="0 27 0 0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
 
