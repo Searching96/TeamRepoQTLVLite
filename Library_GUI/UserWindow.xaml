@@ -7,7 +7,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         FontSize="18" FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" 
-        mc:Ignorable="d" Height="645" Width="875">
+        mc:Ignorable="d" Height="645" Width="875"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="20">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="30" ShadowDepth="1" Opacity="0.4"/>
@@ -27,7 +28,7 @@
             <Grid>
                 <!--Title-->
                 <StackPanel Margin="0 120 0 0" VerticalAlignment="Top">
-                    <TextBlock x:Name="Display" FontSize="46" FontWeight="Light" Foreground="#ffffff" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}" FontSize="46" FontWeight="Light" Foreground="#ffffff" TextAlignment="Center"/>
                     <TextBlock Text="to use all features" FontWeight="Light" FontSize="16" Foreground="#D1F2EB" TextAlignment="Center" Margin="0 15 0 3"/>
                     <TextBlock Text="of the application" FontWeight="Light" FontSize="16" Foreground="#D1F2EB" TextAlignment="Center"/>
                 </StackPanel>
@@ -101,7 +102,7 @@
                         Panel.ZIndex="1"/>
 
                 <!--Inputs-->
-                <ContentControl x:Name="InputContent" Content="{Binding CurrentControl, UpdateSourceTrigger=PropertyChanged}"/>
+                <ContentControl Content="{Binding CurrentControl, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Border>
 

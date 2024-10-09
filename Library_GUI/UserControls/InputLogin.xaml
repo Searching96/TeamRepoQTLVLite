@@ -7,7 +7,7 @@
              Background="Transparent">
     <Grid>
         <StackPanel VerticalAlignment="Center" Margin="75 0">
-            <TextBox x:Name="txbUsername" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Text="{Binding Username, Mode=OneWayToSource}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox x:Name="txbUsername" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             <PasswordBox x:Name="txbPassword" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
             <CheckBox Margin="0 40 0 20" FontSize="13">
                 <TextBlock>

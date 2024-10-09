@@ -182,3 +182,5 @@ C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\U
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Item.g.cs
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\bin\Debug\net6.0-windows\LiveCharts.Wpf.dll
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Dashboard.g.cs
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Dashboard.baml

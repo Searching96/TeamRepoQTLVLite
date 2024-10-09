@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Library_DAL;
+using Library_DTO;
 
 namespace Library_GUI
 {
@@ -21,18 +22,30 @@ namespace Library_GUI
     /// </summary>
     public partial class InputSignUp : UserControl
     {
-        private LibraryContext _context;
+        private UserRepository context;
         public event EventHandler<string> SwitchControlRequested;
+        public event EventHandler<User> LoginSucceeded;
         public InputSignUp()
         {
             InitializeComponent();
-            //_context = new LibraryContext();
-            //LoadUsers();
         }
+
         private void btn_SignUp_Click(object sender, RoutedEventArgs e)
         {
             //Sign up code
-            
+            if (txbPassword.Password != txbRePassword.Password) return;
+            User newUser = new User { Username = txbUsername.Text,Password = txbPassword.Password,DisplayName = txbEmail.Text };
+            context = new();
+            if (!context.CheckExist(newUser))
+            {
+                context.Add(newUser);
+                MessageBox.Show("Register succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoginSucceeded?.Invoke(this, newUser);
+            }
+            else
+            {
+                MessageBox.Show("User already registered", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
