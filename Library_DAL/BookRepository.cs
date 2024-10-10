@@ -48,6 +48,11 @@ namespace Library_DAL
             return _context.Books.Find(BookId);
         }
 
+        public int Count()
+        {
+            return _context.Books.Count();
+        }
+
         public List<Book> GetAll()
         {
             return _context.Books.ToList();

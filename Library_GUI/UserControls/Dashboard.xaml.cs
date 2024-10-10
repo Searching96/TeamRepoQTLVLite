@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Library_DTO;
+using Library_DAL;
 
 namespace Library_GUI.UserControls
 {
@@ -30,7 +31,47 @@ namespace Library_GUI.UserControls
             _user = user;
             Time = GetTime();
             DisplayName = user.DisplayName;
+            BookCount = _bookRepository.Count().ToString();
+            UserCount = _userRepository.Count().ToString();
+            BorrowCount = _borrowRepository.Count().ToString();
         }
+
+        private string _bookCount;
+        public string BookCount
+        {
+            get => _bookCount;
+            set
+            {
+                _bookCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _userCount;
+        public string UserCount
+        {
+            get => _userCount;
+            set
+            {
+                _userCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _borrowCount;
+        public string BorrowCount
+        {
+            get => _borrowCount;
+            set
+            {
+                _borrowCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private BookRepository _bookRepository = new();
+        private UserRepository _userRepository = new();
+        private BorrowRepository _borrowRepository = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -58,8 +99,6 @@ namespace Library_GUI.UserControls
                 return "evening";
             else return "night";
         }
-
-
 
         private string _displayName;
         public string DisplayName

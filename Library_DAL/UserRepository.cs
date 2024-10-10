@@ -53,6 +53,11 @@ namespace Library_DAL
             return _context.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password) != null;
         }
 
+        public int Count()
+        {
+            return _context.Users.Count();
+        }
+
         public List<User> GetAll()
         {
             return _context.Users.ToList();

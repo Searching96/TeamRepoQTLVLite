@@ -43,8 +43,6 @@ namespace Library_GUI
             this.Close();
         }
 
-        private object _currentControl;
-
         private string _display;
         public string Display
         {
@@ -56,6 +54,7 @@ namespace Library_GUI
             }
         }
 
+        private object _currentControl;
         public object CurrentControl
         {
             get => _currentControl;

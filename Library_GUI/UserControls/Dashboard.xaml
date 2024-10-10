@@ -50,9 +50,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <uc:InfoCard Grid.Column="0" Title="Total Views" Number="654,947" Icon="Eye" Background1="#827BFF" Background2="#D9B5FF" EllipseBackground1="#B298FD" EllipseBackground2="#E4BBFF"/>
-                    <uc:InfoCard Grid.Column="1" Title="Total Orders" Number="192,320" Icon="ShoppingCart" Background1="#FD8A87" Background2="#F3AB92" EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"/>
-                    <uc:InfoCard Grid.Column="2" Title="Total Revenue" Number="$14,528" Icon="Coins" Background1="#FC84CB" Background2="#FC8FAE" EllipseBackground1="#FC8FAE" EllipseBackground2="#FFABE6"/>
+                    <uc:InfoCard Grid.Column="0" Title="Total books" Number="{Binding BookCount}" Icon="Book" Background1="#827BFF" Background2="#D9B5FF" EllipseBackground1="#B298FD" EllipseBackground2="#E4BBFF"/>
+                    <uc:InfoCard Grid.Column="1" Title="Total users" Number="{Binding UserCount}" Icon="User" Background1="#FD8A87" Background2="#F3AB92" EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"/>
+                    <uc:InfoCard Grid.Column="2" Title="Total books borrowed" Number="{Binding BorrowCount}" Icon="BookOpen" Background1="#FC84CB" Background2="#FC8FAE" EllipseBackground1="#FC8FAE" EllipseBackground2="#FFABE6"/>
                 </Grid>
 
                 <!--Chart Section-->
@@ -72,7 +72,7 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 25">
                                 <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
-                                <TextBlock Text="Profit" Style="{StaticResource titleText}"/>
+                                <TextBlock Text="Borrows per Day" Style="{StaticResource titleText}"/>
                             </StackPanel>
 
                             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 0 25" Grid.Row="1">
@@ -154,7 +154,7 @@
 
                             <StackPanel Orientation="Horizontal" Margin="28 0 0 15">
                                 <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
-                                <TextBlock Text="Last Orders" Style="{StaticResource titleText}"/>
+                                <TextBlock Text="Last Borrows" Style="{StaticResource titleText}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1">

@@ -58,8 +58,8 @@
 
                     <Button Style="{StaticResource menuButton}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="FileSignature" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Listing" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Books" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
@@ -72,8 +72,8 @@
 
                     <Button Style="{StaticResource menuButton}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="ShoppingCart" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Orders" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="FileSignature" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Borrows" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
@@ -93,8 +93,8 @@
 
                     <Button Style="{StaticResource menuButton}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="FlagCheckered" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Promote" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Users" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
