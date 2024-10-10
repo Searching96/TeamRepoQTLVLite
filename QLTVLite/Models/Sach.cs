@@ -6,7 +6,7 @@ namespace QLTVLite.Models
     public class Sach
     {
         // tai sao thuoc tinh lai public, co phai vi internal?
-        // quay lai day
+        // quay lai day 
         [Key]
         public int ID { get; set; }
 
@@ -17,7 +17,7 @@ namespace QLTVLite.Models
         public int NamXuatBan {  get; set; }
 
         [NotMapped]
-        public string TacGiaString { get; set; }
+        public string DSTacGia { get; set; }
         public ICollection<Sach_TacGia> Sach_TacGia { get; set; }
     }
 }

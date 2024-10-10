@@ -20,20 +20,11 @@ namespace QLTVLite
     /// </summary>
     public partial class WDAddBook : Window
     {
+        private List<TacGia> selectedAuthors = new List<TacGia>(); // Khởi tạo danh sách tác giả đã chọn
+
         public WDAddBook()
         {
             InitializeComponent();
-            LoadAuthors();
-        }
-
-        private void LoadAuthors()
-        {
-            using (var context = new AppDbContext())
-            {
-                var authors = context.TACGIA.ToList();
-                lstAuthors.ItemsSource = authors;
-                lstAuthors.DisplayMemberPath = "TenTacGia"; // Hiển thị tên tác giả
-            }
         }
 
         private void AddBook_Click(object sender, RoutedEventArgs e)
@@ -47,9 +38,6 @@ namespace QLTVLite
                 MessageBox.Show("Năm xuất bản phải là số hợp lệ.");
                 return;
             }
-
-            // Lấy danh sách các tác giả đã chọn
-            var selectedAuthors = lstAuthors.SelectedItems.Cast<TacGia>().ToList();
 
             // Kiểm tra nếu không có tác giả nào được chọn
             if (selectedAuthors.Count == 0)
@@ -89,6 +77,20 @@ namespace QLTVLite
 
             this.DialogResult = true;
             this.Close();
+        }
+
+        private void SelectAuthors_Click(object sender, RoutedEventArgs e)
+        {
+            // Tạo một cửa sổ chọn tác giả, truyền danh sách tác giả đã chọn
+            var wdSelectAuthor = new WDSelectAuthor(selectedAuthors ?? new List<TacGia>());
+
+            if (wdSelectAuthor.ShowDialog() == true)
+            {
+                selectedAuthors = wdSelectAuthor.SelectedAuthors ?? new List<TacGia>();
+
+                // Cập nhật danh sách tác giả vào TextBox, ngăn cách bằng dấu phẩy
+                txtAuthors.Text = string.Join(", ", selectedAuthors.Select(a => a.TenTacGia));
+            }
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿<Window x:Class="QLTVLite.WDSelectAuthor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLTVLite"
+        mc:Ignorable="d"
+        Title="Chọn Tác Giả" Height="450" Width="800">
+    <StackPanel>
+        <TextBlock Text="Chọn Tác Giả" FontWeight="Bold" FontSize="16" Margin="10"/>
+        <ListBox x:Name="lstAuthors" SelectionMode="Multiple" Margin="10" SelectionChanged="AuthorListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding TenTacGia}"/>
+                    <!-- Hiển thị tên tác giả -->
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Content="Xác Nhận" Click="ConfirmSelection_Click" HorizontalAlignment="Center" Margin="10"/>
+    </StackPanel>
+</Window>

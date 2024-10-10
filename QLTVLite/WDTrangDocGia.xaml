@@ -12,74 +12,53 @@
             <ColumnDefinition Width="1.75*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+
+        <!-- Phần bên trái có màu cam với các thông tin -->
         <Grid Background="Orange" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="1.75*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="Cyan"></Grid>
-            <!--Cac dong du lieu user-->
-            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+
+            <!-- Thanh màu cyan phía trên -->
+            <Grid Background="Cyan" Grid.Row="0" Grid.ColumnSpan="2" />
+
+            <!-- Phần chứa dữ liệu của user -->
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                    
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="White" Grid.Column="0">Mã Số:</TextBlock>
-                    <TextBox Background="White" Grid.Column="1" Text="Here" />
-                </Grid>
 
-                <Grid Grid.Row="1" Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="White" Grid.Column="0">Ngày Sinh:</TextBlock>
-                    <TextBox Background="White" Grid.Column="1" Text="dd/MM/yyyy" />
-                </Grid>
+                <!-- Sử dụng chung cột cho tất cả các dòng -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="2" Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="White" Grid.Column="0">Địa Chỉ:</TextBlock>
-                    <TextBox Background="White" Grid.Column="1" Text="Nhập địa chỉ" />
-                </Grid>
+                <!-- Các hàng thông tin -->
+                <TextBlock Foreground="White" Grid.Row="0" Grid.Column="0">Mã Số:</TextBlock>
+                <TextBox Background="White" Grid.Row="0" Grid.Column="1" Text="Here" />
 
-                <Grid Grid.Row="3" Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="White" Grid.Column="0">Email:</TextBlock>
-                    <TextBox Background="White" Grid.Column="1" Text="email@example.com" />
-                </Grid>
+                <TextBlock Foreground="White" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Ngày Sinh:</TextBlock>
+                <TextBox Background="White" Grid.Row="1" Grid.Column="1" Text="dd/MM/yyyy" Margin="0,10,0,0" />
 
-                <Grid Grid.Row="4" Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="White" Grid.Column="0">Điện Thoại:</TextBlock>
-                    <TextBox Background="White" Grid.Column="1" Text="0123456789" />
-                </Grid>
+                <TextBlock Foreground="White" Grid.Row="2" Grid.Column="0" Margin="0,10,0,0">Địa Chỉ:</TextBlock>
+                <TextBox Background="White" Grid.Row="2" Grid.Column="1" Text="Nhập địa chỉ" Margin="0,10,0,0" />
 
-                <Button Grid.Row="5" Content="Chỉnh Sửa" Margin="0,20,0,0" Width="100" HorizontalAlignment="Center" Background="Blue" Foreground="White" />
+                <TextBlock Foreground="White" Grid.Row="3" Grid.Column="0" Margin="0,10,0,0">Email:</TextBlock>
+                <TextBox Background="White" Grid.Row="3" Grid.Column="1" Text="email@example.com" Margin="0,10,0,0" />
+
+                <TextBlock Foreground="White" Grid.Row="4" Grid.Column="0" Margin="0,10,0,0">Điện Thoại:</TextBlock>
+                <TextBox Background="White" Grid.Row="4" Grid.Column="1" Text="0123456789" Margin="0,10,0,0" />
+
+                <!-- Nút chỉnh sửa -->
+                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Chỉnh Sửa" Margin="0,20,0,0" Width="100" HorizontalAlignment="Center" Background="Blue" Foreground="White" />
             </Grid>
         </Grid>
     </Grid>

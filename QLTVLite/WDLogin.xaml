@@ -1,7 +1,9 @@
 ﻿<Window x:Class="QLTVLite.WDLogin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Login" Height="400" Width="250">
+        Title="Login" Height="400" Width="250"
+        WindowStartupLocation="CenterScreen">
+    <!-- Căn giữa màn hình -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
