@@ -8,11 +8,10 @@
         Title="Chọn Tác Giả" Height="450" Width="800">
     <StackPanel>
         <TextBlock Text="Chọn Tác Giả" FontWeight="Bold" FontSize="16" Margin="10"/>
-        <ListBox x:Name="lstAuthors" SelectionMode="Multiple" Margin="10" SelectionChanged="AuthorListBox_SelectionChanged">
+        <ListBox x:Name="lstAuthors" SelectionMode="Multiple" SelectionChanged="AuthorListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding TenTacGia}"/>
-                    <!-- Hiển thị tên tác giả -->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

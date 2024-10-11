@@ -17,6 +17,8 @@ namespace QLTVLite
     /// </summary>
     public partial class UCQuanLySach : UserControl
     {
+        private List<TacGia> selectedAuthors;
+
         public ObservableCollection<Sach> Books { get; set; }
 
         public UCQuanLySach()
@@ -38,7 +40,7 @@ namespace QLTVLite
                         s.TenSach,
                         s.TheLoai,
                         s.NamXuatBan,
-                        TacGiaString = string.Join(", ", context.SACH_TACGIA
+                        DSTacGia = string.Join(", ", context.SACH_TACGIA
                             .Where(stg => stg.IDSach == s.ID)
                             .Select(stg => stg.TacGia.TenTacGia)
                             .ToList())
@@ -57,45 +59,59 @@ namespace QLTVLite
                 LoadBook();
             }
         }
+
         private void EditBook_Click(object sender, RoutedEventArgs e)
         {
-            // Lấy đối tượng sách được chọn từ DataGrid
             var selectedItem = BooksDataGrid.SelectedItem;
-            var maSach = (string)selectedItem.GetType().GetProperty("MaSach").GetValue(selectedItem, null);
 
             if (selectedItem != null)
             {
-                // Sử dụng dynamic để không cần ép kiểu cụ thể
-                dynamic selectedBook = selectedItem;
+                var maSach = (string)selectedItem.GetType().GetProperty("MaSach").GetValue(selectedItem, null);
 
-                try
+                using (var context = new AppDbContext())
                 {
-                    using (var context = new AppDbContext())
+                    // Tìm cuốn sách cần cập nhật
+                    var bookToUpdate = context.SACH.FirstOrDefault(s => s.MaSach == maSach);
+
+                    if (bookToUpdate != null)
                     {
-                        // Tìm sách từ DB theo MaSach
-                        var bookToUpdate = context.SACH.FirstOrDefault(b => b.MaSach == maSach);
+                        // Cập nhật các thuộc tính sách
+                        bookToUpdate.TenSach = (string)selectedItem.GetType().GetProperty("TenSach").GetValue(selectedItem, null);
+                        bookToUpdate.TheLoai = (string)selectedItem.GetType().GetProperty("TheLoai").GetValue(selectedItem, null);
+                        bookToUpdate.NamXuatBan = (int)selectedItem.GetType().GetProperty("NamXuatBan").GetValue(selectedItem, null);
 
-                        if (bookToUpdate != null)
+                        // Nếu selectedAuthors không null, xử lý cập nhật tác giả
+                        if (selectedAuthors != null)
                         {
-                            // Cập nhật thông tin từ TextBox (trừ MaSach và Tác Giả)
-                            bookToUpdate.TenSach = txtTenSach.Text;
-                            bookToUpdate.NamXuatBan = int.Parse(txtNamXuatBan.Text);
-                            bookToUpdate.TheLoai = txtTheLoai.Text;
+                            // Xóa các liên kết SACH_TACGIA hiện tại
+                            var currentAuthors = context.SACH_TACGIA.Where(stg => stg.IDSach == bookToUpdate.ID).ToList();
+                            context.SACH_TACGIA.RemoveRange(currentAuthors);
 
-                            // Lưu thay đổi vào DB
-                            context.SaveChanges();
-                            LoadBook();
-                            MessageBox.Show("Thông tin sách đã được cập nhật!", "Cập nhật thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                            // Thêm các liên kết SACH_TACGIA mới dựa trên selectedAuthors
+                            foreach (var author in selectedAuthors)
+                            {
+                                context.SACH_TACGIA.Add(new Sach_TacGia
+                                {
+                                    IDSach = bookToUpdate.ID,
+                                    IDTacGia = author.ID
+                                });
+                            }
                         }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy sách trong cơ sở dữ liệu.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+
+                        // Lưu các thay đổi vào CSDL
+                        context.SaveChanges();
+
+                        // Đặt selectedAuthors về null sau khi cập nhật xong
+                        selectedAuthors = null;
+
+                        // Hiển thị thông báo và tải lại dữ liệu cho DataGrid
+                        MessageBox.Show("Thông tin sách đã được cập nhật thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadBook();
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Có lỗi xảy ra: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy cuốn sách để cập nhật.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
             }
             else
@@ -103,6 +119,7 @@ namespace QLTVLite
                 MessageBox.Show("Vui lòng chọn một cuốn sách để chỉnh sửa.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
         private void DeleteBook_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra xem có sách nào được chọn không
@@ -163,9 +180,9 @@ namespace QLTVLite
                 txtTheLoai.Text = selectedBook.TheLoai;
                 txtNamXuatBan.Text = selectedBook.NamXuatBan.ToString();
 
-                // Hiển thị nguyên chuỗi TacGiaString
-                txtTenTacGia.Text = !string.IsNullOrWhiteSpace(selectedBook.TacGiaString)
-                    ? selectedBook.TacGiaString
+                // Hiển thị nguyên chuỗi DSTacGia
+                txtTenTacGia.Text = !string.IsNullOrWhiteSpace(selectedBook.DSTacGia)
+                    ? selectedBook.DSTacGia
                     : "Không có tên tác giả";
             }
             else
@@ -205,5 +222,26 @@ namespace QLTVLite
             }
         }
 
+        private void btnEditAuthors_Click(object sender, RoutedEventArgs e)
+        {
+            var currentAuthors = txtTenTacGia.Text
+                .Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+
+            using (var context = new AppDbContext())
+            {
+                var allAuthors = context.TACGIA.ToList();
+
+                var wdSelectAuthor = new WDSelectAuthor(
+                    allAuthors.Where(a => currentAuthors.Contains(a.TenTacGia)).ToList()
+                );
+
+                if (wdSelectAuthor.ShowDialog() == true)
+                {
+                    selectedAuthors = wdSelectAuthor.SelectedAuthors; // Cập nhật biến toàn cục
+                    txtTenTacGia.Text = string.Join(", ", selectedAuthors.Select(a => a.TenTacGia));
+                }
+            }
+        }
     }
 }
