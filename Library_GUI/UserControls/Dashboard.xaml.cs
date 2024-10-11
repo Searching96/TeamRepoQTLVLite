@@ -74,6 +74,7 @@ namespace Library_GUI.UserControls
         private BorrowRepository _borrowRepository = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler<string> SwitchControlRequested;
 
         public User _user { get; private set; }
 
@@ -115,6 +116,8 @@ namespace Library_GUI.UserControls
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
     }
 
 

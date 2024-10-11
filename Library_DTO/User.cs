@@ -16,6 +16,14 @@ namespace Library_DTO
         [Required]
         public string DisplayName { get; set; }
 
+        [Required]
+        public int UserType { get; set; }
+
+        [Required]
+        public int BookCount { get; set; }
+
+        [Required]
+        public int Debt { get; set; }
     }
 }
 

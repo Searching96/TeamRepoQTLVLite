@@ -43,6 +43,13 @@ namespace Library_GUI
             }
         }
 
+        private void btn_Books_Click(object sender, MouseEventArgs e)
+        {
+            CurrentContent = new Books();
+        }
+
+
+
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -70,13 +77,44 @@ namespace Library_GUI
             this.Close();
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btn_Messages_Click(object sender, RoutedEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
+
         }
 
+        private void btn_Settings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Users_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Revenue_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Statistics_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Borrows_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Books_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentContent = new Books();
+        }
+
+        private void btn_Dashboard_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentContent = new Dashboard(_user);
+        }
     }
 }

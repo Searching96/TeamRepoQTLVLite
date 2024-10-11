@@ -50,7 +50,7 @@ namespace Library_DAL
 
         public bool CheckExist(User user)
         {
-            return _context.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password) != null;
+            return _context.Users.Any(u => u.Username == user.Username);
         }
 
         public int Count()

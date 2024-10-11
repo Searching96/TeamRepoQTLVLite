@@ -49,56 +49,56 @@
                     <Separator Height="0.8" Background="#46558a" Margin="20 30 20 30"/>
 
                     <!--Menu Buttons-->
-                    <Button Style="{StaticResource menuButtonActive}">
+                    <Button Style="{StaticResource menuButtonActive}" Click="btn_Dashboard_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Books_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Books" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Messages_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="EnvelopeOpenText" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Messages" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Borrows_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="FileSignature" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Borrows" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Statistics_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="ChartArea" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Statistics" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Revenue_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Coins" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Revenue" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Users_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Users" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Settings_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Cog" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Settings" Style="{StaticResource menuButtonText}"/>

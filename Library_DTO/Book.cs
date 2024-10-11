@@ -15,6 +15,8 @@ namespace Library_DTO
 
         public string ISBN { get; set; }
 
+        public bool isBorrowed { get; set; }
+
         public override string ToString()
         {
             return $"{BookId}: {Title} by {Author}";
