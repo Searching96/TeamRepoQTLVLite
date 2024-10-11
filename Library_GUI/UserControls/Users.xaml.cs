@@ -86,6 +86,7 @@ namespace Library_GUI.UserControls
             for (int i = 0; i < UsersDataGrid.SelectedItems.Count; i++)
             {
                 var selectedUser = UsersDataGrid.SelectedItems[i] as User;
+                //Check for current user
                 if (selectedUser != null && selectedUser.Debt == 0 && selectedUser.BookCount == 0)
                 {
                     _context.Users.Remove(selectedUser);
