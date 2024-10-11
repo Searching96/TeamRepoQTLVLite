@@ -13,7 +13,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Phần bên trái có màu cam với các thông tin -->
+        <!-- Phần hiển thị thông tin user ở bên trái -->
         <Grid Background="Orange" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

@@ -15,6 +15,7 @@ namespace QLTVLite.Models
         public string TenSach {  get; set; }
         public string TheLoai { get; set; }
         public int NamXuatBan {  get; set; }
+        public string BiaSach { get; set; }
 
         [NotMapped]
         public string DSTacGia { get; set; }
