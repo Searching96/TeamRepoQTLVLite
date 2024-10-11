@@ -21,6 +21,8 @@ namespace QLTVLite
     public partial class WDSelectAuthor : Window
     {
         public List<TacGia> SelectedAuthors { get; private set; }
+        private List<TacGia> allAuthors = new List<TacGia>(); // Lưu tất cả các tác giả
+        private List<TacGia> filteredAuthors = new List<TacGia>();
 
         public WDSelectAuthor(List<TacGia> currentSelectedAuthors)
         {
@@ -28,27 +30,34 @@ namespace QLTVLite
 
             // Khởi tạo danh sách các tác giả đã chọn
             SelectedAuthors = new List<TacGia>(currentSelectedAuthors);
-            string authorsList = string.Join(", ", SelectedAuthors.Select(a => a.TenTacGia)); // Thay đổi theo cách bạn lưu tên tác giả
-            //MessageBox.Show($"Các tác giả đã chọn: {authorsList}", "Thông báo");
-            // Tải danh sách tác giả và đánh dấu những tác giả đã chọn
-            LoadAuthors();
+
+            // Tải tất cả tác giả từ CSDL một lần và hiển thị
+            LoadAllAuthors();
+
+            // Hiển thị danh sách tác giả đã chọn
+            UpdateSelectedAuthorsDisplay();
         }
 
-        private void LoadAuthors()
+        private void LoadAllAuthors()
         {
             using (var context = new AppDbContext())
             {
-                var authors = context.TACGIA.ToList(); // Lấy danh sách tác giả từ DB
-                lstAuthors.ItemsSource = authors; // Giả sử lstAuthors là ListBox trong XAML
+                // Lấy tất cả các tác giả từ DB và lưu vào allAuthors
+                allAuthors = context.TACGIA.ToList();
+            }
 
-                // Đánh dấu các tác giả đã chọn
-                foreach (var author in authors)
+            // Hiển thị toàn bộ danh sách tác giả trong ListBox
+            lstAuthors.ItemsSource = allAuthors;
+        }
+
+        private void UpdateSelectedAuthorsDisplay()
+        {
+            // Đánh dấu các tác giả đã chọn trong ListBox
+            foreach (var author in allAuthors)
+            {
+                if (SelectedAuthors.Any(selected => selected.MaTacGia == author.MaTacGia))
                 {
-                    // Kiểm tra nếu MaTacGia của tác giả đã chọn nằm trong danh sách đã chọn
-                    if (SelectedAuthors.Any(selected => selected.MaTacGia == author.MaTacGia))
-                    {
-                        lstAuthors.SelectedItems.Add(author); // Thêm vào danh sách đã chọn
-                    }
+                    lstAuthors.SelectedItems.Add(author); // Thêm vào danh sách đã chọn
                 }
             }
         }
@@ -80,6 +89,20 @@ namespace QLTVLite
 
             this.DialogResult = true; // Đóng cửa sổ và xác nhận lựa chọn
             this.Close();
+        }
+
+        private void txtSearchAuthor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Lấy từ khóa tìm kiếm
+            string searchText = txtSearchAuthor.Text.ToLower();
+
+            // Lọc danh sách tác giả từ danh sách đã tải sẵn (allAuthors)
+            filteredAuthors = allAuthors
+                .Where(a => a.TenTacGia.ToLower().Contains(searchText))
+                .ToList();
+
+            // Cập nhật danh sách hiển thị trong ListBox
+            lstAuthors.ItemsSource = filteredAuthors;
         }
     }
 

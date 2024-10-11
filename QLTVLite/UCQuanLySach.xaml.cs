@@ -201,7 +201,7 @@ namespace QLTVLite
             string searchTerm = SearchTextBox.Text.Trim();
             string selectedProperty = ((ComboBoxItem)SearchPropertyComboBox.SelectedItem)?.Content.ToString();
 
-            using (var context = new AppDbContext()) // Thay YourDbContext bằng tên context của bạn
+            using (var context = new AppDbContext())
             {
                 IEnumerable<Sach> results = Enumerable.Empty<Sach>();
 
@@ -217,7 +217,25 @@ namespace QLTVLite
                         .Where(b => b.TheLoai.Contains(searchTerm))
                         .ToList();
                 }
+                else if (selectedProperty == "Tác Giả")
+                {
+                    // Tìm sách theo tác giả
+                    results = context.SACH_TACGIA
+                        .Where(stg => stg.TacGia.TenTacGia.Contains(searchTerm))
+                        .Select(stg => stg.Sach)
+                        .Distinct()
+                        .ToList();
+                }
 
+                // Cập nhật DSTacGia cho mỗi sách trong kết quả
+                foreach (var sach in results)
+                {
+                    sach.DSTacGia = string.Join(", ", context.SACH_TACGIA
+                        .Where(stg => stg.IDSach == sach.ID)
+                        .Select(stg => stg.TacGia.TenTacGia));
+                }
+
+                // Hiển thị kết quả
                 BooksDataGrid.ItemsSource = results;
             }
         }

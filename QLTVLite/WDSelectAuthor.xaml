@@ -8,6 +8,8 @@
         Title="Chọn Tác Giả" Height="450" Width="800">
     <StackPanel>
         <TextBlock Text="Chọn Tác Giả" FontWeight="Bold" FontSize="16" Margin="10"/>
+        <TextBox x:Name="txtSearchAuthor" Width="200" Margin="10" 
+                 TextChanged="txtSearchAuthor_TextChanged"/>
         <ListBox x:Name="lstAuthors" SelectionMode="Multiple" SelectionChanged="AuthorListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>

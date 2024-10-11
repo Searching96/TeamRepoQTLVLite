@@ -37,6 +37,7 @@
                 <ComboBox x:Name="SearchPropertyComboBox" Width="120" Margin="5" Grid.Column="1">
                     <ComboBoxItem Content="Tên Sách"/>
                     <ComboBoxItem Content="Thể Loại"/>
+                    <ComboBoxItem Content="Tác Giả"/>
                 </ComboBox>
                 <Button Content="Tìm kiếm" Width="75" Margin="5" Grid.Column="2"
                         Background="CornflowerBlue" Click="SearchBook_Click"/>
