@@ -56,10 +56,10 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="btn_Books_Click">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Users_Click">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Books" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Users" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 
@@ -91,10 +91,10 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="btn_Users_Click">
+                    <Button Style="{StaticResource menuButton}" Click="btn_Books_Click">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Users" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Books" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </Button>
 

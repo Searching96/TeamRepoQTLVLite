@@ -43,13 +43,6 @@ namespace Library_GUI
             }
         }
 
-        private void btn_Books_Click(object sender, MouseEventArgs e)
-        {
-            CurrentContent = new Books();
-        }
-
-
-
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -89,7 +82,7 @@ namespace Library_GUI
 
         private void btn_Users_Click(object sender, RoutedEventArgs e)
         {
-
+            CurrentContent = new Users();
         }
 
         private void btn_Revenue_Click(object sender, RoutedEventArgs e)
@@ -109,7 +102,7 @@ namespace Library_GUI
 
         private void btn_Books_Click(object sender, RoutedEventArgs e)
         {
-            CurrentContent = new Books();
+
         }
 
         private void btn_Dashboard_Click(object sender, RoutedEventArgs e)

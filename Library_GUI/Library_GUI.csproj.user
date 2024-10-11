@@ -7,7 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UserControls\Books.xaml.cs">
+    <Compile Update="SecondaryWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Users.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\InputSignUp.xaml.cs">
@@ -19,6 +22,12 @@
     <Compile Update="UserControls\Dashboard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\MyTextBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\UserDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,7 +36,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\Books.xaml">
+    <Page Update="SecondaryWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\Users.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\InfoCard.xaml">
@@ -40,6 +52,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\Item.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\MyTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\UserDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserWindow.xaml">
