@@ -31,25 +31,6 @@ namespace Library_BUS
             _borrowRepository.Add(borrow);
         }
 
-        public void UpdateBorrow(int id, string username, string borrowBookId, string iSBN)
-        {
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(borrowBookId) || string.IsNullOrWhiteSpace(iSBN))
-            {
-                throw new ArgumentException("Username, borrowBookId and ISBN are required.");
-            }
-
-            var borrow = _borrowRepository.GetById(id);
-            if (borrow == null)
-            {
-                throw new ArgumentException("Borrow not found.");
-            }
-
-            borrow.Username = username;
-            borrow.BorrowBookId = borrowBookId;
-            borrow.ISBN = iSBN;
-            _borrowRepository.Update(borrow);
-        }
-
         public void RemoveBorrow(int id)
         {
             var borrow = _borrowRepository.GetById(id);
@@ -57,7 +38,6 @@ namespace Library_BUS
             {
                 throw new ArgumentException("Borrow not found.");
             }
-
             _borrowRepository.Remove(id);
         }
 

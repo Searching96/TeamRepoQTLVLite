@@ -185,3 +185,7 @@ C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\bin\Debug\net6.0-windows\L
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Dashboard.g.cs
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Dashboard.baml
 C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Books.g.cs
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\bin\Debug\net6.0-windows\MahApps.Metro.IconPacks.Core.dll
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\bin\Debug\net6.0-windows\MahApps.Metro.IconPacks.Material.dll
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\bin\Debug\net6.0-windows\System.Text.Json.dll
+C:\Users\ASUS\source\repos\Library - Copy\Library_GUI\obj\Debug\net6.0-windows\UserControls\Books.baml
