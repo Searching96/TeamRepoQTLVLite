@@ -49,7 +49,7 @@
                     <Separator Height="0.8" Background="#46558a" Margin="20 30 20 30"/>
 
                     <!--Menu Buttons-->
-                    <Button Style="{StaticResource menuButtonActive}" Click="btn_Dashboard_Click">
+                    <Button Style="{StaticResource menuButton}" x:Name="btn_Dashboard" Click="btn_Dashboard_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
