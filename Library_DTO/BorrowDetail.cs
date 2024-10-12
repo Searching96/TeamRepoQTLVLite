@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace Library_DTO
 {
-    public class Borrow
+    public class BorrowDetail
     {
         [Required]
         public int BorrowID { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        public int BookID { get; set; }
 
-        [Required]
-        public DateOnly Date { get; set; }
+        public DateOnly EndDate { get; set; }
     }
 }

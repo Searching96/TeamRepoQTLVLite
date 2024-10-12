@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Library_DTO
 {
-    public class Borrow
+    public class Return
     {
         [Required]
-        public int BorrowID { get; set; }
+        public int ReturnID { get; set; }
 
         [Required]
         public string Username { get; set; }
