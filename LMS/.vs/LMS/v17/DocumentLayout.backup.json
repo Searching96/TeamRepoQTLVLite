@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Visual studio\\Project\\LMS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\addbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:addbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\viewbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:viewbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\updatebook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:updatebook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\clauthor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:clauthor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\bookfinder.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:bookfinder.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\userwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:userwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 225,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserWindow.xaml",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\UserWindow.xaml",
+              "RelativeDocumentMoniker": "UserWindow.xaml",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\UserWindow.xaml",
+              "RelativeToolTip": "UserWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-04T15:33:04.917Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CLAuthor.cs",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\CLAuthor.cs",
+              "RelativeDocumentMoniker": "CLAuthor.cs",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\CLAuthor.cs",
+              "RelativeToolTip": "CLAuthor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T12:59:56.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Book.cs",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\Book.cs",
+              "RelativeDocumentMoniker": "Book.cs",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\Book.cs",
+              "RelativeToolTip": "Book.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-06T06:10:27.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UpdateBook.xaml.cs",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\UpdateBook.xaml.cs",
+              "RelativeDocumentMoniker": "UpdateBook.xaml.cs",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\UpdateBook.xaml.cs",
+              "RelativeToolTip": "UpdateBook.xaml.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAQwGMAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T08:21:42.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ViewBook.xaml.cs",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\ViewBook.xaml.cs",
+              "RelativeDocumentMoniker": "ViewBook.xaml.cs",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\ViewBook.xaml.cs",
+              "RelativeToolTip": "ViewBook.xaml.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAiwK0AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-05T08:17:43.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddBook.xaml.cs",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\AddBook.xaml.cs",
+              "RelativeDocumentMoniker": "AddBook.xaml.cs",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\AddBook.xaml.cs",
+              "RelativeToolTip": "AddBook.xaml.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAswEgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-06T06:04:29.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BookFinder.xaml.cs",
+              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\BookFinder.xaml.cs",
+              "RelativeDocumentMoniker": "BookFinder.xaml.cs",
+              "ToolTip": "E:\\Visual studio\\Project\\LMS\\BookFinder.xaml.cs",
+              "RelativeToolTip": "BookFinder.xaml.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAzwC0AAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-06T05:38:07.346Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 148,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

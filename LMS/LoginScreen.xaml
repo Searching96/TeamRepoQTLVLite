@@ -1,0 +1,23 @@
+﻿<Window x:Class="LMS.LoginScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LMS"
+        mc:Ignorable="d"
+             Title="Login" Height="280" Width="300" FontSize="14"  Background="Transparent" WindowStyle="None"  AllowsTransparency="True"
+        KeyDown="KeyDown_ESC">
+    <Border CornerRadius="30" Background="#F5EFFF"  MouseLeftButtonDown="Border_MouseDown" >
+        
+            <StackPanel Margin="10">
+            <Label Content="Login" FontSize="24" FontWeight="Bold" Foreground="#623ED0"  HorizontalAlignment="Center"/>
+                <Separator></Separator>
+                <Label Content="Username"  FontSize="15" Foreground="#623ED0"/>
+                <TextBox Name ="txtUsername" Foreground ="Black" FontSize="18" Background ="White" BorderBrush="#623ED0"/>
+                <Label Content="Password" FontSize="14" Foreground="#623ED0" />
+                <PasswordBox Name ="txtPassword" Foreground ="Black" FontSize="18" Background ="White" BorderBrush="#623ED0"/>
+            <Button Name ="btnSubmit" Style="{StaticResource addButton}" Content="Login" Foreground ="White"  FontSize="18" Margin="65 25" Click="btnSubmit_Click"/>
+            </StackPanel>
+        
+    </Border>
+</Window>

@@ -1,0 +1,90 @@
+﻿<Window x:Class="LMS.AddBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LMS"
+        mc:Ignorable="d"
+        Title="AddBook" Height="530" Width="400" Background="Transparent" WindowStyle="None"  AllowsTransparency="True">
+    <Border CornerRadius="30" Background="#F5EFFF" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Add Book" FontSize="24" FontWeight="Bold" Foreground="#623ED0" 
+                   HorizontalAlignment="Center" Margin="0,20,0,10" Grid.Row="0"/>
+
+            <StackPanel Grid.Row="1" Margin="20">
+                <TextBlock Text="Book Name" Margin="0,0,0,5" FontSize="14" Foreground="#623ED0"/>
+                <TextBox  Name ="BookName" Height="25" Width="300" Background="White" BorderBrush="#623ED0" />
+
+                <TextBlock Text="Book Author Name" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
+                <TextBox  Name ="BookAuthor" Height="25" Width="300" Background="White" BorderBrush="#623ED0"/>
+
+                <TextBlock Text="Book Publication" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
+                <TextBox  Name ="BookPublication" Height="25" Width="300" Background="White" BorderBrush="#623ED0"/>
+
+                <TextBlock Text="Book Purchase Date" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
+                <DatePicker  Name ="BookpDate" Height="25" Width="300" BorderBrush="#623ED0"/>
+
+                <TextBlock Text="Book Price" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
+                <TextBox   Name ="BookPrice" Height="25" Width="300" Background="White" BorderBrush="#623ED0"/>
+
+                <TextBlock Text="Book Quantity" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
+                <TextBox   Name ="BookQuantity" Height="25" Width="300" Background="White" BorderBrush="#623ED0"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button Content="Save" Width="100" Height="30" Background="#623ED0" Foreground="White" Margin="10,0" Click="Button_Click_Save"/>
+                    <Button Content="Cancel" Width="100" Height="30" Background="LightGray" Foreground="Black" Margin="10,0"  Click="Button_Click_Cancel"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Phần chứa các trường thông tin -->
+            <!--<StackPanel Background="LightSalmon" Margin="10">
+            <TextBlock Text="Add Book" FontSize="24" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,10,0,20" />
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Book Name" Width="150" VerticalAlignment="Center"/>
+                <TextBox Name ="BookName" Width="200">
+
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock  Text="Book Author Name" Width="150" VerticalAlignment="Center"/>
+                <TextBox Name ="BookAuthor" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Book Publication" Width="150" VerticalAlignment="Center"/>
+                <TextBox Name ="BookPublication" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Book Purchase Date" Width="150" VerticalAlignment="Center"/>
+                <DatePicker Name ="BookpDate" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Book Price" Width="150" VerticalAlignment="Center"/>
+                <TextBox Name ="BookPrice" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <TextBlock Text="Book Quantity" Width="150" VerticalAlignment="Center"/>
+                <TextBox Name ="BookQuantity" Width="200"/>
+            </StackPanel>
+
+            -->
+            <!-- Buttons -->
+            <!--
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,100,0">
+                <Button Content="Save" Width="80" Margin="5" Click="Button_Click_Save"/>
+                <Button Content="Cancel" Width="80" Margin="5" Click="Button_Click_Cancel"/>
+            </StackPanel>
+        </StackPanel>-->
+        </Grid>
+    </Border>
+</Window>
