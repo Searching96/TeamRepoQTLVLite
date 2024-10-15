@@ -113,9 +113,7 @@
                     <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding UserId}"/>
                     <DataGridTextColumn Header="Username" Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Password" Binding="{Binding Password}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding DisplayName}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Book count" Binding="{Binding BookCount}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Current debt" Binding="{Binding Debt}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" IsReadOnly="True" Width="4*"/>
                     <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

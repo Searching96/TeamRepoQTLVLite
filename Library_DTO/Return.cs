@@ -9,13 +9,13 @@ namespace Library_DTO
 {
     public class Return
     {
-        [Required]
+        [Key]
         public int ReturnID { get; set; }
 
         [Required]
         public string Username { get; set; }
 
         [Required]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

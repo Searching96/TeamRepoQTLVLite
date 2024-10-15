@@ -15,20 +15,20 @@ namespace Library_BUS
             _bookRepository = new BookRepository();
         }
 
-        public void AddBook(string title, string author, string iSBN)
+        public void AddBook(string title/*, string author, string iSBN*/)
         {
-            if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN))
+            if (string.IsNullOrWhiteSpace(title)/* || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN)*/)
             {
                 throw new ArgumentException("Title, author and ISBN are required.");
             }
 
-            var book = new Book { Title = title, Author = author, ISBN = iSBN };
+            var book = new Book {Title = title } /*{ Title = title, Author = author, ISBN = iSBN }*/;
             _bookRepository.Add(book);
         }
 
-        public void UpdateBook(int id, string title, string author, string iSBN)
+        public void UpdateBook(int id, string title/*, string author, string iSBN*/)
         {
-            if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN))
+            if (string.IsNullOrWhiteSpace(title)/* || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN)*/)
             {
                 throw new ArgumentException("Title, author and ISBN are required.");
             }
@@ -40,8 +40,8 @@ namespace Library_BUS
             }
 
             book.Title = title;
-            book.Author = author;
-            book.ISBN = iSBN;
+            //book.Author = author;
+            //book.ISBN = iSBN;
             _bookRepository.Update(book);
         }
 

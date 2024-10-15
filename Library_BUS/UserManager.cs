@@ -17,25 +17,25 @@ namespace Library_BUS
             _userRepository = new UserRepository();
         }
 
-        public void AddUser(string Username, string Password, string DisplayName)
+        public void AddUser(string Username, string Password)
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(DisplayName))
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
-                throw new ArgumentException("Username, Password and Display name are required.");
+                throw new ArgumentException("Username, Password are required.");
             }
 
-            var user = new User { Username = Username, Password = Password, DisplayName = DisplayName };
+            var user = new User { Username = Username, Password = Password};
             _userRepository.Add(user);
         }
 
-        public void UpdateUser(int id, string Username, string Password, string DisplayName)
+        public void UpdateUser(int id, string Username, string Password)
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(DisplayName))
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
                 throw new ArgumentException("Username, Password and Display name are required.");
             }
 
-            var user = _userRepository.GetById(id);
+            var user = _userRepository.GetByUsername(Username);
             if (user == null)
             {
                 throw new ArgumentException("User not found.");
@@ -43,19 +43,19 @@ namespace Library_BUS
 
             user.Username = Username;
             user.Password = Password;
-            user.DisplayName = DisplayName;
+            //user.DisplayName = DisplayName;
             _userRepository.Update(user);
         }
 
-        public void RemoveUser(int id)
+        public void RemoveUser(string Username)
         {
-            var user = _userRepository.GetById(id);
+            var user = _userRepository.GetByUsername(Username);
             if (user == null)
             {
                 throw new ArgumentException("User not found.");
             }
 
-            _userRepository.Remove(id);
+            _userRepository.Remove(Username);
         }
 
         public List<User> GetAllUsers()

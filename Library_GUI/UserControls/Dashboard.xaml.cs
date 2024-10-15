@@ -24,12 +24,23 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class Dashboard : UserControl, INotifyPropertyChanged
     {
-        public Dashboard(User user)
+        public Dashboard(Admin admin)
         {
             InitializeComponent();
-            _user = user;
+            _user = admin;
             Time = GetTime();
-            DisplayName = user.DisplayName;
+            DisplayName = admin.FirstName;
+            BookCount = _bookRepository.Count().ToString();
+            UserCount = _userRepository.Count().ToString();
+            BorrowCount = _borrowRepository.Count().ToString();
+        }
+
+        public Dashboard(Reader reader)
+        {
+            InitializeComponent();
+            _user = reader;
+            Time = GetTime();
+            DisplayName = reader.FirstName;
             BookCount = _bookRepository.Count().ToString();
             UserCount = _userRepository.Count().ToString();
             BorrowCount = _borrowRepository.Count().ToString();
@@ -75,7 +86,7 @@ namespace Library_GUI.UserControls
         public event PropertyChangedEventHandler? PropertyChanged;
         public event EventHandler<string> SwitchControlRequested;
 
-        public User _user { get; private set; }
+        public object _user { get; private set; }
 
         private string _time;
         public string Time

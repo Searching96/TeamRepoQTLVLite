@@ -9,7 +9,7 @@ namespace Library_DTO
 {
     public class Reader
     {
-        [Required]
+        [Key]
         public string Username { get; set; }
 
         public string LastName { get; set; }
@@ -19,9 +19,9 @@ namespace Library_DTO
         [Required]
         public int ReaderTypeID { get; set; }
 
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateOnly EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int CurrentBorrows { get; set; }
 

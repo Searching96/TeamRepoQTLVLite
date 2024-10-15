@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Library_DTO
 {
     public class Admin
     {
-        [Required]
+        [Key]
         public string Username { get; set; }
 
         public string FirstName { get; set; }

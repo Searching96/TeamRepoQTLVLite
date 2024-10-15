@@ -58,7 +58,7 @@ namespace Library_GUI.UserControls
         {
             if (UsersDataGrid.SelectedItems.Count != 1) return;
             var selectedUser = UsersDataGrid.SelectedItem as User;
-            if (selectedUser != null && selectedUser.Debt == 0 && selectedUser.BookCount == 0)
+            if (selectedUser != null /*&& selectedUser.Debt == 0 && selectedUser.BookCount == 0*/)
             {
                 var userDialog = new SecondaryWindow(selectedUser);
                 if (userDialog.ShowDialog() == true)
@@ -71,10 +71,10 @@ namespace Library_GUI.UserControls
             {
                 MessageBox.Show("Please select a user to edit.");
             }
-            else if (selectedUser.Debt != 0)
-            {
-                MessageBox.Show("User owes debt, unable to edit.");
-            }
+            //else if (selectedUser.Debt != 0)
+            //{
+            //    MessageBox.Show("User owes debt, unable to edit.");
+            //}
             else
             {
                 MessageBox.Show("User owes book, unable to edit.");
@@ -87,7 +87,7 @@ namespace Library_GUI.UserControls
             {
                 var selectedUser = UsersDataGrid.SelectedItems[i] as User;
                 //Check for current user
-                if (selectedUser != null && selectedUser.Debt == 0 && selectedUser.BookCount == 0)
+                if (selectedUser != null/* && selectedUser.Debt == 0 && selectedUser.BookCount == 0*/)
                 {
                     _context.Users.Remove(selectedUser);
                     _context.SaveChanges();
@@ -98,11 +98,11 @@ namespace Library_GUI.UserControls
                     MessageBox.Show("Please select a user to delete.");
                     continue;
                 }
-                else if (selectedUser.Debt != 0)
-                {
-                    MessageBox.Show("User owes debt, unable to delete.");
-                    continue;
-                }
+                //else if (selectedUser.Debt != 0)
+                //{
+                //    MessageBox.Show("User owes debt, unable to delete.");
+                //    continue;
+                //}
                 else
                 {
                     MessageBox.Show("User owes book, unable to delete.");

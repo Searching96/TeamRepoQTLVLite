@@ -20,9 +20,6 @@ namespace Library_DAL
 
         public void Add(Book book)
         {
-            if (_context.Books.FirstOrDefault() == null)
-                book.BookId = 1;
-            else book.BookId = _context.Books.First().BookId + 1;
             _context.Books.Add(book);
             _context.SaveChanges();
         }

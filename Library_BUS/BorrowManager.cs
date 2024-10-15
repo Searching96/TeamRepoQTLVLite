@@ -19,14 +19,10 @@ namespace Library_BUS
 
         public void AddBorrow(string username, int borrowBookId)
         {
-            var borrow = new Borrow { Username = username, BorrowBookId = borrowBookId, StartDate = DateTime.Now };
+            var borrow = new Borrow { Username = username, Date = DateTime.Now };
             if (string.IsNullOrWhiteSpace(username))
             {
                 throw new ArgumentException("Username are required.");
-            }
-            if (_borrowRepository.CheckExists(borrowBookId))
-            {
-                throw new ArgumentException("Book is already borrowed.");
             }
             _borrowRepository.Add(borrow);
         }

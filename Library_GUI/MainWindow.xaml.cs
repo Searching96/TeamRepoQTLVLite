@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using Library_DAL;
 using Library_DTO;
 using Library_GUI.UserControls;
 
@@ -11,13 +12,28 @@ namespace Library_GUI
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private ReaderRepository _readerRepository = new();
+        private AdminRepository _adminRepository = new();
+
         public MainWindow(User user)
         {
             InitializeComponent();
-            DisplayName = user.DisplayName;
-            _user = user;
-            CurrentContent = new Dashboard(user);
-            CurrentButton = btn_Dashboard;
+
+            var _reader = _readerRepository.GetByUsername(user.Username);
+            if (_reader == null)
+            {
+                _user = _adminRepository.GetByUsername(user.Username);
+                DisplayName = (_user as Admin).LastName;
+                CurrentContent = new Dashboard(_user as Admin);
+                CurrentButton = btn_Dashboard;
+            }
+            else
+            {
+                _user = _reader;
+                DisplayName = (_user as Reader).LastName;
+                CurrentContent = new Dashboard(_user as Reader);
+                CurrentButton = btn_Dashboard;
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -35,7 +51,7 @@ namespace Library_GUI
 
         public object CurrentButton { get; set; }
 
-        public User _user { get;private set; }
+        public object _user { get;private set; }
 
         private string _displayName;
         public string DisplayName
@@ -115,7 +131,9 @@ namespace Library_GUI
 
         private void btn_Dashboard_Click(object sender, RoutedEventArgs e)
         {
-            CurrentContent = new Dashboard(_user);
+            if (_user is Admin)
+                CurrentContent = new Dashboard(_user as Admin);
+            else CurrentContent = new Dashboard(_user as Reader);
             (CurrentButton as Button).Style = this.FindResource("menuButton") as Style;
             (sender as Button).Style = this.FindResource("menuButtonActive") as Style;
             CurrentButton = sender;

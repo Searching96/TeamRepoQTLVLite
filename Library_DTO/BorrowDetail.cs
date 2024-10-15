@@ -9,12 +9,12 @@ namespace Library_DTO
 {
     public class BorrowDetail
     {
-        [Required]
+        [Key]
         public int BorrowID { get; set; }
 
         [Required]
         public int BookID { get; set; }
 
-        public DateOnly EndDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

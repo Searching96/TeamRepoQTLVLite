@@ -22,7 +22,8 @@ namespace Library_GUI
     /// </summary>
     public partial class InputSignUp : UserControl
     {
-        private UserRepository context;
+        private UserRepository _userContext = new();
+        private ReaderRepository _readerContext = new();
         public event EventHandler<string> SwitchControlRequested;
         public event EventHandler<User> LoginSucceeded;
         public InputSignUp()
@@ -34,11 +35,12 @@ namespace Library_GUI
         {
             //Sign up code
             if (txbPassword.Password != txbRePassword.Password) return;
-            User newUser = new User { Username = txbUsername.Text,Password = txbPassword.Password,DisplayName = txbEmail.Text };
-            context = new();
-            if (!context.CheckExist(newUser))
+            User newUser = new User { Username = txbUsername.Text,Password = txbPassword.Password, Email = txbEmail.Text};
+            if (!_userContext.CheckExist(newUser))
             {
-                context.Add(newUser);
+                _userContext.Add(newUser);
+                Reader newReader = new Reader { Username = newUser.Username, FirstName = "", LastName = "" , ReaderTypeID = 1};
+                _readerContext.Add(newReader);
                 MessageBox.Show("Register succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoginSucceeded?.Invoke(this, newUser);
             }

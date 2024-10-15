@@ -19,12 +19,7 @@ namespace Library_DAL
 
         public void Add(Borrow borrow)
         {
-            if (_context.Borrows.FirstOrDefault() == null)
-                borrow.BorrowId = 1;
-            else borrow.BorrowId = _context.Borrows.First().BorrowId + 1;
             _context.Borrows.Add(borrow);
-            _context.Users.First(x => x.Username == borrow.Username).BookCount++;
-            _context.Books.First(x => x.BookId == borrow.BorrowBookId).isBorrowed = true;
             _context.SaveChanges();
         }
 
@@ -40,8 +35,8 @@ namespace Library_DAL
             if (borrow != null)
             {
                 _context.Borrows.Remove(borrow);
-                _context.Users.First(x => x.Username == borrow.Username).BookCount--;
-                _context.Books.First(x => x.BookId == borrow.BorrowBookId).isBorrowed = false;
+                //_context.Users.First(x => x.Username == borrow.Username).BookCount--;
+                //_context.Books.First(x => x.BookId == borrow.BorrowBookId).isBorrowed = false;
                 _context.SaveChanges();
             }
         }
@@ -51,11 +46,12 @@ namespace Library_DAL
             return _context.Borrows.Find(BorrowId);
         }
 
-        public bool CheckExists(int BorrowBookId)
-        {
-            if (BorrowBookId == 0) return false;
-            return _context.Borrows.Any(x => x.BorrowBookId == BorrowBookId);
-        }
+        //public bool CheckExists(int BorrowBookId)
+        //{
+        //    if (BorrowBookId == 0) return false;
+        //    return false;
+        //    return _context.Borrows.Any(x => x.BorrowBookId == BorrowBookId);
+        //}
 
         public int Count()
         {

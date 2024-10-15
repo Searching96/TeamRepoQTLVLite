@@ -21,7 +21,7 @@ namespace Library_GUI.UserControls
     {
         public User User { get; private set; }
 
-        private UserManager context = new();
+        private UserRepository _userRepository = new();
 
         public EventHandler<bool> CloseDialog;
 
@@ -33,14 +33,18 @@ namespace Library_GUI.UserControls
 
         private void UserSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txbUsername.Text) || string.IsNullOrWhiteSpace(txbPassword.Text) || string.IsNullOrWhiteSpace(txbDisplayName.Text))
+            if (string.IsNullOrWhiteSpace(txbUsername.Text) || string.IsNullOrWhiteSpace(txbPassword.Text))
             {
                 MessageBox.Show("Please fill in all fields.");
             }
             else
             {
-                if (User.UserId == 0) context.AddUser(txbUsername.Text, txbPassword.Text, txbDisplayName.Text);
-                else context.UpdateUser(User.UserId, txbUsername.Text, txbPassword.Text, txbDisplayName.Text);
+                User.Username =txbUsername.Text;
+                User.Password =txbPassword.Text;
+                User.Email = txbDisplayName.Text;
+                if (_userRepository.GetByUsername(txbUsername.Text) != null)
+                    _userRepository.Update(User);
+                else _userRepository.Add(User);
             }
             CloseDialog?.Invoke(this, true);
         }

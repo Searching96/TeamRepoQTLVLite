@@ -10,7 +10,8 @@ namespace Library_DTO
 {
     public class ReaderType
     {
-        public int ReaderTypeID { get; }
+        [Key]
+        public int ReaderTypeID { get; set; }
 
         [Required]
         public string ReaderTypeName { get; set; }

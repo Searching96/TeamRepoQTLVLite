@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <Border CornerRadius="7" Background="#ffffff" >
+        <Border CornerRadius="7" Background="#ffffff">
             <Border.Effect>
                 <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
             </Border.Effect>
@@ -32,14 +32,15 @@
                 <!--Form Title-->
                 <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
                     <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
-                        <Ellipse Width="40" Height="40" />
+                        <Ellipse Width="40" Height="40">
+                        </Ellipse>
                     </Border>
 
-                    <TextBlock Text="Business Details" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                    <TextBlock Text="User registration" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!--Form Percentage-->
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0 20 20 0">
+                <!--<StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0 20 20 0">
                     <Border Width="30" Height="30" CornerRadius="50" BorderThickness="3" ClipToBounds="True">
                         <Border.BorderBrush>
                             <LinearGradientBrush>
@@ -53,7 +54,7 @@
                         <TextBlock Text="10%" Foreground="#4880FF" FontSize="14" FontWeight="SemiBold" />
                         <TextBlock Text="Profile Completion" Foreground="#97A5B4" Margin="0 2 0 0"/>
                     </StackPanel>
-                </StackPanel>
+                </StackPanel>-->
 
                 <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
 

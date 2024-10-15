@@ -9,13 +9,13 @@ namespace Library_DTO
 {
     public class Borrow
     {
-        [Required]
+        [Key]
         public int BorrowID { get; set; }
 
         [Required]
         public string Username { get; set; }
 
         [Required]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }
