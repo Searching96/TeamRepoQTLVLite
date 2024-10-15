@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/Library_DTO/obj/Debug/net6.0-windows/Library_DTO.AssemblyInfo.cs
+/Library_DTO/obj/Debug/net6.0-windows/Library_DTO.AssemblyInfoInputs.cache
+/Library_DTO/obj/Debug/net6.0-windows/Library_DTO.AssemblyInfo.cs
