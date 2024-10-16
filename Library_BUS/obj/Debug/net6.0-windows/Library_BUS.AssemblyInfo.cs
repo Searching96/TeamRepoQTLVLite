@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Library_BUS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12751a8bd6914416cb1cb3c8826896274a78802f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab2ca476a8a92d886ca4310e532f233575cfeff3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Library_BUS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Library_BUS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
