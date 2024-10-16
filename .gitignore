@@ -31,6 +31,10 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+Library_BUS/obj/
+Library_DAL/obj/
+Library_DTO/obj/
+Library_GUI/obj/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
