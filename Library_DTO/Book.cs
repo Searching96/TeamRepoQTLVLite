@@ -1,31 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
-namespace Library_DTO
+namespace Library_DTO;
+
+public partial class Book
 {
-    public class Book
-    {
-        [Key]
-        public int BookID { get; set; }
+    [Key]
+    public int BookId { get; set; }
 
-        [Required]
-        public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
-        //[Required]
-        //public string Author { get; set; }
+    public bool? IsBorrowed { get; set; }
 
-        //public Image COVER { get; set; }
+    public virtual ICollection<BorrowDetail> BorrowDetails { get; set; } = new List<BorrowDetail>();
 
-        //public string ISBN { get; set; }
-
-        public bool isBorrowed { get; set; }
-
-        //public override string ToString()
-        //{
-        //    return $"{BookID}: {Title} by {Author}";
-        //}
-
-    }
+    public virtual ICollection<ReturnDetail> ReturnDetails { get; set; } = new List<ReturnDetail>();
 }
-

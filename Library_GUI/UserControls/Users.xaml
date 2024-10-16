@@ -101,19 +101,23 @@
             </Grid>
 
             <!--Members Data Grid-->
-            <DataGrid x:Name="UsersDataGrid" SelectionMode="Extended" SelectionChanged="Users_SelectionChanged" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}">
+            <DataGrid x:Name="UsersDataGrid"
+                      ItemsSource="{Binding Readers}" 
+                      AutoGenerateColumns="False"
+                      SelectionMode="Extended"
+                      SelectionUnit="FullRow"
+                      SelectionChanged="DataGrid_SelectionChanged" 
+                      RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="C" CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox Style="{StaticResource CheckBoxStyle1}" />
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
-                    </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding UserId}"/>
                     <DataGridTextColumn Header="Username" Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Password" Binding="{Binding Password}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" IsReadOnly="True" Width="4*"/>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding UsernameNavigation.Email}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Reader Type" Binding="{Binding ReaderType.ReaderTypeName}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate, StringFormat=d}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate, StringFormat=d}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Current Borrows" Binding="{Binding CurrentBorrows}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Total Debt" Binding="{Binding TotalDebt}" IsReadOnly="True" Width="*" />
                     <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

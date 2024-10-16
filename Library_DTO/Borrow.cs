@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_DTO
+namespace Library_DTO;
+
+public partial class Borrow
 {
-    public class Borrow
-    {
-        [Key]
-        public int BorrowID { get; set; }
+    public int BorrowId { get; set; }
 
-        [Required]
-        public string Username { get; set; }
+    [ForeignKey("UsernameNavigation")]
+    public string Username { get; set; } = null!;
 
-        [Required]
-        public DateTime Date { get; set; }
-    }
+    public DateTime Date { get; set; }
+
+    public virtual User UsernameNavigation { get; set; } = null!;
 }

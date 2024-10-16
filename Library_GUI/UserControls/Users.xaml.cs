@@ -16,6 +16,11 @@ using System.Windows.Shapes;
 using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Controls.Primitives;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections;
 
 namespace Library_GUI.UserControls
 {
@@ -26,17 +31,65 @@ namespace Library_GUI.UserControls
     {
         private LibraryContext _context;
 
+        private ObservableCollection<Reader> _readers;
+        public ObservableCollection<Reader> Readers
+        {
+            get => _readers;
+            set
+            {
+                _readers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<Reader> _selectedReaders;
+        public List<Reader> SelectedReaders
+        {
+            get => _selectedReaders;
+            set
+            {
+                _selectedReaders = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public Users()
         {
             InitializeComponent();
             _context = new();
-            LoadUsers();
+            LoadReaders();
             MultiSelect = Visibility.Hidden;
         }
 
-        private void LoadUsers()
+        private void LoadReaders()
         {
-            UsersDataGrid.ItemsSource = _context.Users.ToList();
+            using (var context = new LibraryManagementContext())
+            {
+                Readers = new ObservableCollection<Reader>(
+                    context.Readers.Include(r => r.ReaderType)
+                                   .Include(r => r.UsernameNavigation)
+                                   .ToList());
+            }
+            UsersDataGrid.ItemsSource = Readers;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is Users viewModel)
+            {
+                viewModel.UpdateSelectedReaders(UsersDataGrid.SelectedItems);
+            }
+        }
+
+        public void UpdateSelectedReaders(IList selectedItems)
+        {
+            SelectedReaders = selectedItems.Cast<Reader>().ToList();
         }
 
         private UserRepository _userRepository = new();
@@ -50,21 +103,21 @@ namespace Library_GUI.UserControls
             if (userDialog.ShowDialog() == true)
             {
                 _context.SaveChanges();
-                LoadUsers();
+                LoadReaders();
             }
         }
 
         private void btn_UpdateUser_Click(object sender, RoutedEventArgs e)
         {
             if (UsersDataGrid.SelectedItems.Count != 1) return;
-            var selectedUser = UsersDataGrid.SelectedItem as User;
-            if (selectedUser != null /*&& selectedUser.Debt == 0 && selectedUser.BookCount == 0*/)
+            var selectedUser = UsersDataGrid.SelectedItem as Reader;
+            if (selectedUser != null /*&& selectedUser.Debt == 0*/ && selectedUser.CurrentBorrows == 0)
             {
-                var userDialog = new SecondaryWindow(selectedUser);
+                var userDialog = new SecondaryWindow(selectedUser.UsernameNavigation);
                 if (userDialog.ShowDialog() == true)
                 {
                     _context.SaveChanges();
-                    LoadUsers();
+                    LoadReaders();
                 }
             }
             else if (selectedUser == null)
@@ -83,15 +136,15 @@ namespace Library_GUI.UserControls
 
         private void btn_DeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < UsersDataGrid.SelectedItems.Count; i++)
+            foreach (var Reader in SelectedReaders)
             {
-                var selectedUser = UsersDataGrid.SelectedItems[i] as User;
+                var selectedUser = Reader.UsernameNavigation;
                 //Check for current user
-                if (selectedUser != null/* && selectedUser.Debt == 0 && selectedUser.BookCount == 0*/)
+                if (selectedUser != null /*&& selectedUser.Debt == 0 */ && Reader.CurrentBorrows == 0)
                 {
                     _context.Users.Remove(selectedUser);
                     _context.SaveChanges();
-                    LoadUsers();
+                    LoadReaders();
                 }
                 else if (selectedUser == null)
                 {

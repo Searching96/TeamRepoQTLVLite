@@ -23,6 +23,8 @@ namespace Library_GUI.UserControls
 
         private UserRepository _userRepository = new();
 
+        private ReaderRepository _readerContext = new();
+
         public EventHandler<bool> CloseDialog;
 
         public UserDialog(User? user = null)
@@ -39,12 +41,20 @@ namespace Library_GUI.UserControls
             }
             else
             {
-                User.Username =txbUsername.Text;
-                User.Password =txbPassword.Text;
+                User.Username = txbUsername.Text;
+                User.Password = txbPassword.Text;
                 User.Email = txbDisplayName.Text;
+                User.TypeOfUser = "Reader";
                 if (_userRepository.GetByUsername(txbUsername.Text) != null)
+                {
                     _userRepository.Update(User);
-                else _userRepository.Add(User);
+                }
+                else
+                {
+                    _userRepository.Add(User);
+                    Reader newReader = new Reader {Username = User.Username};
+                    _readerContext.Add(newReader);
+                }
             }
             CloseDialog?.Invoke(this, true);
         }

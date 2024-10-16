@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_DTO
+namespace Library_DTO;
+
+public partial class ReturnDetail
 {
-    public class ReturnDetail
-    {
-        [Key]
-        public int ReturnID { get; set; }
+    [Key]
+    public int ReturnId { get; set; }
 
-        [Required]
-        public int BookID { get; set; }
+    [ForeignKey("BookId")]
+    public int BookId { get; set; }
 
-        public DateTime ReturnDate { get; set; }
+    public DateTime ReturnDate { get; set; }
 
-        public string Note { get; set; }
-    }
+    public string? Note { get; set; }
+
+    public virtual Book Book { get; set; } = null!;
 }

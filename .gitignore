@@ -2,7 +2,22 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/Library_DTO/obj/Debug/net6.0-windows/Library_DTO.AssemblyInfo.cs
-/Library_DTO/obj/Debug/net6.0-windows/Library_DTO.AssemblyInfoInputs.cache
-/Library_DTO/obj/Debug/net6.0-windows/Library_DTO.AssemblyInfo.cs
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2015 cache/options directory
+.vs/

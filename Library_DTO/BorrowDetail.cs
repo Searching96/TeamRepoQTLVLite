@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_DTO
+namespace Library_DTO;
+
+public partial class BorrowDetail
 {
-    public class BorrowDetail
-    {
-        [Key]
-        public int BorrowID { get; set; }
+    [Key]
+    public int BorrowId { get; set; }
 
-        [Required]
-        public int BookID { get; set; }
+    [ForeignKey("BookId")]
+    public int BookId { get; set; }
 
-        public DateTime EndDate { get; set; }
-    }
+    public DateTime EndDate { get; set; }
+
+    public virtual Book Book { get; set; } = null!;
 }

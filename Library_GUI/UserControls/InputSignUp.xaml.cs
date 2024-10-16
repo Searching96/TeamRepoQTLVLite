@@ -35,11 +35,11 @@ namespace Library_GUI
         {
             //Sign up code
             if (txbPassword.Password != txbRePassword.Password) return;
-            User newUser = new User { Username = txbUsername.Text,Password = txbPassword.Password, Email = txbEmail.Text};
+            User newUser = new User { Username = txbUsername.Text,Password = txbPassword.Password, Email = txbEmail.Text, TypeOfUser = "Reader"};
             if (!_userContext.CheckExist(newUser))
             {
                 _userContext.Add(newUser);
-                Reader newReader = new Reader { Username = newUser.Username, FirstName = "", LastName = "" , ReaderTypeID = 1};
+                Reader newReader = new Reader { Username = newUser.Username };
                 _readerContext.Add(newReader);
                 MessageBox.Show("Register succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoginSucceeded?.Invoke(this, newUser);

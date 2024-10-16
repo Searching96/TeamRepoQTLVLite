@@ -24,3 +24,5 @@ C:\Users\ASUS\source\repos\Library - Copy\Library_DTO\obj\Debug\net6.0-windows\L
 C:\Users\ASUS\source\repos\Library - Copy\Library_DTO\obj\Debug\net6.0-windows\refint\Library_DTO.dll
 C:\Users\ASUS\source\repos\Library - Copy\Library_DTO\obj\Debug\net6.0-windows\Library_DTO.pdb
 C:\Users\ASUS\source\repos\Library - Copy\Library_DTO\obj\Debug\net6.0-windows\ref\Library_DTO.dll
+C:\Users\ASUS\source\repos\Library - Copy\Library_DTO\bin\Debug\net6.0-windows\Library_DTO.runtimeconfig.json
+C:\Users\ASUS\source\repos\Library - Copy\Library_DTO\obj\Debug\net6.0-windows\Library_DTO.genruntimeconfig.cache
