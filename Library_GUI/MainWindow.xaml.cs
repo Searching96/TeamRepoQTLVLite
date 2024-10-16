@@ -111,7 +111,7 @@ namespace Library_GUI
 
         private void btn_Revenue_Click(object sender, RoutedEventArgs e)
         {
-            //Extra
+            //Extra ??
         }
 
         private void btn_Statistics_Click(object sender, RoutedEventArgs e)
