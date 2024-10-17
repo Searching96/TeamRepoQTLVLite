@@ -38,8 +38,11 @@ namespace LMS
                 {
                     conn.Open();
                     
-                    string query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid";
-                    
+                    string query = "SELECT SACH.id, bName, bPubl, bPDate, bPrice, bQuan, STRING_AGG(aName, ', ') AS Authors FROM SACH " +
+                                   "JOIN SACH_TACGIA ON SACH_TACGIA.bookid = SACH.id " +
+                                   "JOIN TACGIA ON TACGIA.id = SACH_TACGIA.authorid " +
+                                   "GROUP BY SACH.id, bName, bPubl, bPDate, bPrice, bQuan";
+
                     SqlCommand cmd = new SqlCommand(query, conn);
                     
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -48,8 +51,6 @@ namespace LMS
                     
                     while (reader.Read())
                     {
-                        
-
                         Book book = new Book
                         {
                             
@@ -65,7 +66,6 @@ namespace LMS
                         };
 
                         books.Add(book);
-                        
                     }
                     
                     
@@ -99,21 +99,33 @@ namespace LMS
         }
         
         private int selectedBookNumber = -1;
-        private int selectedAuthorNumber = -1;
+        private List<int> selectedAuthorNumber = new List<int>();
         public void bookDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Book selectedBook = (Book)bookDataGrid.SelectedItem;
 
             // Lấy giá trị của cột Number (giả sử cột đầu tiên là Number)
+            
             selectedBookNumber = selectedBook.Number;
             using (SqlConnection conn = new SqlConnection("Data Source=BjnB0\\SQLEXPRESS;Initial Catalog=Demo_QLTV;Integrated Security=True;TrustServerCertificate=True"))
             {
                 conn.Open();
-                //string query = "SELECT tg.id from TACGIA tg" + "join SACH_TACGIA on SACH_TACGIA.authorid = tg.id " + "join SACH on SACH_TACGIA.bookid = SACH.id" + " where SACH.id = @bookNumber";
-                string query = "SELECT authorid from SACH_TACGIA where bookid = @bookNumber";
+                string query = "SELECT authorid FROM SACH_TACGIA WHERE bookid = @bookNumber";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@bookNumber", selectedBookNumber);
-                selectedAuthorNumber = (int)cmd.ExecuteScalar();
+
+                // Sử dụng SqlDataReader để đọc nhiều giá trị authorid
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    selectedAuthorNumber.Clear(); // Xóa danh sách trước khi thêm mới
+
+                    while (reader.Read())
+                    {
+                        // Lấy giá trị của authorid và thêm vào danh sách
+                        selectedAuthorNumber.Add(reader.GetInt32(0));
+                    }
+                }
+
                 conn.Close();
             }
         }
@@ -125,7 +137,7 @@ namespace LMS
                 if (MessageBox.Show("Bạn có chắc muốn xóa sách này?", "Xác nhận", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     // Thực hiện xóa dòng khỏi cơ sở dữ liệu
-                    DeleteBookFromDatabase(selectedBookNumber, selectedAuthorNumber);
+                    DeleteBookFromDatabase(selectedBookNumber);
 
                     // Cập nhật lại DataGrid sau khi xóa
                     if(!insearchmode) LoadData();
@@ -136,17 +148,17 @@ namespace LMS
                 MessageBox.Show("Vui lòng chọn một cuốn sách để xóa.");
             }
         }
-        private void DeleteBookFromDatabase(int bookNumber, int authornumber)
+        private void DeleteBookFromDatabase(int bookNumber)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection("Data Source=BjnB0\\SQLEXPRESS;Initial Catalog=Demo_QLTV;Integrated Security=True;TrustServerCertificate=True"))
                 {
                     conn.Open();
-                    string query = "DELETE FROM SACH WHERE id = @Number" + " DELETE FROM TACGIA WHERE id = @authorNumber";
+                    string query = "DELETE FROM SACH WHERE id = @Number " + "DELETE FROM SACH_TACGIA WHERE bookid = @Number";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Number", bookNumber);
-                    cmd.Parameters.AddWithValue("@authorNumber", authornumber);
+                    
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
@@ -162,7 +174,40 @@ namespace LMS
             UpdateBook ub = new UpdateBook(this, selectedBookNumber, selectedAuthorNumber);
             ub.Show();
         }
+        int timtheo = 0;
+        private void cbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbFilter.SelectedItem != null)
+            {
+                // Lấy ComboBoxItem đã chọn
+                ComboBoxItem selectedItem = (ComboBoxItem)cbFilter.SelectedItem;
 
+                // Lấy giá trị Tag của ComboBoxItem
+                
+                int selectedValue = int.Parse(selectedItem.Tag.ToString());
+                {
+                    // Thực hiện hành động tùy theo giá trị chọn
+                    switch (selectedValue)
+                    {
+                        case 1:
+                            
+                            // Chọn "Tên sách"
+                            timtheo = 1; break;
+                            
+                        case 2:
+                            // Chọn "Tác giả"
+                            timtheo = 2; break;
+                        case 3:
+                            // Chọn "Thể loại"
+                            timtheo = 3; break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            
+        }
+        
         private void textBoxFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (textBoxFilter.Text != "")
@@ -171,9 +216,19 @@ namespace LMS
                 using (SqlConnection conn = new SqlConnection("Data Source=BjnB0\\SQLEXPRESS;Initial Catalog=Demo_QLTV;Integrated Security=True;TrustServerCertificate=True"))
                 {
                     conn.Open();
-                    string query = "SELECT * FROM SACH WHERE bName LIKE @Nametext";
+                    string query;
+                    
+                    if (timtheo == 1)
+                    {
+                        query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid " + "where bName LIKE @text";
+                    }
+                    else if(timtheo == 2)
+                    {
+                        query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid " + "where aName LIKE @text";
+                    }
+                    else query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid " + "where bPubl LIKE @text";
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Nametext", "%" + textBoxFilter.Text + "%");
+                    cmd.Parameters.AddWithValue("@text", "%" + textBoxFilter.Text + "%");
                     
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -186,12 +241,12 @@ namespace LMS
                         Book book = new Book
                         {
                             Number = reader.GetInt32(0),  // Giả sử số thứ tự nằm ở cột 0
-                            Name = reader.GetString(2),   // Tên sách ở cột 1
-                            Author = reader.GetString(3), // Tên tác giả ở cột 2
-                            Publisher = reader.GetString(4), // Nhà xuất bản ở cột 3
-                            PublishDate = reader.GetString(5),// Kiểm tra null cho PublishDate// Lấy giá trị kiểu DateTime từ SQ
-                            Price = reader.GetInt64(6), // Giá bán ở cột 5
-                            Quantity = reader.GetInt64(7), // Số lượng ở cột 6
+                            Name = reader.GetString(1),   // Tên sách ở cột 1
+                            Author = reader.GetString(6), // Tên tác giả ở cột 2
+                            Publisher = reader.GetString(2), // Nhà xuất bản ở cột 3
+                            PublishDate = reader.GetString(3),// Kiểm tra null cho PublishDate// Lấy giá trị kiểu DateTime từ SQ
+                            Price = reader.GetInt64(4), // Giá bán ở cột 5
+                            Quantity = reader.GetInt64(5), // Số lượng ở cột 6
                             BgColor = "#FF5733", // Màu nền tuỳ chọn (bạn có thể thay đổi theo nhu cầu)
 
                         };
@@ -210,5 +265,7 @@ namespace LMS
                 
             
         }
+
+        
     }
 }

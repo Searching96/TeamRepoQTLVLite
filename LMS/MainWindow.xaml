@@ -48,10 +48,10 @@
 
                         <!--Menu Buttons-->
                         <StackPanel DockPanel.Dock="Top" >
-                            <Button Style="{StaticResource menuButton}">
+                            <Button x:Name ="btn_DashBoard"  Style="{StaticResource menuButton}" Click="btn_DashBoard_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard"/>
+                                    <TextBlock Text="Trang chủ"/>
                                 </StackPanel>
                             </Button>
 
@@ -62,10 +62,10 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}"  Foreground="White" Click="Button_Click_Book">
+                            <Button x:Name ="btn_BookManage" Style="{StaticResource menuButton}"  Foreground="White" Click="btn_BookManage_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Sách"/>
+                                    <TextBlock Text="Quản lí Sách"/>
                                 </StackPanel>
                             </Button>
 

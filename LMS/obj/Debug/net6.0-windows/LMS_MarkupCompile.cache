@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\Visual studio\Project\LMS\App.xaml
-71112424013
+10-78499227
 
-12-869076574
+16452725248
 1971815133506
-AddBook.xaml;BookFinder.xaml;LoginScreen.xaml;MainWindow.xaml;UpdateBook.xaml;UserWindow.xaml;ViewBook.xaml;
+AddBook.xaml;BookFinder.xaml;LoginScreen.xaml;MainWindow.xaml;PDashBoard.xaml;UpdateBook.xaml;UserWindow.xaml;ViewBook.xaml;WAddAuthor.xaml;WAddNewAuthor.xaml;
 
 False
 

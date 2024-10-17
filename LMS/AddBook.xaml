@@ -20,7 +20,10 @@
                 <TextBox  Name ="BookName" Height="25" Width="300" Background="White" BorderBrush="#623ED0" />
 
                 <TextBlock Text="Book Author Name" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
-                <TextBox  Name ="BookAuthor" Height="25" Width="300" Background="White" BorderBrush="#623ED0"/>
+                <StackPanel Orientation="Horizontal" Width="300">
+                    <TextBox Name="BookAuthor" Height="25" Width="274" Background="White" BorderBrush="#623ED0" />
+                    <Button x:Name="btn_AddAuthor" Height="25" Width="26" Content="+" Background="#623ED0" Foreground="White" Click="btn_AddAuthor_Click"/>
+                </StackPanel>
 
                 <TextBlock Text="Book Publication" Margin="0,10,0,5" FontSize="14" Foreground="#623ED0"/>
                 <TextBox  Name ="BookPublication" Height="25" Width="300" Background="White" BorderBrush="#623ED0"/>

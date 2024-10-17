@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace LMS
     /// <summary>
     /// Interaction logic for UpdateBook.xaml
     /// </summary>
-    public partial class UpdateBook : Window
+    public partial class UpdateBook : Window, IBookAction
     {
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -31,8 +32,10 @@ namespace LMS
         }
         private ViewBook viewbookpage;
         int bookNumber;
-        int authorNumber;
-        public UpdateBook(ViewBook vb, int bn, int an)
+        public List<int> authorNumber;
+        public List<CLAuthor> lAuthors { get; set; }
+        
+        public UpdateBook(ViewBook vb, int bn, List<int> an)
         {
             InitializeComponent();
             viewbookpage = vb;
@@ -50,7 +53,10 @@ namespace LMS
                 using (SqlConnection conn = new SqlConnection("Data Source = BjnB0\\SQLEXPRESS;Initial Catalog=Demo_QLTV; Integrated Security = True; TrustServerCertificate=True"))
                 {
                     conn.Open();
-                    string query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid" + " where SACH.id = @Number";
+                    string query = "SELECT SACH.id, bName, bPubl, bPDate, bPrice, bQuan, STRING_AGG(aName, ', ') AS Authors FROM SACH " +
+                                   "JOIN SACH_TACGIA ON SACH_TACGIA.bookid = SACH.id " +
+                                   "JOIN TACGIA ON TACGIA.id = SACH_TACGIA.authorid " + "WHERE SACH.id = @Number " +
+                                   "GROUP BY SACH.id, bName, bPubl, bPDate, bPrice, bQuan " ;
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Number", bookNumber);
                     
@@ -94,9 +100,8 @@ namespace LMS
                     try
                     {
                         sqlCon.Open();
-                    string query = "UPDATE SACH SET bName = @bname, bPubl = @bpubl, bPDate = @bpdate, bPrice = @bprice, bQuan = @bquan " +  "WHERE id = @bookNumber " +
-                    "UPDATE TACGIA SET aName = @bauthor where id = @authorNumber";
-
+                    string query = "UPDATE SACH SET bName = @bname, bPubl = @bpubl, bPDate = @bpdate, bPrice = @bprice, bQuan = @bquan " + "WHERE id = @bookNumber ";
+                    
                         using (SqlCommand sqlCmd = new SqlCommand(query, sqlCon))
                         {
                             // Thêm tham số vào câu lệnh SQL để tránh SQL Injection
@@ -107,16 +112,41 @@ namespace LMS
                             sqlCmd.Parameters.AddWithValue("@bprice", price);
                             sqlCmd.Parameters.AddWithValue("@bquan", quan);
                             sqlCmd.Parameters.AddWithValue("@bookNumber", bookNumber);
-                            sqlCmd.Parameters.AddWithValue("@authorNumber", authorNumber);
+                            
                         // Thêm tham số @bookNumber
 
                         // Thực thi câu lệnh SQL
                         sqlCmd.ExecuteNonQuery();
                         }
+                    string deleteQuery = "DELETE FROM SACH_TACGIA WHERE bookid = @bookID";
+                    using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, sqlCon))
+                    {
+                        // Thêm tham số cho câu lệnh DELETE
+                        deleteCmd.Parameters.AddWithValue("@bookID", bookNumber);
+                        deleteCmd.ExecuteNonQuery(); // Thực thi câu lệnh DELETE
+                    }
 
-                        // Hiển thị thông báo thành công
-                        MessageBox.Show("Data Updated Successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        viewbookpage.LoadData();
+                    // Thêm mới mối quan hệ giữa sách và tác giả
+                    foreach (var author in lAuthors)
+                    {
+                        // Câu lệnh INSERT hoặc UPDATE để thêm tác giả mới cho sách
+                        string querytgsach = "INSERT INTO SACH_TACGIA (bookid, authorid) VALUES (@bookID, @authorID)";
+                        using (SqlCommand sachtgCmd = new SqlCommand(querytgsach, sqlCon))
+                        {
+                            sachtgCmd.Parameters.AddWithValue("@bookID", bookNumber);
+                            sachtgCmd.Parameters.AddWithValue("@authorID", author.Number); // Số ID của tác giả
+                            sachtgCmd.ExecuteNonQuery(); // Thực thi câu lệnh INSERT
+                        }
+                    }
+
+                    // Hiển thị thông báo thành công
+                    MessageBox.Show("Data Updated Successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Gọi hàm LoadData để làm mới dữ liệu hiển thị
+                    viewbookpage.LoadData();
+
+                    // Hiển thị thông báo thành công
+                    
                     }
                     catch (Exception ex)
                     {
@@ -128,6 +158,12 @@ namespace LMS
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btn_AddAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            WAddAuthor waa = new WAddAuthor(this);
+            waa.Show();
         }
     }
 }

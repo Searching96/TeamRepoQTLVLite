@@ -46,16 +46,47 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#7B5CD6" />
                     <Setter Property="Foreground" Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>
+            <!--<Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                        To="#FFE1FF"
+                        Duration="0:0:0.2"
+                                    />
+                                <ColorAnimation
+                        Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                        To="#433878"
+                        Duration="0:0:0.2"
+                                    />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                        To="Transparent"
+                        Duration="0:0:0.2" />
+                                <ColorAnimation
+                        Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                        To="White"
+                        Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>-->
         </Style>
-
-
         <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
             <Setter Property="Margin" Value="20 2 20 0" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -177,6 +208,57 @@
             </Setter>
         </Style>
 
+        <Style x:Key="filtercb" TargetType="ComboBox">
+            <Setter Property="Background" Value="#6741D9" />
+            <Setter Property="Foreground" Value="#ffffff" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="70" />
+            
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                            <Grid>
+                                <!-- ComboBox Content (Text) -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- ComboBox Text Content -->
+                                    <ContentPresenter 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Left" 
+                                Grid.Column="0" 
+                                Margin="10,0,0,0" />
+
+                                    <!-- ComboBox ToggleButton (mũi tên mở rộng) -->
+                                    <ToggleButton 
+                                Grid.Column="1" 
+                                Width="35" 
+                                VerticalAlignment="Center"
+                                IsEnabled="{TemplateBinding IsEnabled}">
+                                        <Path Fill="White" Data="M4,6 L10,6 L7,9 Z" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </ToggleButton>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7B5CD6" />
+                    <Setter Property="Foreground" Value="#ffffff" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <Style x:Key="pagingButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />

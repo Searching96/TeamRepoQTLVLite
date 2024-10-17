@@ -65,11 +65,7 @@ namespace LMS
         }
 
 
-        private void Button_Click_Book(object sender, RoutedEventArgs e)
-        {
-            AdminMain.Content = new ViewBook();
-
-        }
+        
 
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {
@@ -102,5 +98,14 @@ namespace LMS
             this.Close();
         }
 
+        private void btn_DashBoard_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMain.Content = new PDashBoard();
         }
+        private void btn_BookManage_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMain.Content = new ViewBook();
+
+        }
+    }
     }

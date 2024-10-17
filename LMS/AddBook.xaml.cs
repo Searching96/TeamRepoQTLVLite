@@ -19,10 +19,11 @@ namespace LMS
     /// <summary>
     /// Interaction logic for AddBook.xaml
     /// </summary>
-    public partial class AddBook : Window
+    public partial class AddBook : Window, IBookAction
     {
         private bool IsMaximize = false;
-
+        public List<CLAuthor> lAuthors { get; set; }
+        
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -70,17 +71,17 @@ namespace LMS
                 using (SqlConnection sqlCon = new SqlConnection("Data Source=BjnB0\\SQLEXPRESS;Initial Catalog=Demo_QLTV;Integrated Security=True;TrustServerCertificate=True"))
                 {
                     sqlCon.Open();
-                    string querytg = "IF NOT EXISTS (SELECT 1 FROM TACGIA WHERE aName = @bAuthor) " +
-                         "INSERT INTO TACGIA (aName) VALUES (@bAuthor);" +
-                         "SELECT id FROM TACGIA WHERE aName = @bAuthor;";
-                    int authorID = 0;
+                    //string querytg = "IF NOT EXISTS (SELECT 1 FROM TACGIA WHERE aName = @bAuthor) " +
+                    //     "INSERT INTO TACGIA (aName) VALUES (@bAuthor);" +
+                    //     "SELECT id FROM TACGIA WHERE aName = @bAuthor;";
+                    //int authorID = 0;
 
-                    using (SqlCommand authorCmd = new SqlCommand(querytg, sqlCon))
-                    {
-                        authorCmd.Parameters.AddWithValue("@bAuthor", bauthor);
-                        // Lấy AuthorID của tác giả, có thể vừa được thêm vào hoặc đã tồn tại
-                        authorID = (int)authorCmd.ExecuteScalar();
-                    }
+                    //using (SqlCommand authorCmd = new SqlCommand(querytg, sqlCon))
+                    //{
+                    //    authorCmd.Parameters.AddWithValue("@bAuthor", bauthor);
+                    //    // Lấy AuthorID của tác giả, có thể vừa được thêm vào hoặc đã tồn tại
+                    //    authorID = (int)authorCmd.ExecuteScalar();
+                    //}
 
 
                     string query = "INSERT INTO SACH (bName, bPubl, bPDate, bPrice, bQuan) " +
@@ -100,13 +101,18 @@ namespace LMS
                         bookID = (int)sqlCmd.ExecuteScalar();
                         
                     }
-                    string querytgsach = "INSERT INTO SACH_TACGIA (bookid, authorid)" + "VALUES(@bookID, @authorID)";
-                    using (SqlCommand sachtgCmd = new SqlCommand(querytgsach, sqlCon))
+                    foreach (var author in lAuthors)
                     {
-                        sachtgCmd.Parameters.AddWithValue("@bookID", bookID);
-                        sachtgCmd.Parameters.AddWithValue("@authorID", authorID);
-                        sachtgCmd.ExecuteNonQuery ();
+                        // Thêm mối quan hệ giữa sách và tác giả vào bảng SACH_TACGIA
+                        string querytgsach = "INSERT INTO SACH_TACGIA (bookid, authorid) VALUES (@bookID, @authorID)";
+                        using (SqlCommand sachtgCmd = new SqlCommand(querytgsach, sqlCon))
+                        {
+                            sachtgCmd.Parameters.AddWithValue("@bookID", bookID);
+                            sachtgCmd.Parameters.AddWithValue("@authorID", author.Number);
+                            sachtgCmd.ExecuteNonQuery(); // Thực thi câu lệnh chèn
+                        }
                     }
+                    
                 }
 
                 // Hiển thị thông báo thành công
@@ -124,6 +130,13 @@ namespace LMS
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        
+        private void btn_AddAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            WAddAuthor waa = new WAddAuthor(this);
+            waa.Show();
+         
         }
     }
 }

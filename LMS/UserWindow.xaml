@@ -29,8 +29,14 @@
                     <TextBlock Text="Hệ thống thư viện" FontSize="50
                                    " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"/>
 
-
+                    <Button Style="{StaticResource menuButton}"   Margin="926,62,46,52" Click="Button_Click_LogOut" Background="#FFFF383D" Foreground="Black" FontWeight="Bold">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Logout"/>
+                        </StackPanel>
+                    </Button>
                 </Grid>
+                
             </Border>
             <Grid Row ="1">
 
