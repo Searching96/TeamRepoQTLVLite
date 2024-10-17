@@ -45,6 +45,11 @@ namespace Library_DAL
             return _context.Books.Find(BookId);
         }
 
+        public Book GetByTitle(string Title)
+        {
+            return _context.Books.FirstOrDefault(x => x.Title == Title);
+        }
+
         public int Count()
         {
             return _context.Books.Count();

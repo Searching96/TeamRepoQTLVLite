@@ -1,33 +1,20 @@
 ﻿using Library_DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Library_DTO;
 using Microsoft.EntityFrameworkCore;
-using System.Windows.Controls.Primitives;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Collections;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Library_GUI.UserControls
 {
     /// <summary>
-    /// Interaction logic for Books.xaml
+    /// Interaction logic for Users.xaml
     /// </summary>
-    public partial class Users : UserControl
+    public partial class Users : UserControl, INotifyPropertyChanged
     {
         private LibraryContext _context;
 
@@ -39,6 +26,20 @@ namespace Library_GUI.UserControls
             {
                 _readers = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private string _search;
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                if (_search != value)
+                {
+                    _search = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -54,7 +55,7 @@ namespace Library_GUI.UserControls
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -62,9 +63,10 @@ namespace Library_GUI.UserControls
         public Users()
         {
             InitializeComponent();
+            DataContext = this;
             _context = new();
             LoadReaders();
-            MultiSelect = Visibility.Hidden;
+            MultiSelect = Visibility.Visible;
         }
 
         private void LoadReaders()
@@ -76,7 +78,6 @@ namespace Library_GUI.UserControls
                                    .Include(r => r.UsernameNavigation)
                                    .ToList());
             }
-            UsersDataGrid.ItemsSource = Readers;
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -170,6 +171,42 @@ namespace Library_GUI.UserControls
                 MultiSelect = Visibility.Visible;
             else
                 MultiSelect = Visibility.Hidden;
+        }
+
+        private void btn_Search_MouseEnter(object sender, MouseEventArgs e)
+        {
+            icon_Search.Opacity = 0.7;
+        }
+
+        private void btn_Search_MouseLeave(object sender, MouseEventArgs e)
+        {
+            icon_Search.Opacity = 0.3;
+        }
+
+        private void btn_Search_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new LibraryManagementContext())
+            {
+                var query = context.Readers.AsQueryable();
+
+                if (!string.IsNullOrEmpty(Search))
+                {
+                    query = query.Where(r =>
+                    r.Username.Contains(Search) ||
+                        (r.Username != null && r.Username.Contains(Search)) ||
+                        (r.FirstName != null && r.FirstName.Contains(Search)) ||
+                        (r.LastName != null && r.LastName.Contains(Search)) ||
+                        (r.UsernameNavigation.Email != null && r.UsernameNavigation.Email.Contains(Search)));
+                    Readers = new ObservableCollection<Reader>(query.ToList());
+                }
+                else
+                {
+                    Readers = new ObservableCollection<Reader>(
+                        context.Readers.Include(r => r.ReaderType)
+                       .Include(r => r.UsernameNavigation)
+                       .ToList());
+                }
+            }
         }
     }
 }

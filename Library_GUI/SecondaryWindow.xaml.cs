@@ -30,6 +30,13 @@ namespace Library_GUI
             (CurrentContent as UserDialog).CloseDialog += OnCloseDialog;
         }
 
+        public SecondaryWindow(Book selectedBook)
+        {
+            InitializeComponent();
+            CurrentContent = new BookDialog(selectedBook);
+            (CurrentContent as BookDialog).CloseDialog += OnCloseDialog;
+        }
+
         private void OnCloseDialog(object? sender,bool e = false)
         {
             DialogResult = e;
