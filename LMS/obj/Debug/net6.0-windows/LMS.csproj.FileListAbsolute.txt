@@ -49,3 +49,7 @@ E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\WAddNewAuthor.g.cs
 E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\WAddNewAuthor.baml
 E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\WAddAuthor.g.cs
 E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\WAddAuthor.baml
+E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\PQuanLiMuonTra.g.cs
+E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\WBorrowBookCard.g.cs
+E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\PQuanLiMuonTra.baml
+E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\WBorrowBookCard.baml

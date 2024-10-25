@@ -220,13 +220,26 @@ namespace LMS
                     
                     if (timtheo == 1)
                     {
-                        query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid " + "where bName LIKE @text";
+                        query = "SELECT SACH.id, bName, bPubl, bPDate, bPrice, bQuan, STRING_AGG(aName, ', ') AS Authors FROM SACH " +
+                                   "JOIN SACH_TACGIA ON SACH_TACGIA.bookid = SACH.id " +
+                                   "JOIN TACGIA ON TACGIA.id = SACH_TACGIA.authorid " +
+                                   "WHERE bName LIKE @text " +
+                                   "GROUP BY SACH.id, bName, bPubl, bPDate, bPrice, bQuan";
                     }
                     else if(timtheo == 2)
                     {
-                        query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid " + "where aName LIKE @text";
+                        query = "SELECT SACH.id, bName, bPubl, bPDate, bPrice, bQuan, STRING_AGG(aName, ', ') AS Authors FROM SACH " +
+                                   "JOIN SACH_TACGIA ON SACH_TACGIA.bookid = SACH.id " +
+                                   "JOIN TACGIA ON TACGIA.id = SACH_TACGIA.authorid " +
+                                   
+                                   "WHERE SACH.id IN ( SELECT SACH.id FROM SACH JOIN SACH_TACGIA ON SACH_TACGIA.bookid = SACH.id JOIN TACGIA ON TACGIA.id = SACH_TACGIA.authorid WHERE aName LIKE @text) " + 
+                                   "GROUP BY SACH.id, bName, bPubl, bPDate, bPrice, bQuan"; 
                     }
-                    else query = "select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from SACH " + "join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id " + "join TACGIA on TACGIA.id = SACH_TACGIA.authorid " + "where bPubl LIKE @text";
+                    else query = "SELECT SACH.id, bName, bPubl, bPDate, bPrice, bQuan, STRING_AGG(aName, ', ') AS Authors FROM SACH " +
+                                   "JOIN SACH_TACGIA ON SACH_TACGIA.bookid = SACH.id " +
+                                   "JOIN TACGIA ON TACGIA.id = SACH_TACGIA.authorid " +
+                                   "where bPubl LIKE @text " +
+                                   "GROUP BY SACH.id, bName, bPubl, bPDate, bPrice, bQuan"; 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@text", "%" + textBoxFilter.Text + "%");
                     

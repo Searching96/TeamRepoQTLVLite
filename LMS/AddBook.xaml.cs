@@ -71,17 +71,7 @@ namespace LMS
                 using (SqlConnection sqlCon = new SqlConnection("Data Source=BjnB0\\SQLEXPRESS;Initial Catalog=Demo_QLTV;Integrated Security=True;TrustServerCertificate=True"))
                 {
                     sqlCon.Open();
-                    //string querytg = "IF NOT EXISTS (SELECT 1 FROM TACGIA WHERE aName = @bAuthor) " +
-                    //     "INSERT INTO TACGIA (aName) VALUES (@bAuthor);" +
-                    //     "SELECT id FROM TACGIA WHERE aName = @bAuthor;";
-                    //int authorID = 0;
-
-                    //using (SqlCommand authorCmd = new SqlCommand(querytg, sqlCon))
-                    //{
-                    //    authorCmd.Parameters.AddWithValue("@bAuthor", bauthor);
-                    //    // Lấy AuthorID của tác giả, có thể vừa được thêm vào hoặc đã tồn tại
-                    //    authorID = (int)authorCmd.ExecuteScalar();
-                    //}
+                    
 
 
                     string query = "INSERT INTO SACH (bName, bPubl, bPDate, bPrice, bQuan) " +

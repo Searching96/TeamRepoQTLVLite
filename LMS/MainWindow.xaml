@@ -55,10 +55,10 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}">
+                            <Button x:Name ="btn_QLMT" Style="{StaticResource menuButton}" Click="btn_QLMT_Click" >
                                 <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Events"/>
+                                    <Icon:PackIconMaterial Kind="Book" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Quản lí mượn trả"/>
                                 </StackPanel>
                             </Button>
 

@@ -42,52 +42,6 @@
                     <Button Content="Cancel" Width="100" Height="30" Background="LightGray" Foreground="Black" Margin="10,0"  Click="Button_Click_Cancel"/>
                 </StackPanel>
             </StackPanel>
-
-            <!-- Phần chứa các trường thông tin -->
-            <!--<StackPanel Background="LightSalmon" Margin="10">
-            <TextBlock Text="Add Book" FontSize="24" FontWeight="Bold" 
-                   HorizontalAlignment="Center" Margin="0,10,0,20" />
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Book Name" Width="150" VerticalAlignment="Center"/>
-                <TextBox Name ="BookName" Width="200">
-
-                </TextBox>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock  Text="Book Author Name" Width="150" VerticalAlignment="Center"/>
-                <TextBox Name ="BookAuthor" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Book Publication" Width="150" VerticalAlignment="Center"/>
-                <TextBox Name ="BookPublication" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Book Purchase Date" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Name ="BookpDate" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Book Price" Width="150" VerticalAlignment="Center"/>
-                <TextBox Name ="BookPrice" Width="200"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <TextBlock Text="Book Quantity" Width="150" VerticalAlignment="Center"/>
-                <TextBox Name ="BookQuantity" Width="200"/>
-            </StackPanel>
-
-            -->
-            <!-- Buttons -->
-            <!--
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,100,0">
-                <Button Content="Save" Width="80" Margin="5" Click="Button_Click_Save"/>
-                <Button Content="Cancel" Width="80" Margin="5" Click="Button_Click_Cancel"/>
-            </StackPanel>
-        </StackPanel>-->
         </Grid>
     </Border>
 </Window>

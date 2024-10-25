@@ -107,5 +107,9 @@ namespace LMS
             AdminMain.Content = new ViewBook();
 
         }
+        private void btn_QLMT_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMain.Content = new PQuanLiMuonTra();
+        }
     }
     }

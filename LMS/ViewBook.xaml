@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LMS"
-       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewBook">
@@ -84,7 +84,7 @@
             <ComboBox Name="cbFilter" Background="#7B5CD6" Height="30" Width="73" Margin="5,2,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="cbFilter_SelectionChanged"  >
                 <ComboBoxItem Content="Tên sách" Tag="1"/>
                 <ComboBoxItem Content="Tác giả" Tag="2"/>
-                <ComboBoxItem Content="Thể loại" Tag="3"/>
+                <ComboBoxItem Content="Nhà Xuất Bản" Tag="3"/>
             </ComboBox>
 
         </Grid>

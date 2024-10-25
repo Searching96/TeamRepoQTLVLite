@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="PQuanLiMuonTra.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WAddAuthor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,8 +37,14 @@
     <Compile Update="WAddNewAuthor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WBorrowBookCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="PQuanLiMuonTra.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WAddAuthor.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -64,6 +73,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WAddNewAuthor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WBorrowBookCard.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
