@@ -88,16 +88,6 @@ namespace Library_GUI
             }
         }
 
-        private void btn_Close_MouseEnter(object sender, MouseEventArgs e)
-        {
-            icon_Close.Opacity = 0.7;
-        }
-
-        private void btn_Close_MouseLeave(object sender, MouseEventArgs e)
-        {
-            icon_Close.Opacity = 0.3;
-        }
-
         private void btn_Close_Click(object sender, RoutedEventArgs e)
         {
             Close();

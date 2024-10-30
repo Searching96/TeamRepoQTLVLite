@@ -44,6 +44,11 @@ namespace Library_DAL
             return _context.BorrowDetails.Find(Username);
         }
 
+        public BorrowDetail GetByBookId(int BookId)
+        {
+            return _context.BorrowDetails.Find(BookId);
+        }
+
         //public bool CheckExist(BorrowDetail _borrow)
         //{
         //    return _context.BorrowDetails.Any(u => u.Username == _borrow.Username);

@@ -29,29 +29,20 @@ namespace Library_DAL
             _context.SaveChanges();
         }
 
-        public void Remove(int BorrowId)
+        public void Remove(Borrow borrow)
         {
-            var borrow = _context.Borrows.Find(BorrowId);
-            if (borrow != null)
+            var item = _context.Borrows.Find(borrow.BorrowId);
+            if (item != null)
             {
-                _context.Borrows.Remove(borrow);
-                //_context.Users.First(x => x.Username == borrow.Username).BookCount--;
-                //_context.Books.First(x => x.BookId == borrow.BorrowBookId).isBorrowed = false;
+                _context.Borrows.Remove(item);
                 _context.SaveChanges();
             }
         }
 
         public Borrow GetById(int BorrowId)
         {
-            return _context.Borrows.Find(BorrowId);
+            return _context.Borrows.LastOrDefault(r => r.BorrowId == BorrowId);
         }
-
-        //public bool CheckExists(int BorrowBookId)
-        //{
-        //    if (BorrowBookId == 0) return false;
-        //    return false;
-        //    return _context.Borrows.Any(x => x.BorrowBookId == BorrowBookId);
-        //}
 
         public int Count()
         {

@@ -11,7 +11,7 @@ public partial class Book
 
     public string Title { get; set; } = null!;
 
-    public bool? IsBorrowed { get; set; }
+    public int? BorrowId { get; set; }
 
     public virtual ICollection<BorrowDetail> BorrowDetails { get; set; } = new List<BorrowDetail>();
 

@@ -19,7 +19,7 @@ namespace Library_BUS
         {
             if (string.IsNullOrWhiteSpace(title)/* || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN)*/)
             {
-                throw new ArgumentException("Title, author and ISBN are required.");
+                throw new ArgumentException("All fields are required.");
             }
 
             var book = new Book {Title = title } /*{ Title = title, Author = author, ISBN = iSBN }*/;
@@ -30,7 +30,7 @@ namespace Library_BUS
         {
             if (string.IsNullOrWhiteSpace(title)/* || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN)*/)
             {
-                throw new ArgumentException("Title, author and ISBN are required.");
+                throw new ArgumentException("All fields are required.");
             }
 
             var book = _bookRepository.GetById(id);
@@ -52,7 +52,10 @@ namespace Library_BUS
             {
                 throw new ArgumentException("Book not found.");
             }
-
+            else if (book.BorrowId != 0)
+            {
+                throw new ArgumentException("Book currently borrowed.");
+            }
             _bookRepository.Remove(id);
         }
 

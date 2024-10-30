@@ -122,26 +122,11 @@
             <Border Grid.Column="1" Background="Transparent" CornerRadius="0 10 10 0">
                 <Grid>
                     <!--Close Icon-->
-                    <materialDesign:PackIcon 
-                        x:Name="icon_Close" 
-                        Kind="Close" 
+                    <Button Style="{StaticResource closeButton}"
                         VerticalAlignment="Top" 
-                        Width="20" Height="20" 
-                        HorizontalAlignment="Right" 
-                        Margin="0 13 14 0" 
-                        Opacity="0.3"
-                        Panel.ZIndex="1"/>
-                    <Button x:Name="btn_Close" 
-                        VerticalAlignment="Top" 
-                        HorizontalAlignment="Right" 
-                        Margin="0 17 18 0" 
-                        Height="12" 
-                        Width="12"
-                        Opacity="0"
-                        MouseEnter="btn_Close_MouseEnter"
-                        MouseLeave="btn_Close_MouseLeave"
+                        HorizontalAlignment="Right"
                         Click="btn_Close_Click"
-                        Panel.ZIndex="2"/>
+                        Margin="15"/>
                     <ContentControl Grid.Column="1" 
                                     x:Name="DisplayContent" 
                                     Content="{Binding CurrentContent, UpdateSourceTrigger=PropertyChanged}"/>

@@ -29,9 +29,8 @@ namespace Library_DAL
             _context.SaveChanges();
         }
 
-        public void Remove(string username)
+        public void Remove(Reader reader)
         {
-            var reader = _context.Readers.Find(username);
             if (reader != null)
             {
                 _context.Readers.Remove(reader);
