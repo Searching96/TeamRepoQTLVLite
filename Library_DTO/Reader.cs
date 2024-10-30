@@ -22,7 +22,7 @@ public partial class Reader
 
     public int? CurrentBorrows { get; set; } = 0;
 
-    public int? TotalDebt { get; set; } = 0;
+    public decimal TotalDebt { get; set; } = 0;
 
     public virtual ReaderType ReaderType { get; set; } = null!;
 

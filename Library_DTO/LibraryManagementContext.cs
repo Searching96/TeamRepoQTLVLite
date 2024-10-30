@@ -64,9 +64,9 @@ public partial class LibraryManagementContext : DbContext
             entity.HasKey(e => e.BookId).HasName("PK_Book");
 
             entity.Property(e => e.BookId).HasColumnName("BookID");
-            entity.Property(e => e.IsBorrowed)
+            entity.Property(e => e.BorrowId)
                 .HasDefaultValueSql("((0))")
-                .HasColumnName("isBorrowed");
+                .HasColumnName("BorrowID");
             entity.Property(e => e.Title)
                 .HasMaxLength(50)
                 .IsUnicode(false)

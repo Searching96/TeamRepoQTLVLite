@@ -17,22 +17,24 @@ namespace Library_BUS
             _userRepository = new UserRepository();
         }
 
-        public void AddUser(string Username, string Password)
+        public void AddUser(string Username, string Password, string TypeOfUser, string Email)
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password) ||
+                string.IsNullOrWhiteSpace(TypeOfUser) || string.IsNullOrWhiteSpace(Email))
             {
-                throw new ArgumentException("Username, Password are required.");
+                throw new ArgumentException("All fields are required.");
             }
 
-            var user = new User { Username = Username, Password = Password};
+            var user = new User { Username = Username, Password = Password, TypeOfUser = TypeOfUser, Email = Email};
             _userRepository.Add(user);
         }
 
-        public void UpdateUser(int id, string Username, string Password)
+        public void UpdateUser(string Username, string Password, string TypeOfUser, string Email)
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password) ||
+                string.IsNullOrWhiteSpace(TypeOfUser) || string.IsNullOrWhiteSpace(Email))
             {
-                throw new ArgumentException("Username, Password and Display name are required.");
+                throw new ArgumentException("All fields are required.");
             }
 
             var user = _userRepository.GetByUsername(Username);
@@ -40,10 +42,9 @@ namespace Library_BUS
             {
                 throw new ArgumentException("User not found.");
             }
-
-            user.Username = Username;
             user.Password = Password;
-            //user.DisplayName = DisplayName;
+            user.Email = Email;
+            user.TypeOfUser = TypeOfUser;
             _userRepository.Update(user);
         }
 

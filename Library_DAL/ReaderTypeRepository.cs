@@ -44,6 +44,11 @@ namespace Library_DAL
             return _context.ReaderTypes.FirstOrDefault(x => x.ReaderTypeName == Typename);
         }
 
+        public ReaderType GetById(int id)
+        {
+            return _context.ReaderTypes.Find(id);
+        }
+
         //public bool CheckExist(ReaderType type)
         //{
         //    return _context.ReaderTypes.Any(u => u.Username == type.Username);
