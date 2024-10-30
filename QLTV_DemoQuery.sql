@@ -1,74 +1,71 @@
 create database Demo_QLTV
-
-create table NGUOIDUNG
+create table THELOAI
 (
-UserID int identity(1,1) primary key,
-Username varchar(50) not null, 
-Password varchar(50) not null,
-Status bit not null,
-Role varchar(50),
+	ID int identity(1,1) primary key,
+	MaTheLoai as ('TL' + right('00000' + cast(ID as nvarchar(5)), 5)) persisted,
+	TenTheLoai nvarchar(100) not null
+)
+create table TINHTRANG
+(
+	ID int identity(1,1) primary key,
+	MaTheLoai as ('TT' + right('00000' + cast(ID as nvarchar(5)), 5)) persisted,
+	TenTinhTrang nvarchar(100) not null
 )
 create table SACH
 (
-	id int identity(1,1) primary key,
-	bid as ('S' + right('00000' + cast(id as nvarchar(5)), 5)) persisted,
-	bName nvarchar(150) not null,
-	bPubl nvarchar(150) not null,
-	bPDate varchar(250) not null,
-	bPrice bigint not null,
-	bQuan bigint not null,
-	bStatus bit not null
+	ID int identity(1,1) primary key,
+	MaSach as ('S' + right('00000' + cast(ID as nvarchar(5)), 5)) persisted,
+	TenSach nvarchar(100) not null,
+	IDTheLoai int not null,
+	foreign key (IDTheLoai) references THELOAI(ID),
+	NamXuatBan int not null,
+	NhaXuatBan nvarchar not null,
+	NgayNhap Date not null,
+	TriGia Decimal(18,0) not null,
+	IDTinhTrang int not null,
+	foreign key(IDTinhTrang) references TINHTRANG(ID)
 )
-CREATE TRIGGER trg_Update_bStatus
-ON SACH
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    UPDATE SACH
-    SET bStatus = CASE WHEN s.bQuan > 0 THEN 1 ELSE 0 END
-    FROM SACH s
-    INNER JOIN inserted i ON s.bid = i.bid;
-END;
+
 create table TACGIA
 (
-	id int identity(1,1) primary key,
-	aid as('TG' + right('00000' + cast(id as nvarchar(5)), 5)) persisted,
-	aName nvarchar(150) not null,
+	ID int identity(1,1) primary key,
+	MaTacGia as('TG' + right('00000' + cast(ID as nvarchar(5)), 5)) persisted,
+	TenTacGia nvarchar(100) not null,
 )
-create table SACH_TACGIA
+create table CHITIETSACH
 (
-	bookid int not null,
-	authorid int not null,
-	primary key(bookid, authorid),
-	foreign key (bookid) references SACH(id) on delete cascade,
-	foreign key(authorid) references TACGIA(id) on delete cascade
+	IDSACH int not null,
+	IDTACGIA int not null,
+	primary key(IDSACH, IDTACGIA),
+	foreign key (IDSACH) references SACH(ID) on delete cascade,
+	foreign key(IDTACGIA) references TACGIA(ID) on delete cascade
+)
+create table LOAIDOCGIA
+(
+	ID int identity(1,1) primary key,
+	MaLoaiDocGia as ('LDG' + right('00000' + cast(ID as nvarchar(5)), 5)) persisted,
+	TenLoaiDocGia nvarchar(100)
 )
 create table DOCGIA
 (
-	id int identity(1,1) primary key,
-	rid as ('DG' + right('00000' + cast(id as nvarchar(5)), 5)) persisted,
-	rName nvarchar(150) not null,
-	rBOD nvarchar(150) not null,
-	rAdd nvarchar(15) not null,
-)
-create table PMUON
-(
-	id int identity(1,1) primary key,
-	pmid as ('PM' + right('00000' + cast(id as nvarchar(5)), 5)) persisted,
-	bookbid int not null,
-	readerbid int not null,
-	pmRedate nvarchar(150) not null,
-	pmBodate nvarchar(150) not null,
-	foreign key(bookbid) references SACH(id) on delete cascade,
-	foreign key(readerbid) references DOCGIA(id) on delete cascade 
+	ID int identity(1,1) primary key,
+	MaDocGia as ('DG' + right('00000' + cast(ID as nvarchar(5)), 5)) persisted,
+	HoTen nvarchar(150) not null,
+	NgaySinh nvarchar(150) not null,
+	DiaChi nvarchar(15) not null,
+	Email nvarchar(100) not null, 
+	NgayLapThe Date not null,
+	NgayHetHan Date not null,
+	CONSTRAINT chk_NgayLapThe_NgayHetHan CHECK (NgayLapThe < NgayHetHan),
+	IDLoaiDocGia int not null,
+	foreign key (IDLoaiDocGia) references LOAIDOCGIA(ID) on delete cascade,
+	IDAccount int not null,
+	SDT varchar(50) not null,
+	TongNo Decimal(18,0) not null
 )
 
-alter table PMUON
-add constraint
 
-select SACH.id, bName, bPubl, bPDate, bPrice, bQuan, aName from
-SACH
-join SACH_TACGIA on SACH_TACGIA.bookid = SACH.id
-join TACGIA on TACGIA.id = SACH_TACGIA.authorid
+
+
 
 
