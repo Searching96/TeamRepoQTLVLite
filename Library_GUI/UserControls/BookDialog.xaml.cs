@@ -44,7 +44,7 @@ namespace Library_GUI.UserControls
             else
             {
                 Book.Title = txbTitle.Text;
-                Book.IsBorrowed = false;
+                Book.BorrowId = 0;
                 if (_bookRepository.GetByTitle(txbTitle.Text) != null)
                 {
                     _bookRepository.Update(Book);

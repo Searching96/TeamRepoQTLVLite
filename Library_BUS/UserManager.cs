@@ -12,9 +12,9 @@ namespace Library_BUS
     {
         private readonly UserRepository _userRepository;
 
-        public UserManager()
+        public UserManager(UserRepository userRepository)
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
         }
 
         public void AddUser(string Username, string Password, string TypeOfUser, string Email)

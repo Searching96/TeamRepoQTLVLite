@@ -85,7 +85,8 @@
                         VerticalAlignment="Top" 
                         HorizontalAlignment="Right"
                         Click="btn_Close_Click"
-                        Margin="15"/>
+                        Margin="15"
+                        Panel.ZIndex="1"/>
                 <!--Inputs-->
                 <ContentControl Content="{Binding CurrentControl, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>

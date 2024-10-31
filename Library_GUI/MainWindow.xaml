@@ -126,7 +126,10 @@
                         VerticalAlignment="Top" 
                         HorizontalAlignment="Right"
                         Click="btn_Close_Click"
-                        Margin="15"/>
+                        Margin="15"
+                        Height="25"
+                        Width="25"
+                        Panel.ZIndex="1"/>
                     <ContentControl Grid.Column="1" 
                                     x:Name="DisplayContent" 
                                     Content="{Binding CurrentContent, UpdateSourceTrigger=PropertyChanged}"/>

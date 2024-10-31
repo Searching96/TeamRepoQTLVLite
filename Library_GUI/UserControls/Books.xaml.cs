@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Library_BUS;
+using System.Windows.Media;
 
 namespace Library_GUI.UserControls
 {
@@ -17,18 +19,42 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class Books : UserControl, INotifyPropertyChanged
     {
-        private LibraryContext _context;
+        private BookManager _bookManager;
 
-        private ObservableCollection<Book> _booksList;
-        public ObservableCollection<Book> BooksList
+        private ObservableCollection<Book> _allBooks;
+        private ObservableCollection<Book> _currentPageBooks;
+        private int _itemsPerPage = 10;
+        private int _currentPage = 1;
+        public ObservableCollection<Book> CurrentPageBooks
         {
-            get => _booksList;
+            get => _currentPageBooks;
             set
             {
-                _booksList = value;
+                _currentPageBooks = value;
                 OnPropertyChanged();
             }
         }
+
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged();
+                UpdateCurrentPageBooks();
+            }
+        }
+
+        private void UpdateCurrentPageBooks()
+        {
+            CurrentPageBooks = new ObservableCollection<Book>(
+                _allBooks.Skip((CurrentPage - 1) * _itemsPerPage)
+                           .Take(_itemsPerPage)
+                           .ToList());
+        }
+
+        public int TotalPages => (int)Math.Ceiling((double)_allBooks.Count / _itemsPerPage);
 
         private string _search;
         public string Search
@@ -65,17 +91,19 @@ namespace Library_GUI.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            _context = new();
+            _bookManager = new();
             LoadBooks();
             MultiSelect = Visibility.Visible;
+            GeneratePageButtons();
         }
 
         private void LoadBooks()
         {
             using (var context = new LibraryManagementContext())
             {
-                BooksList = new ObservableCollection<Book>(
+                _allBooks = new ObservableCollection<Book>(
                     context.Books.ToList());
+                UpdateCurrentPageBooks();
             }
         }
 
@@ -102,7 +130,7 @@ namespace Library_GUI.UserControls
             var bookDialog = new SecondaryWindow(_book);
             if (bookDialog.ShowDialog() == true)
             {
-                _context.SaveChanges();
+                _bookManager.UpdateBook(_book.BookId, _book.Title);
                 LoadBooks();
             }
         }
@@ -111,23 +139,7 @@ namespace Library_GUI.UserControls
         {
             if (BooksDataGrid.SelectedItems.Count != 1) return;
             var selectedBook = BooksDataGrid.SelectedItem as Book;
-            if (selectedBook == null)
-            {
-                MessageBox.Show("Please select a book to edit.");
-            }
-            else if ((bool)selectedBook.IsBorrowed)
-            {
-                MessageBox.Show("Book owes book, unable to edit.");
-            }
-            else /*&& selectedBook.Debt == 0*/
-            {
-                var bookDialog = new SecondaryWindow(selectedBook);
-                if (bookDialog.ShowDialog() == true)
-                {
-                    _context.SaveChanges();
-                    LoadBooks();
-                }
-            }
+
 
             //else if (selectedBook.Debt != 0)
             //{
@@ -145,15 +157,14 @@ namespace Library_GUI.UserControls
                     MessageBox.Show("Please select a book to delete.");
                     continue;
                 }
-                else if ((bool)Book.IsBorrowed)
+                else if (Book.BookId != 0)
                 {
                     MessageBox.Show("Book is borrowed, unable to delete.");
                     continue;
                 }
                 else
                 {
-                    _context.Books.Remove(Book);
-                    _context.SaveChanges();
+                    _bookManager.RemoveBook(Book.BookId);
                     LoadBooks();
                 }
                 //else if (selectedBook.Debt != 0)
@@ -173,16 +184,6 @@ namespace Library_GUI.UserControls
                 MultiSelect = Visibility.Hidden;
         }
 
-        private void btn_Search_MouseEnter(object sender, MouseEventArgs e)
-        {
-            icon_Search.Opacity = 0.7;
-        }
-
-        private void btn_Search_MouseLeave(object sender, MouseEventArgs e)
-        {
-            icon_Search.Opacity = 0.3;
-        }
-
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
             using (var context = new LibraryManagementContext())
@@ -193,14 +194,101 @@ namespace Library_GUI.UserControls
                 {
                     query = query.Where(r =>
                     r.Title.Contains(Search));
-                    BooksList = new ObservableCollection<Book>(query.ToList());
+                    _allBooks = new ObservableCollection<Book>(query.ToList());
                 }
                 else
                 {
-                    BooksList = new ObservableCollection<Book>(
+                    _allBooks = new ObservableCollection<Book>(
                         context.Books.ToList());
                 }
             }
+        }
+
+        //Pagination
+
+        private void PreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                GeneratePageButtons();
+            }
+        }
+
+        private void NextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                GeneratePageButtons();
+            }
+        }
+
+        private void PageNumber_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && int.TryParse(button.Content.ToString(), out int pageNumber))
+            {
+                CurrentPage = pageNumber;
+                GeneratePageButtons();
+            }
+        }
+
+        private void GeneratePageButtons()
+        {
+            PaginationPanel.Children.Clear();
+
+            int startPage = Math.Max(1, CurrentPage - 2);
+            int endPage = Math.Min(TotalPages, startPage + 4);
+
+            if (startPage >= endPage)
+            {
+                PaginationBorder.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            PaginationPanel.Children.Add(CreatePageButton("<<", PreviousPage_Click));
+
+            if (startPage > 1)
+            {
+                PaginationPanel.Children.Add(CreatePageButton("1", PageNumber_Click));
+                if (startPage > 2)
+                {
+                    PaginationPanel.Children.Add(new TextBlock { Text = "...", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(5) });
+                }
+            }
+
+            for (int i = startPage; i <= endPage; i++)
+            {
+                Button pageButton = CreatePageButton(i.ToString(), PageNumber_Click);
+                if (i == CurrentPage)
+                {
+                    pageButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7950F2"));
+                    pageButton.Foreground = Brushes.White;
+                }
+                PaginationPanel.Children.Add(pageButton);
+            }
+
+            if (endPage < TotalPages)
+            {
+                if (endPage < TotalPages - 1)
+                {
+                    PaginationPanel.Children.Add(new TextBlock { Text = "...", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(5) });
+                }
+                PaginationPanel.Children.Add(CreatePageButton(TotalPages.ToString(), PageNumber_Click));
+            }
+
+            PaginationPanel.Children.Add(CreatePageButton(">>", NextPage_Click));
+        }
+
+        private Button CreatePageButton(string content, RoutedEventHandler clickHandler)
+        {
+            var button = new Button
+            {
+                Content = content,
+                Style = (Style)FindResource("pagingButton")
+            };
+            button.Click += clickHandler;
+            return button;
         }
     }
 }

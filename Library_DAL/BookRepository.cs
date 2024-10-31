@@ -55,6 +55,14 @@ namespace Library_DAL
             return _context.Books.Count();
         }
 
+        public List<Book> GetAvailable()
+        {
+            var query = _context.Books.AsQueryable();
+            query = query.Where(r => r.BorrowId.Equals(0));
+
+            return query.ToList();
+        }
+
         public List<Book> GetAll()
         {
             return _context.Books.ToList();

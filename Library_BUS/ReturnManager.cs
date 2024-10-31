@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Library_BUS
 {
-    class ReturnManager
+    public class ReturnManager
     {
         private readonly ReturnRepository _returnRepository;
         private readonly BorrowRepository _borrowRepository;

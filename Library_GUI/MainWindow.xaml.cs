@@ -111,7 +111,10 @@ namespace Library_GUI
 
         private void btn_Borrows_Click(object sender, RoutedEventArgs e)
         {
-            //Deadline 16/11
+            CurrentContent = new BookBorrows();
+            (CurrentButton as Button).Style = this.FindResource("menuButton") as Style;
+            (sender as Button).Style = this.FindResource("menuButtonActive") as Style;
+            CurrentButton = sender;
         }
 
         private void btn_Books_Click(object sender, RoutedEventArgs e)

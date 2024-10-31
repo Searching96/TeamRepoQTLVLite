@@ -43,7 +43,7 @@ namespace Library_GUI.UserControls
             {
                 User.Username = txbUsername.Text;
                 User.Password = txbPassword.Text;
-                User.Email = txbDisplayName.Text;
+                User.Email = txbEmail.Text;
                 User.TypeOfUser = "Reader";
                 if (_userRepository.GetByUsername(txbUsername.Text) != null)
                 {

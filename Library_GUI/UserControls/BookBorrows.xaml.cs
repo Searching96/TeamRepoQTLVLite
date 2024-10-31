@@ -13,38 +13,11 @@ using System.Windows.Media;
 namespace Library_GUI.UserControls
 {
     /// <summary>
-    /// Interaction logic for Borrows.xaml
+    /// Interaction logic for BookBorrows.xaml
     /// </summary>
-    public partial class Borrows : UserControl, INotifyPropertyChanged
+    public partial class BookBorrows : UserControl, INotifyPropertyChanged
     {
         private LibraryContext _context;
-        private ObservableCollection<Borrow> _allBorrows;
-        private ObservableCollection<Borrow> _currentPageBorrows;
-        private int _itemsPerPage = 10;
-        private int _currentPage = 1;
-
-        public ObservableCollection<Borrow> CurrentPageBorrows
-        {
-            get => _currentPageBorrows;
-            set
-            {
-                _currentPageBorrows = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int CurrentPage
-        {
-            get => _currentPage;
-            set
-            {
-                _currentPage = value;
-                OnPropertyChanged();
-                UpdateCurrentPageBorrows();
-            }
-        }
-
-        public int TotalPages => (int)Math.Ceiling((double)_allBorrows.Count / _itemsPerPage);
 
         private string _search;
         public string Search
@@ -60,13 +33,13 @@ namespace Library_GUI.UserControls
             }
         }
 
-        private List<Borrow> _selectedBorrows;
-        public List<Borrow> SelectedBorrows
+        private List<Borrow> _selectedBookBorrows;
+        public List<Borrow> SelectedBookBorrows
         {
-            get => _selectedBorrows;
+            get => _selectedBookBorrows;
             set
             {
-                _selectedBorrows = value;
+                _selectedBookBorrows = value;
                 OnPropertyChanged();
             }
         }
@@ -77,45 +50,37 @@ namespace Library_GUI.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Borrows()
+        public BookBorrows()
         {
             InitializeComponent();
             DataContext = this;
             _context = new();
-            LoadBorrows();
+            LoadBookBorrows();
             MultiSelect = Visibility.Visible;
             GeneratePageButtons();
         }
 
-        private void LoadBorrows()
+        private void LoadBookBorrows()
         {
             using (var context = new LibraryManagementContext())
             {
-                _allBorrows = new ObservableCollection<Borrow>(
+                _allBookBorrows = new ObservableCollection<Borrow>(
                     context.Borrows.ToList());
-                UpdateCurrentPageBorrows();
+                UpdateCurrentPageBookBorrows();
             }
-        }
-
-        private void UpdateCurrentPageBorrows()
-        {
-            CurrentPageBorrows = new ObservableCollection<Borrow>(
-                _allBorrows.Skip((CurrentPage - 1) * _itemsPerPage)
-                           .Take(_itemsPerPage)
-                           .ToList());
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is Borrows viewModel)
+            if (DataContext is BookBorrows viewModel)
             {
-                viewModel.UpdateSelectedBorrows(BorrowsDataGrid.SelectedItems);
+                viewModel.UpdateSelectedBookBorrows(BookBorrowsDataGrid.SelectedItems);
             }
         }
 
-        public void UpdateSelectedBorrows(IList selectedItems)
+        public void UpdateSelectedBookBorrows(IList selectedItems)
         {
-            SelectedBorrows = selectedItems.Cast<Borrow>().ToList();
+            SelectedBookBorrows = selectedItems.Cast<Borrow>().ToList();
         }
 
         private BorrowRepository _userRepository = new();
@@ -124,27 +89,27 @@ namespace Library_GUI.UserControls
 
         private void btn_AddBorrow_Click(object sender, RoutedEventArgs e)
         {
-            //var _borrow = new Borrow();
-            //var borrowDialog = new SecondaryWindow(_borrow);
-            //if (borrowDialog.ShowDialog() == true)
-            //{
-            //    _context.SaveChanges();
-            //    LoadBorrows();
-            //}
+            var _borrow = new Borrow();
+            var borrowDialog = new SecondaryWindow(_borrow);
+            if (borrowDialog.ShowDialog() == true)
+            {
+                _context.SaveChanges();
+                LoadBookBorrows();
+            }
         }
 
         private void btn_UpdateBorrow_Click(object sender, RoutedEventArgs e)
         {
-            if (BorrowsDataGrid.SelectedItems.Count != 1) return;
-            var selectedBorrow = BorrowsDataGrid.SelectedItem as Borrow;
+            if (BookBorrowsDataGrid.SelectedItems.Count != 1) return;
+            var selectedBorrow = BookBorrowsDataGrid.SelectedItem as Borrow;
             if (selectedBorrow != null /*&& selectedBorrow.Debt == 0*/)
             {
-                //var userDialog = new SecondaryWindow(selectedBorrow);
-                //if (userDialog.ShowDialog() == true)
-                //{
-                //    _context.SaveChanges();
-                //    LoadBorrows();
-                //}
+                var bookDialog = new SecondaryWindow(selectedBorrow);
+                if (bookDialog.ShowDialog() == true)
+                {
+                    _context.SaveChanges();
+                    LoadBookBorrows();
+                }
             }
             else if (selectedBorrow == null)
             {
@@ -158,13 +123,13 @@ namespace Library_GUI.UserControls
 
         private void btn_DeleteBorrow_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var Borrow in SelectedBorrows)
+            foreach (var Borrow in SelectedBookBorrows)
             {
                 if (Borrow != null /*&& selectedBorrow.Debt == 0 */)
                 {
                     _context.Borrows.Remove(Borrow);
                     _context.SaveChanges();
-                    LoadBorrows();
+                    LoadBookBorrows();
                 }
                 else if (Borrow == null)
                 {
@@ -184,23 +149,14 @@ namespace Library_GUI.UserControls
             }
         }
 
-        private void Borrows_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BookBorrows_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (BorrowsDataGrid.SelectedItems.Count > 1)
+            if (BookBorrowsDataGrid.SelectedItems.Count > 1)
                 MultiSelect = Visibility.Visible;
             else
                 MultiSelect = Visibility.Hidden;
         }
 
-        private void btn_Search_MouseEnter(object sender, MouseEventArgs e)
-        {
-            icon_Search.Opacity = 0.7;
-        }
-
-        private void btn_Search_MouseLeave(object sender, MouseEventArgs e)
-        {
-            icon_Search.Opacity = 0.3;
-        }
 
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
@@ -214,16 +170,52 @@ namespace Library_GUI.UserControls
                         r.Username.Contains(Search));
                 }
 
-                _allBorrows = new ObservableCollection<Borrow>(
+                _allBookBorrows = new ObservableCollection<Borrow>(
                     query.ToList());
 
                 CurrentPage = 1;
-                UpdateCurrentPageBorrows();
+                UpdateCurrentPageBookBorrows();
                 GeneratePageButtons();
             }
         }
 
         /* Pagination */
+
+        private ObservableCollection<Borrow> _allBookBorrows;
+        private ObservableCollection<Borrow> _currentPageBookBorrows;
+        private int _itemsPerPage = 10;
+        private int _currentPage = 1;
+
+        public ObservableCollection<Borrow> CurrentPageBookBorrows
+        {
+            get => _currentPageBookBorrows;
+            set
+            {
+                _currentPageBookBorrows = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged();
+                UpdateCurrentPageBookBorrows();
+            }
+        }
+
+        public int TotalPages => (int)Math.Ceiling((double)_allBookBorrows.Count / _itemsPerPage);
+
+        private void UpdateCurrentPageBookBorrows()
+        {
+            CurrentPageBookBorrows = new ObservableCollection<Borrow>(
+                _allBookBorrows.Skip((CurrentPage - 1) * _itemsPerPage)
+                           .Take(_itemsPerPage)
+                           .ToList());
+        }
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
@@ -256,10 +248,16 @@ namespace Library_GUI.UserControls
         {
             PaginationPanel.Children.Clear();
 
-            PaginationPanel.Children.Add(CreatePageButton("<<", PreviousPage_Click));
-
             int startPage = Math.Max(1, CurrentPage - 2);
             int endPage = Math.Min(TotalPages, startPage + 4);
+
+            if (startPage >= endPage)
+            {
+                PaginationBorder.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            PaginationPanel.Children.Add(CreatePageButton("<<", PreviousPage_Click));
 
             if (startPage > 1)
             {

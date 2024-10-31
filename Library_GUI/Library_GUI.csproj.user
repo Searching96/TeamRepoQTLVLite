@@ -10,6 +10,9 @@
     <Compile Update="SecondaryWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\BookBorrowDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\BookDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +46,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SecondaryWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\BookBorrowDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\BookDialog.xaml">

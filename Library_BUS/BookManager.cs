@@ -10,9 +10,9 @@ namespace Library_BUS
     {
         private readonly BookRepository _bookRepository;
 
-        public BookManager()
+        public BookManager(BookRepository bookRepository)
         {
-            _bookRepository = new BookRepository();
+            _bookRepository = bookRepository;
         }
 
         public void AddBook(string title/*, string author, string iSBN*/)

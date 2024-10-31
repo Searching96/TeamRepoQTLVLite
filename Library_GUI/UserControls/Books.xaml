@@ -20,7 +20,6 @@
         </Border.Background>
         <Grid Margin="30 20 20 20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -29,26 +28,11 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <!--Search Textbox-->
-            <!--<Grid Width="300" HorizontalAlignment="Left">
-                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-               Panel.ZIndex="1" Text="Search here ..."
-               Visibility="{Binding ElementName=textBoxSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" />
-
-                <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}"/>
-
-                
-            </Grid>-->
-
-            <!--Top Buttons-->
-
-            <Button Style="{StaticResource topButton}" Margin="0 0 55 0"/>
-
             <!--Page Title-->
-            <TextBlock Text="Books" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#ffffff" HorizontalAlignment="Left"/>
+            <TextBlock Text="Books" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#ffffff" HorizontalAlignment="Left"/>
 
             <!--Add Button-->
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" >
                 <!--<Button Style="{StaticResource addButton}" Click="btn_AddUser_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Delete" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
@@ -78,7 +62,7 @@
 
 
             <!--Seprator-->
-            <Separator Height="1" Grid.Row="3" Background="#DAE2EA" Margin="0 -1 0 10"/>
+            <Separator Height="1" Grid.Row="2" Background="#DAE2EA" Margin="0 -1 0 10"/>
 
             <!--Tab buttons-->
             <!--<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
@@ -89,49 +73,36 @@
 
             <!--Counter Title-->
             <!--<TextBlock Text="{Binding Status}" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#ffffff" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
-            <TextBlock Text="Filter by" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0" Foreground="#ffffff" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Text="Filter by" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0" Foreground="#ffffff" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
             <!--Filter Textbox-->
-            <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
+            <Grid Width="200" HorizontalAlignment="Right" Grid.Row="3">
                 <TextBlock Margin="15,0,35,0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
                Panel.ZIndex="1" Text="Search in database ..."
                Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" />
 
                 <TextBox Name="textBoxFilter" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource filterTextBox}"/>
-                <Icon:PackIconMaterial 
-                    x:Name="icon_Search"
-                    Kind="Magnify" 
-                    Width="15" 
-                    Height="15" 
-                    VerticalAlignment="Center" 
-                    Margin="0 0 15 0" 
-                    Foreground="#B0B9C6" 
-                    HorizontalAlignment="Right" />
-                <Button x:Name="btn_Search" 
+                <Button Style="{StaticResource searchButton}"
                         VerticalAlignment="Top" 
-                        HorizontalAlignment="Right" 
+                        HorizontalAlignment="Right"
                         Margin="0 11 15 0" 
-                        Height="15" 
-                        Width="15"
-                        Opacity="0"
-                        MouseEnter="btn_Search_MouseEnter"
-                        MouseLeave="btn_Search_MouseLeave"
                         Click="btn_Search_Click"
-                        Panel.ZIndex="3"/>
+                        Panel.ZIndex="2"/>
             </Grid>
 
             <!--Members Data Grid-->
             <DataGrid x:Name="BooksDataGrid"
-                      ItemsSource="{Binding BooksList, UpdateSourceTrigger=PropertyChanged}" 
+                      ItemsSource="{Binding CurrentPageBooks, UpdateSourceTrigger=PropertyChanged}" 
                       AutoGenerateColumns="False"
                       SelectionMode="Extended"
                       SelectionUnit="FullRow"
+                      Grid.Row="4"
                       SelectionChanged="DataGrid_SelectionChanged" 
                       RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" Binding="{Binding BookId}" IsReadOnly="True" Width="0.2*"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}" IsReadOnly="True" Width="*" />
-                    <DataGridCheckBoxColumn Header="Is Borrowed?" Binding="{Binding IsBorrowed}"  IsReadOnly="True" Width="0.3*"  />
+                    <DataGridTextColumn Header="Borrow ID" Binding="{Binding BorrowId}"  IsReadOnly="True" Width="0.3*"  />
                     <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -150,28 +121,8 @@
             </DataGrid>
 
             <!--Pagingation Section-->
-            <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#DEE4EC" BorderThickness="1" CornerRadius="5" Padding="5" Background="#ffffff" Margin="0 10 10 10">
-                <StackPanel Orientation="Horizontal">
-                    <Button Style="{StaticResource pagingButton}">
-                        <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
-                    </Button>
-                    <Rectangle Width="1" Fill="#DEE4EC" Margin="3 7"/>
-
-                    <Button Style="{StaticResource pagingButton}" Content="1"/>
-                    <Button Style="{StaticResource pagingButton}" Content="2" Background="#7950F2" Foreground="#ffffff"/>
-                    <Button Style="{StaticResource pagingButton}" Content="3"/>
-
-                    <TextBlock Text="..." Foreground="#6C7682" VerticalAlignment="Center" Margin="10 0" FontSize="15"/>
-
-                    <Button Style="{StaticResource pagingButton}" Content="7"/>
-                    <Button Style="{StaticResource pagingButton}" Content="8"/>
-                    <Button Style="{StaticResource pagingButton}" Content="9"/>
-
-                    <Rectangle Width="1" Fill="#DEE4EC" Margin="3 7"/>
-                    <Button Style="{StaticResource pagingButton}">
-                        <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
-                    </Button>
-                </StackPanel>
+            <Border x:Name="PaginationBorder" Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#DEE4EC" BorderThickness="1" CornerRadius="5" Padding="5" Background="#ffffff" Margin="0 10 10 10">
+                <StackPanel x:Name="PaginationPanel" Orientation="Horizontal"/>
             </Border>
         </Grid>
     </Border>

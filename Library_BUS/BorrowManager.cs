@@ -1,11 +1,12 @@
 ﻿using Library_DAL;
 using Library_DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
 namespace Library_BUS
 {
-    class BorrowManager
+    public class BorrowManager
     {
         private readonly BorrowRepository _borrowRepository;
         private readonly BorrowDetailRepository _borrowDetailRepository;
@@ -65,6 +66,11 @@ namespace Library_BUS
         public List<Borrow> GetAllBorrows()
         {
             return _borrowRepository.GetAll();
+        }
+
+        public Borrow GetById(int BorrowId)
+        {
+            return _borrowRepository.GetById(BorrowId);
         }
     }
 }

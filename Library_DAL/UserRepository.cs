@@ -35,6 +35,7 @@ namespace Library_DAL
             var user = _context.Users.Find(Username);
             if (user != null)
             {
+                _context.Readers.Remove(_context.Readers.Find(Username));
                 _context.Users.Remove(user);
                 _context.SaveChanges();
             }

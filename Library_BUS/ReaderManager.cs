@@ -114,5 +114,10 @@ namespace Library_BUS
             reader.TotalDebt += additionalDebt;
             _readerRepository.Update(reader);
         }
+
+        public List<Reader> GetAllReader()
+        {
+            return _readerRepository.GetAll();
+        }
     }
 }

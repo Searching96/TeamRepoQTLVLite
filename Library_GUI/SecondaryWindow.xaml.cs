@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Library_GUI.UserControls;
+using Library_BUS;
+using Library_DAL;
 
 namespace Library_GUI
 {
@@ -23,6 +25,11 @@ namespace Library_GUI
     /// </summary>
     public partial class SecondaryWindow : Window, INotifyPropertyChanged
     {
+        private readonly BookRepository _bookRepository;
+        private readonly ReaderRepository _readerRepository;
+        private readonly BorrowRepository _borrowRepository;
+        private readonly BorrowDetailRepository _borrowDetailRepository;
+        private readonly UserRepository _userRepository;
         public SecondaryWindow(User selectedUser)
         {
             InitializeComponent();
@@ -34,6 +41,17 @@ namespace Library_GUI
         {
             InitializeComponent();
             CurrentContent = new BookDialog(selectedBook);
+            (CurrentContent as BookDialog).CloseDialog += OnCloseDialog;
+        }
+
+        public SecondaryWindow(Borrow selectedBorrow)
+        {
+            InitializeComponent();
+            _borrowRepository = new();
+            _borrowDetailRepository = new();
+            _readerRepository = new();
+            _bookRepository = new();
+            CurrentContent = new BookBorrowDialog(_borrowRepository, _borrowDetailRepository, _readerRepository, _bookRepository , selectedBorrow);
             (CurrentContent as BookDialog).CloseDialog += OnCloseDialog;
         }
 
