@@ -5,16 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library_BUS;
 
 namespace Library_DAL
 {
-    public class AdminRepository
+    public class AdminRepository : IAdminRepository
     {
         private readonly LibraryContext _context;
 
-        public AdminRepository()
+        public AdminRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(Admin admin)
@@ -35,6 +36,7 @@ namespace Library_DAL
             if (admin != null)
             {
                 _context.Admins.Remove(admin);
+                _context.Users.Remove(admin.UsernameNavigation);
                 _context.SaveChanges();
             }
         }

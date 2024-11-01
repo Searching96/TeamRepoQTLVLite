@@ -1,4 +1,5 @@
-﻿using Library_DTO;
+﻿using Library_BUS;
+using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Library_DAL
 {
-    public class ReturnDetailRepository
+    public class ReturnDetailRepository : IReturnDetailRepository
     {
         private readonly LibraryContext _context;
 
-        public ReturnDetailRepository()
+        public ReturnDetailRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(ReturnDetail _return)
@@ -44,10 +45,19 @@ namespace Library_DAL
             return _context.ReturnDetails.Find(Username);
         }
 
-        //public bool CheckExist(ReturnDetail _return)
-        //{
-        //    return _context.ReturnDetails.Any(u => u.Username == _return.Username);
-        //}
+        public List<ReturnDetail> GetByReturnId(int ReturnId)
+        {
+            var query = _context.ReturnDetails.AsQueryable();
+            query = query.Where(r => r.ReturnId == ReturnId);
+            return query.ToList();
+        }
+
+        public ReturnDetail GetByBookId(int BookId)
+        {
+                var query = _context.ReturnDetails.AsQueryable();
+                query = query.Where(r => r.BookId == BookId);
+                return query.ToList().Last();
+        }
 
         public int Count()
         {

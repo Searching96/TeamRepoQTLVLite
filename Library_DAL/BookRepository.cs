@@ -1,4 +1,5 @@
-﻿using Library_DTO;
+﻿using Library_BUS;
+using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.CodeDom.Compiler;
@@ -9,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Library_DAL
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly LibraryContext _context;
 
-        public BookRepository()
+        public BookRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(Book book)
@@ -30,9 +31,9 @@ namespace Library_DAL
             _context.SaveChanges();
         }
 
-        public void Remove(int BookId)
+        public void Remove(int bookId)
         {
-            var book = _context.Books.Find(BookId);
+            var book = _context.Books.Find(bookId);
             if (book != null)
             {
                 _context.Books.Remove(book);
@@ -40,27 +41,19 @@ namespace Library_DAL
             }
         }
 
-        public Book GetById(int BookId)
+        public Book GetById(int bookId)
         {
-            return _context.Books.Find(BookId);
+            return _context.Books.Find(bookId);
         }
 
-        public Book GetByTitle(string Title)
+        public Book GetByTitle(string title)
         {
-            return _context.Books.FirstOrDefault(x => x.Title == Title);
-        }
-
-        public int Count()
-        {
-            return _context.Books.Count();
+            return _context.Books.FirstOrDefault(x => x.Title == title);
         }
 
         public List<Book> GetAvailable()
         {
-            var query = _context.Books.AsQueryable();
-            query = query.Where(r => r.BorrowId.Equals(0));
-
-            return query.ToList();
+            return _context.Books.Where(r => r.BorrowId == null).ToList();
         }
 
         public List<Book> GetAll()

@@ -1,4 +1,5 @@
-﻿using Library_DAL;
+﻿using Library_BUS;
+using Library_DAL;
 using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
@@ -17,7 +18,8 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class Returns : UserControl, INotifyPropertyChanged
     {
-        private LibraryContext _context;
+        private LibraryContext _context = new();
+        private UnitOfWork _unitOfWork;
         private ObservableCollection<Return> _allReturns;
         private ObservableCollection<Return> _currentPageReturns;
         private int _itemsPerPage = 10;
@@ -81,7 +83,8 @@ namespace Library_GUI.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            _context = new();
+            _unitOfWork = new(_context);
+            _returnManager = new ReturnManager(_unitOfWork);
             LoadReturns();
             MultiSelect = Visibility.Visible;
             GeneratePageButtons();
@@ -118,7 +121,7 @@ namespace Library_GUI.UserControls
             SelectedReturns = selectedItems.Cast<Return>().ToList();
         }
 
-        private ReturnRepository _userRepository = new();
+        private ReturnManager _returnManager;
 
         public System.Windows.Visibility MultiSelect { get; set; }
 

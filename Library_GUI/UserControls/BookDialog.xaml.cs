@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Library_BUS;
 
 namespace Library_GUI.UserControls
 {
@@ -22,39 +23,62 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class BookDialog : UserControl
     {
+        private readonly BookManager _bookManager;
         public Book Book { get; private set; }
-
-        private BookRepository _bookRepository = new();
-
         public EventHandler<bool> CloseDialog;
 
-        public BookDialog(Book? book = null)
+        public BookDialog(BookManager bookManager, Book selectedBook)
         {
             InitializeComponent();
-            DataContext = this;
-            Book = book ?? new Book();
+            _bookManager = bookManager;
+            Book = selectedBook ?? new Book();
+            
+            if (selectedBook != null)
+            {
+                txbTitle.Text = selectedBook.Title;
+            }
         }
 
         private void BookSaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateInputs())
+            {
+                try
+                {
+                    Book.Title = txbTitle.Text;
+                    Book.BorrowId = null;  // New books are always available
+
+                    if (Book.BookId != 0)
+                    {
+                        _bookManager.UpdateBook(Book.BookId, Book.Title);
+                    }
+                    else
+                    {
+                        _bookManager.AddBook(Book.Title);
+                        Book.BorrowId = null;  // New books are always available
+                    }
+
+                    MessageBox.Show("Book saved successfully!", "Success", 
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    CloseDialog?.Invoke(this, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error saving book: {ex.Message}", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private bool ValidateInputs()
+        {
             if (string.IsNullOrWhiteSpace(txbTitle.Text))
             {
-                MessageBox.Show("Please fill in all fields.");
+                MessageBox.Show("Please enter a title for the book.", "Validation Error",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
             }
-            else
-            {
-                Book.Title = txbTitle.Text;
-                Book.BorrowId = 0;
-                if (_bookRepository.GetByTitle(txbTitle.Text) != null)
-                {
-                    _bookRepository.Update(Book);
-                }
-                else
-                {
-                    _bookRepository.Add(Book);
-                }
-            }
-            CloseDialog?.Invoke(this, true);
+            return true;
         }
 
         private void BookCancelButton_Click(object sender, RoutedEventArgs e)

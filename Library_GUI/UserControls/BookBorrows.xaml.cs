@@ -1,4 +1,5 @@
-﻿using Library_DAL;
+﻿using Library_BUS;
+using Library_DAL;
 using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
@@ -17,7 +18,12 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class BookBorrows : UserControl, INotifyPropertyChanged
     {
-        private LibraryContext _context;
+        private LibraryContext _context = new();
+        private UnitOfWork _unitOfWork;
+
+        private BorrowManager _borrowManager;
+
+        public System.Windows.Visibility MultiSelect { get; set; }
 
         private string _search;
         public string Search
@@ -54,7 +60,8 @@ namespace Library_GUI.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            _context = new();
+            _unitOfWork = new(_context);
+            _borrowManager = new(_unitOfWork);
             LoadBookBorrows();
             MultiSelect = Visibility.Visible;
             GeneratePageButtons();
@@ -62,12 +69,8 @@ namespace Library_GUI.UserControls
 
         private void LoadBookBorrows()
         {
-            using (var context = new LibraryManagementContext())
-            {
-                _allBookBorrows = new ObservableCollection<Borrow>(
-                    context.Borrows.ToList());
-                UpdateCurrentPageBookBorrows();
-            }
+            _allBookBorrows = new ObservableCollection<Borrow>(_borrowManager.GetAllBorrows());
+            UpdateCurrentPageBookBorrows();
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,69 +86,12 @@ namespace Library_GUI.UserControls
             SelectedBookBorrows = selectedItems.Cast<Borrow>().ToList();
         }
 
-        private BorrowRepository _userRepository = new();
-
-        public System.Windows.Visibility MultiSelect { get; set; }
-
         private void btn_AddBorrow_Click(object sender, RoutedEventArgs e)
         {
-            var _borrow = new Borrow();
-            var borrowDialog = new SecondaryWindow(_borrow);
+            var borrowDialog = new SecondaryWindow(true);
             if (borrowDialog.ShowDialog() == true)
             {
-                _context.SaveChanges();
                 LoadBookBorrows();
-            }
-        }
-
-        private void btn_UpdateBorrow_Click(object sender, RoutedEventArgs e)
-        {
-            if (BookBorrowsDataGrid.SelectedItems.Count != 1) return;
-            var selectedBorrow = BookBorrowsDataGrid.SelectedItem as Borrow;
-            if (selectedBorrow != null /*&& selectedBorrow.Debt == 0*/)
-            {
-                var bookDialog = new SecondaryWindow(selectedBorrow);
-                if (bookDialog.ShowDialog() == true)
-                {
-                    _context.SaveChanges();
-                    LoadBookBorrows();
-                }
-            }
-            else if (selectedBorrow == null)
-            {
-                MessageBox.Show("Please select a borrow to edit.");
-            }
-            //else if (selectedBorrow.Debt != 0)
-            //{
-            //    MessageBox.Show("Borrow owes debt, unable to edit.");
-            //}
-        }
-
-        private void btn_DeleteBorrow_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var Borrow in SelectedBookBorrows)
-            {
-                if (Borrow != null /*&& selectedBorrow.Debt == 0 */)
-                {
-                    _context.Borrows.Remove(Borrow);
-                    _context.SaveChanges();
-                    LoadBookBorrows();
-                }
-                else if (Borrow == null)
-                {
-                    MessageBox.Show("Please select a user to delete.");
-                    continue;
-                }
-                //else if (selectedBorrow.Debt != 0)
-                //{
-                //    MessageBox.Show("Borrow owes debt, unable to delete.");
-                //    continue;
-                //}
-                else
-                {
-                    MessageBox.Show("Borrow owes book, unable to delete.");
-                    continue;
-                }
             }
         }
 

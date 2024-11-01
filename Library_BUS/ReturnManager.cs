@@ -7,96 +7,64 @@ namespace Library_BUS
 {
     public class ReturnManager
     {
-        private readonly ReturnRepository _returnRepository;
-        private readonly BorrowRepository _borrowRepository;
-        private readonly BorrowDetailRepository _borrowDetailRepository;
-        private readonly ReturnDetailRepository _returnDetailRepository;
-        private readonly ReaderRepository _readerRepository;
-        private readonly BookRepository _bookRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ReturnManager(ReturnRepository returnRepository, BorrowRepository borrowRepository,
-                             BorrowDetailRepository borrowDetailRepository, ReturnDetailRepository returnDetailRepository,
-                             ReaderRepository readerRepository, BookRepository bookRepository)
+        public ReturnManager(IUnitOfWork unitOfWork)
         {
-            _returnRepository = returnRepository;
-            _returnDetailRepository = returnDetailRepository;
-            _borrowRepository = borrowRepository;
-            _borrowDetailRepository = borrowDetailRepository;
-            _readerRepository = readerRepository;
-            _bookRepository = bookRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public void ProcessReturn(Reader reader, List<Book> bookList, DateTime? returnDate = null)
+        public void ProcessReturn(Borrow borrow, List<Book> books)
         {
-            if (reader == null)
-                throw new ArgumentNullException(nameof(reader), "Reader cannot be null");
-
-            DateTime actualReturnDate = returnDate ?? DateTime.Now;
-            decimal totalFine = 0;
-
-            foreach (var book in bookList)
+            using (var transaction = _unitOfWork.BeginTransaction())
             {
-                if (book == null)
-                    throw new ArgumentNullException(nameof(book), "Book cannot be null");
-
-                // Get borrow details to ensure the book is borrowed by the reader
-                var borrowDetail = _borrowDetailRepository.GetByBookId(book.BookId);
-
-                if (borrowDetail == null || borrowDetail.BorrowId == 0)
-                    throw new InvalidOperationException($"Book {book.Title} is not currently borrowed.");
-
-                if (_borrowRepository.GetById(borrowDetail.BorrowId).Username != reader.Username)
-                    throw new InvalidOperationException($"Book {book.Title} was not borrowed by this user.");
-
-                // Calculate fine if the book is overdue
-                if (actualReturnDate > borrowDetail.EndDate)
+                try
                 {
-                    TimeSpan overdueDuration = actualReturnDate - borrowDetail.EndDate;
-                    decimal fine = CalculateFine(overdueDuration.Days);
-                    totalFine += fine;
+                    var returnRecord = new Return 
+                    { 
+                        Username = borrow.Username,
+                        Date = DateTime.Now 
+                    };
+                    _unitOfWork.Returns.Add(returnRecord);
+                    _unitOfWork.SaveChanges();
+
+                    foreach (var book in books)
+                    {
+                        var returnDetail = new ReturnDetail
+                        {
+                            ReturnId = returnRecord.ReturnId,
+                            BookId = book.BookId
+                        };
+                        _unitOfWork.ReturnDetails.Add(returnDetail);
+
+                        book.BorrowId = null;
+                        _unitOfWork.Books.Update(book);
+                    }
+
+                    var reader = _unitOfWork.Readers.GetByUsername(borrow.Username);
+                    reader.CurrentBorrows -= books.Count;
+                    _unitOfWork.Readers.Update(reader);
+
+                    _unitOfWork.SaveChanges();
+                    transaction.Commit();
                 }
-
-                // Update book status to make it available
-                book.BorrowId = 0;
-                _bookRepository.Update(book);
-
-                // Decrement the reader's current borrow count
-                reader.CurrentBorrows -= 1;
-
-                // Record the return in the Returns and ReturnDetails tables
-                var returnRecord = new Return
+                catch
                 {
-                    Username = reader.Username,
-                    Date = actualReturnDate
-                };
-                _returnRepository.Add(returnRecord);
-
-                var returnDetail = new ReturnDetail
-                {
-                    BookId = book.BookId,
-                    ReturnId = returnRecord.ReturnId,
-                    ReturnDate = actualReturnDate,
-                    Note = totalFine > 0 ? $"Fine: {totalFine:C}" : "No Fine"
-                };
-                _returnDetailRepository.Add(returnDetail);
+                    transaction.Rollback();
+                    throw;
+                }
             }
-
-            // Update reader's fine and borrow count in the database
-            if (totalFine > 0)
-                reader.TotalDebt = reader.TotalDebt + totalFine;
-
-            _readerRepository.Update(reader);
-        }
-
-        private decimal CalculateFine(int overdueDays)
-        {
-            const decimal dailyFine = 1.00m; // Example daily fine rate
-            return overdueDays * dailyFine;
         }
 
         public List<Return> GetAllReturns()
         {
-            return _returnRepository.GetAll();
+            return _unitOfWork.Returns.GetAll();
         }
+
+        public int Count()
+        {
+            return _unitOfWork.Returns.GetAll().Count();
+        }
+
     }
 }

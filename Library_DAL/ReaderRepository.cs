@@ -5,16 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library_BUS;
 
 namespace Library_DAL
 {
-    public class ReaderRepository
+    public class ReaderRepository : IReaderRepository
     {
         private readonly LibraryContext _context;
 
-        public ReaderRepository()
+        public ReaderRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(Reader reader)
@@ -29,11 +30,13 @@ namespace Library_DAL
             _context.SaveChanges();
         }
 
-        public void Remove(Reader reader)
+        public void Remove(string username)
         {
+            var reader = _context.Readers.Find(username);
             if (reader != null)
             {
                 _context.Readers.Remove(reader);
+                _context.Users.Remove(reader.UsernameNavigation);
                 _context.SaveChanges();
             }
         }
@@ -56,6 +59,11 @@ namespace Library_DAL
         public List<Reader> GetAll()
         {
             return _context.Readers.ToList();
+        }
+
+        public List<Reader> GetByReaderType(string readerType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

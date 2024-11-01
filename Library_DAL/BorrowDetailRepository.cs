@@ -1,4 +1,5 @@
-﻿using Library_DTO;
+﻿using Library_BUS;
+using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Library_DAL
 {
-    public class BorrowDetailRepository
+    public class BorrowDetailRepository : IBorrowDetailRepository
     {
         private readonly LibraryContext _context;
 
-        public BorrowDetailRepository()
+        public BorrowDetailRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(BorrowDetail _borrow)
@@ -39,9 +40,11 @@ namespace Library_DAL
             }
         }
 
-        public BorrowDetail GetByUsername(string Username)
+        public List<BorrowDetail> GetByBorrowId(int BorrowId)
         {
-            return _context.BorrowDetails.Find(Username);
+            var query = _context.BorrowDetails.AsQueryable();
+            query = query.Where(r => r.BorrowId == BorrowId);
+            return query.ToList();
         }
 
         public BorrowDetail GetByBookId(int BookId)

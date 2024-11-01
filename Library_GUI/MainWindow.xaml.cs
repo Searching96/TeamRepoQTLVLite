@@ -7,22 +7,27 @@ using System.Windows.Markup;
 using Library_DAL;
 using Library_DTO;
 using Library_GUI.UserControls;
+using Library_BUS;
 
 namespace Library_GUI
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private ReaderRepository _readerRepository = new();
-        private AdminRepository _adminRepository = new();
+        private UnitOfWork _unitOfWork;
+        LibraryContext _context = new();
+        private ReaderManager _readerManager;
+        private AdminManager _adminManager;
 
         public MainWindow(User user)
         {
             InitializeComponent();
-
-            var _reader = _readerRepository.GetByUsername(user.Username);
+            _unitOfWork = new(_context);
+            _readerManager = new(_unitOfWork);
+            var _reader = _readerManager.GetByUsername(user.Username);
             if (_reader == null)
             {
-                _user = _adminRepository.GetByUsername(user.Username);
+                _adminManager = new(_unitOfWork);
+                _user = _adminManager.GetByUsername(user.Username);
                 DisplayName = (_user as Admin).LastName;
                 CurrentContent = new Dashboard(_user as Admin);
                 CurrentButton = btn_Dashboard;

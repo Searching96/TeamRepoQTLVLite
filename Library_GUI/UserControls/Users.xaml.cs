@@ -20,6 +20,8 @@ namespace Library_GUI.UserControls
     public partial class Users : UserControl, INotifyPropertyChanged
     {
         private UserManager _userManager;
+        private LibraryContext _context = new();
+        private UnitOfWork _unitOfWork;
 
         private ObservableCollection<Reader> _allReaders;
         private ObservableCollection<Reader> _currentPageReaders;
@@ -91,7 +93,8 @@ namespace Library_GUI.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            _userManager = new();
+            _unitOfWork = new(_context);
+            _userManager = new(_unitOfWork);
             LoadReaders();
             MultiSelect = Visibility.Visible;
             GeneratePageButtons();

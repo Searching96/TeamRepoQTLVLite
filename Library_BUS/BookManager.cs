@@ -8,60 +8,66 @@ namespace Library_BUS
 {
     public class BookManager
     {
-        private readonly BookRepository _bookRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BookManager(BookRepository bookRepository)
+        public BookManager(IUnitOfWork unitOfWork)
         {
-            _bookRepository = bookRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public void AddBook(string title/*, string author, string iSBN*/)
+        public void AddBook(string title)
         {
-            if (string.IsNullOrWhiteSpace(title)/* || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN)*/)
+            if (string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentException("All fields are required.");
+                throw new ArgumentException("Title is required.");
             }
 
-            var book = new Book {Title = title } /*{ Title = title, Author = author, ISBN = iSBN }*/;
-            _bookRepository.Add(book);
+            var book = new Book { Title = title };
+            _unitOfWork.Books.Add(book);
+            _unitOfWork.SaveChanges();
         }
 
-        public void UpdateBook(int id, string title/*, string author, string iSBN*/)
+        public void UpdateBook(int id, string title)
         {
-            if (string.IsNullOrWhiteSpace(title)/* || string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(iSBN)*/)
+            if (string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentException("All fields are required.");
+                throw new ArgumentException("Title is required.");
             }
 
-            var book = _bookRepository.GetById(id);
+            var book = _unitOfWork.Books.GetById(id);
             if (book == null)
             {
                 throw new ArgumentException("Book not found.");
             }
 
             book.Title = title;
-            //book.Author = author;
-            //book.ISBN = iSBN;
-            _bookRepository.Update(book);
+            _unitOfWork.Books.Update(book);
+            _unitOfWork.SaveChanges();
         }
 
         public void RemoveBook(int id)
         {
-            var book = _bookRepository.GetById(id);
+            var book = _unitOfWork.Books.GetById(id);
             if (book == null)
             {
                 throw new ArgumentException("Book not found.");
             }
-            else if (book.BorrowId != 0)
+            if (book.BorrowId != null)
             {
                 throw new ArgumentException("Book currently borrowed.");
             }
-            _bookRepository.Remove(id);
+            _unitOfWork.Books.Remove(id);
+            _unitOfWork.SaveChanges();
+        }
+
+        public int Count()
+        {
+            return _unitOfWork.Books.GetAll().Count();
         }
 
         public List<Book> GetAllBooks()
         {
-            return _bookRepository.GetAll();
+            return _unitOfWork.Books.GetAll();
         }
     }
 }

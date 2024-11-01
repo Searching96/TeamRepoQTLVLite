@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Library_DTO;
 using Library_DAL;
+using Library_BUS;
 
 namespace Library_GUI.UserControls
 {
@@ -29,10 +30,14 @@ namespace Library_GUI.UserControls
             InitializeComponent();
             _user = admin;
             Time = GetTime();
+            _unitOfWork = new(_context);
+            _bookManager = new(_unitOfWork);
+            _userManager = new(_unitOfWork);
+            _borrowManager = new(_unitOfWork);
             DisplayName = admin.FirstName;
-            BookCount = _bookRepository.Count().ToString();
-            UserCount = _userRepository.Count().ToString();
-            BorrowCount = _borrowRepository.Count().ToString();
+            BookCount = _bookManager.Count().ToString();
+            UserCount = _userManager.Count().ToString();
+            BorrowCount = _borrowManager.Count().ToString();
         }
 
         public Dashboard(Reader reader)
@@ -40,10 +45,14 @@ namespace Library_GUI.UserControls
             InitializeComponent();
             _user = reader;
             Time = GetTime();
+            _unitOfWork = new(_context);
+            _bookManager = new(_unitOfWork);
+            _userManager = new(_unitOfWork);
+            _borrowManager = new(_unitOfWork);
             DisplayName = reader.FirstName;
-            BookCount = _bookRepository.Count().ToString();
-            UserCount = _userRepository.Count().ToString();
-            BorrowCount = _borrowRepository.Count().ToString();
+            BookCount = _bookManager.Count().ToString();
+            UserCount = _userManager.Count().ToString();
+            BorrowCount = _borrowManager.Count().ToString();
         }
 
         private string _bookCount;
@@ -79,9 +88,12 @@ namespace Library_GUI.UserControls
             }
         }
 
-        private BookRepository _bookRepository = new();
-        private UserRepository _userRepository = new();
-        private BorrowRepository _borrowRepository = new();
+        private LibraryContext _context = new();
+        private UnitOfWork _unitOfWork;
+
+        private BookManager _bookManager;
+        private UserManager _userManager;
+        private BorrowManager _borrowManager;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

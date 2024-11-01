@@ -1,4 +1,5 @@
-﻿using Library_DTO;
+﻿using Library_BUS;
+using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Library_DAL
 {
-    public class ReaderTypeRepository
+    public class ReaderTypeRepository : IReaderTypeRepository
     {
         private readonly LibraryContext _context;
 
-        public ReaderTypeRepository()
+        public ReaderTypeRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(ReaderType type)
@@ -39,7 +40,7 @@ namespace Library_DAL
             }
         }
 
-        public ReaderType GetByTypename(string Typename)
+        public ReaderType GetByName(string Typename)
         {
             return _context.ReaderTypes.FirstOrDefault(x => x.ReaderTypeName == Typename);
         }

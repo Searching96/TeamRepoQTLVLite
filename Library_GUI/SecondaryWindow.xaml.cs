@@ -1,17 +1,6 @@
 ﻿using System;
 using Library_DTO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Library_GUI.UserControls;
@@ -20,47 +9,64 @@ using Library_DAL;
 
 namespace Library_GUI
 {
-    /// <summary>
-    /// Interaction logic for SecondaryWindow.xaml
-    /// </summary>
     public partial class SecondaryWindow : Window, INotifyPropertyChanged
     {
-        private readonly BookRepository _bookRepository;
-        private readonly ReaderRepository _readerRepository;
-        private readonly BorrowRepository _borrowRepository;
-        private readonly BorrowDetailRepository _borrowDetailRepository;
-        private readonly UserRepository _userRepository;
-        public SecondaryWindow(User selectedUser)
+        private readonly IUnitOfWork _unitOfWork;
+        
+        // Managers
+        private readonly BookManager _bookManager;
+        private readonly ReaderManager _readerManager;
+        private readonly BorrowManager _borrowManager;
+        private readonly ReturnManager _returnManager;
+        private readonly UserManager _userManager;
+
+        public SecondaryWindow()
         {
+            // Initialize UnitOfWork with LibraryContext
+            var context = new LibraryContext();
+            _unitOfWork = new UnitOfWork(context);
+
+            // Initialize managers with UnitOfWork
+            _bookManager = new BookManager(_unitOfWork);
+            _readerManager = new ReaderManager(_unitOfWork);
+            _borrowManager = new BorrowManager(_unitOfWork);
+            _returnManager = new ReturnManager(_unitOfWork);
+            _userManager = new UserManager(_unitOfWork);
+
             InitializeComponent();
-            CurrentContent = new UserDialog(selectedUser);
+        }
+
+        // Constructor for User Dialog
+        public SecondaryWindow(User selectedUser) : this()
+        {
+            CurrentContent = new UserDialog(_userManager, _readerManager, selectedUser);
             (CurrentContent as UserDialog).CloseDialog += OnCloseDialog;
         }
 
-        public SecondaryWindow(Book selectedBook)
+        // Constructor for Book Dialog
+        public SecondaryWindow(Book selectedBook) : this()
         {
-            InitializeComponent();
-            CurrentContent = new BookDialog(selectedBook);
+            CurrentContent = new BookDialog(_bookManager, selectedBook);
             (CurrentContent as BookDialog).CloseDialog += OnCloseDialog;
         }
 
-        public SecondaryWindow(Borrow selectedBorrow)
+        // Constructor for Borrow Dialog
+        public SecondaryWindow(bool isBorrowDialog) : this()
         {
-            InitializeComponent();
-            _borrowRepository = new();
-            _borrowDetailRepository = new();
-            _readerRepository = new();
-            _bookRepository = new();
-            CurrentContent = new BookBorrowDialog(_borrowRepository, _borrowDetailRepository, _readerRepository, _bookRepository , selectedBorrow);
-            (CurrentContent as BookDialog).CloseDialog += OnCloseDialog;
+            if (isBorrowDialog)
+            {
+                CurrentContent = new BookBorrowDialog(_borrowManager, _readerManager, _bookManager);
+                (CurrentContent as BookBorrowDialog).CloseDialog += OnCloseDialog;
+            }
         }
 
-        private void OnCloseDialog(object? sender,bool e = false)
+        private void OnCloseDialog(object? sender, bool e = false)
         {
             DialogResult = e;
-            this.Close();
+            Close();
         }
 
+        // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private object _currentContent;
@@ -77,6 +83,12 @@ namespace Library_GUI
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _unitOfWork.Dispose();
         }
     }
 }

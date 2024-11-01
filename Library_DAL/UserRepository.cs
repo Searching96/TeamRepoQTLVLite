@@ -1,4 +1,5 @@
-﻿using Library_DTO;
+﻿using Library_BUS;
+using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Library_DAL
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly LibraryContext _context;
 
-        public UserRepository()
+        public UserRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(User user)
@@ -36,6 +37,7 @@ namespace Library_DAL
             if (user != null)
             {
                 _context.Readers.Remove(_context.Readers.Find(Username));
+                _context.Admins.Remove(_context.Admins.Find(Username));
                 _context.Users.Remove(user);
                 _context.SaveChanges();
             }

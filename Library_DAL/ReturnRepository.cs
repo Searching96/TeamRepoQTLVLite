@@ -1,4 +1,5 @@
-﻿using Library_DTO;
+﻿using Library_BUS;
+using Library_DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Library_DAL
 {
-    public class ReturnRepository
+    public class ReturnRepository : IReturnRepository
     {
         private readonly LibraryContext _context;
 
-        public ReturnRepository()
+        public ReturnRepository(LibraryContext context)
         {
-            _context = new LibraryContext();
+            _context = context;
         }
 
         public void Add(Return _return)
@@ -49,8 +50,7 @@ namespace Library_DAL
         public bool CheckExists(int ReturnBookId)
         {
             if (ReturnBookId == 0) return false;
-            return false;
-            //return _context.Returns.Any(x => x.ReturnBookId == ReturnBookId);
+            return _context.Returns.Any(x => x.ReturnId == ReturnBookId);
         }
 
         public int Count()

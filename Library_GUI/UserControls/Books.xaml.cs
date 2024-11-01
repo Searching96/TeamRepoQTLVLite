@@ -20,6 +20,7 @@ namespace Library_GUI.UserControls
     public partial class Books : UserControl, INotifyPropertyChanged
     {
         private BookManager _bookManager;
+        private BookRepository _bookRepository = new();
 
         private ObservableCollection<Book> _allBooks;
         private ObservableCollection<Book> _currentPageBooks;
@@ -91,7 +92,7 @@ namespace Library_GUI.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            _bookManager = new();
+            _bookManager = new(_bookRepository);
             LoadBooks();
             MultiSelect = Visibility.Visible;
             GeneratePageButtons();
@@ -120,8 +121,6 @@ namespace Library_GUI.UserControls
             SelectedBooks = selectedItems.Cast<Book>().ToList();
         }
 
-        private BookRepository _bookRepository = new();
-
         public System.Windows.Visibility MultiSelect { get; set; }
 
         private void btn_AddBook_Click(object sender, RoutedEventArgs e)
@@ -130,21 +129,21 @@ namespace Library_GUI.UserControls
             var bookDialog = new SecondaryWindow(_book);
             if (bookDialog.ShowDialog() == true)
             {
-                _bookManager.UpdateBook(_book.BookId, _book.Title);
+                _bookManager.AddBook(_book.Title);
                 LoadBooks();
             }
         }
 
         private void btn_UpdateBook_Click(object sender, RoutedEventArgs e)
         {
-            if (BooksDataGrid.SelectedItems.Count != 1) return;
+            if (BooksDataGrid.SelectedItems.Count > 1 || BooksDataGrid.SelectedItems.Count == 0) return;
             var selectedBook = BooksDataGrid.SelectedItem as Book;
-
-
-            //else if (selectedBook.Debt != 0)
-            //{
-            //    MessageBox.Show("Book owes debt, unable to edit.");
-            //}
+            var bookDialog = new SecondaryWindow(selectedBook);
+            if (bookDialog.ShowDialog() == true)
+            {
+                _bookManager.UpdateBook(selectedBook.BookId, selectedBook.Title);
+                LoadBooks();
+            }
 
         }
 

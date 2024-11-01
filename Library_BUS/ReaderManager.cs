@@ -7,29 +7,33 @@ namespace Library_BUS
 {
     public class ReaderManager
     {
-        private readonly ReaderRepository _readerRepository;
-        private readonly ReaderTypeRepository _readerTypeRepository;
-        private readonly UserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ReaderManager(ReaderRepository readerRepository,
-                             ReaderTypeRepository readerTypeRepository,
-                             UserRepository userRepository)
+        public ReaderManager(IUnitOfWork unitOfWork)
         {
-            _readerRepository = readerRepository;
-            _readerTypeRepository = readerTypeRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        // Method to add a new reader
         public void AddReader(string username, string firstName, string lastName, int readerTypeId, DateTime startDate)
         {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Username cannot be empty", nameof(username));
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentException("First name cannot be empty", nameof(firstName));
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentException("Last name cannot be empty", nameof(lastName));
+            if (readerTypeId <= 0)
+                throw new ArgumentException("Invalid reader type ID", nameof(readerTypeId));
+            if (startDate == default)
+                throw new ArgumentException("Start date must be set", nameof(startDate));
+
             // Check if the user already exists in the user table
-            var user = _userRepository.GetByUsername(username);
+            var user = _unitOfWork.Users.GetByUsername(username);
             if (user == null)
                 throw new InvalidOperationException("The user does not exist in the system.");
 
             // Validate reader type
-            var readerType = _readerTypeRepository.GetById(readerTypeId);
+            var readerType = _unitOfWork.ReaderTypes.GetById(readerTypeId);
             if (readerType == null)
                 throw new InvalidOperationException("Invalid reader type.");
 
@@ -47,77 +51,54 @@ namespace Library_BUS
                 ReaderType = readerType,
                 UsernameNavigation = user
             };
-
-            _readerRepository.Add(reader);
+            
+            _unitOfWork.Readers.Add(reader);
+            _unitOfWork.SaveChanges();
         }
 
-        // Method to update an existing reader's information
-        public void UpdateReader(Reader reader)
+        public Reader GetByUsername(string username)
         {
-            if (reader == null)
-                throw new ArgumentNullException(nameof(reader), "Reader cannot be null");
-
-            _readerRepository.Update(reader);
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Username cannot be empty", nameof(username));
+            
+            return _unitOfWork.Readers.GetByUsername(username);
         }
 
-        // Method to delete a reader
-        public void DeleteReader(string username)
-        {
-            var reader = _readerRepository.GetByUsername(username);
-            if (reader == null)
-                throw new InvalidOperationException("Reader not found.");
-
-            _readerRepository.Remove(reader);
-        }
-
-        // Method to get all readers
         public List<Reader> GetAllReaders()
         {
-            return _readerRepository.GetAll();
+            return _unitOfWork.Readers.GetAll();
         }
 
-        // Method to get a reader by username
-        public Reader GetReaderByUsername(string username)
+        public void UpdateReader(string username, string firstName, string lastName, int readerTypeId)
         {
-            var reader = _readerRepository.GetByUsername(username);
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Username cannot be empty", nameof(username));
+
+            var reader = _unitOfWork.Readers.GetByUsername(username);
             if (reader == null)
-                throw new InvalidOperationException("Reader not found.");
+                throw new InvalidOperationException($"Reader with username {username} not found");
 
-            return reader;
+            reader.FirstName = firstName;
+            reader.LastName = lastName;
+            reader.ReaderTypeId = readerTypeId;
+
+            _unitOfWork.Readers.Update(reader);
+            _unitOfWork.SaveChanges();
         }
 
-        // Method to check if a reader is eligible for borrowing
-        public bool CanBorrow(Reader reader)
+        public void RemoveReader(string username)
         {
-            if (reader == null)
-                throw new ArgumentNullException(nameof(reader), "Reader cannot be null");
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Username cannot be empty", nameof(username));
 
-            // Check if the reader has outstanding debt or has reached the borrowing limit
-            if (reader.TotalDebt > 0)
-                return false;
-
-            var readerType = _readerTypeRepository.GetById(reader.ReaderTypeId);
-            if (readerType == null)
-                throw new InvalidOperationException("Invalid reader type.");
-
-            // Assuming each reader type has a different borrowing limit
-            return reader.CurrentBorrows < 1000/*readerType.MaxBorrows*/;
+            _unitOfWork.Readers.Remove(username);
+            _unitOfWork.SaveChanges();
         }
 
-        // Method to update debt for a reader
-        public void UpdateDebt(string username, decimal additionalDebt)
+        public int Count()
         {
-            var reader = _readerRepository.GetByUsername(username);
-            if (reader == null)
-                throw new InvalidOperationException("Reader not found.");
-
-            reader.TotalDebt += additionalDebt;
-            _readerRepository.Update(reader);
+            return _unitOfWork.Readers.GetAll().Count();
         }
 
-        public List<Reader> GetAllReader()
-        {
-            return _readerRepository.GetAll();
-        }
     }
 }

@@ -18,6 +18,7 @@ namespace Library_GUI.UserControls
         private readonly ReaderManager _readerManager;
         private readonly BookManager _bookManager;
         public EventHandler<bool> CloseDialog;
+        private List<Book> selectedBooks = new List<Book>();
 
         public BookBorrowDialog(BorrowManager borrowManager, ReaderManager readerManager, BookManager bookManager)
         {
@@ -41,14 +42,12 @@ namespace Library_GUI.UserControls
             try
             {
                 var books = _bookManager.GetAllBooks()
-                    .Where(b => b.BorrowId == 0) // Only show available books
+                    .Where(b => b.BorrowId == null)
                     .ToList();
 
                 if (books.Any())
                 {
-                    cmbBooks.ItemsSource = books;
-                    cmbBooks.DisplayMemberPath = "Title";
-                    cmbBooks.SelectedValuePath = "BookId";
+                    lstBooks.ItemsSource = books;
                 }
                 else
                 {
@@ -94,7 +93,6 @@ namespace Library_GUI.UserControls
                 try
                 {
                     var selectedReader = (Reader)cmbReaders.SelectedItem;
-                    var selectedBook = (Book)cmbBooks.SelectedItem;
                     var borrowDate = dpBorrowDate.SelectedDate ?? DateTime.Now;
                     var dueDate = dpDueDate.SelectedDate ?? DateTime.Now.AddDays(14);
 
@@ -105,16 +103,14 @@ namespace Library_GUI.UserControls
                         return;
                     }
 
-                    // Create the book-due date tuple
-                    var bookList = new List<Tuple<Book, DateTime>>
-                    {
-                        Tuple.Create(selectedBook, dueDate)
-                    };
+                    // Create the book-due date tuple list
+                    var bookList = selectedBooks.Select(book => 
+                        Tuple.Create(book, dueDate)).ToList();
 
                     // Process the borrow
                     _borrowManager.ProcessBorrow(selectedReader, bookList, borrowDate);
 
-                    MessageBox.Show("Book borrowed successfully!", "Success",
+                    MessageBox.Show("Books borrowed successfully!", "Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     CloseDialog?.Invoke(this, true);
@@ -127,11 +123,23 @@ namespace Library_GUI.UserControls
             }
         }
 
+        private void lstBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (Book book in e.AddedItems)
+            {
+                selectedBooks.Add(book);
+            }
+            foreach (Book book in e.RemovedItems)
+            {
+                selectedBooks.Remove(book);
+            }
+        }
+
         private bool ValidateInputs()
         {
-            if (cmbBooks.SelectedItem == null)
+            if (!selectedBooks.Any())
             {
-                MessageBox.Show("Please select a book.", "Validation Error",
+                MessageBox.Show("Please select at least one book.", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }

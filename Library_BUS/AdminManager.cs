@@ -7,63 +7,37 @@ namespace Library_BUS
 {
     public class AdminManager
     {
-        private readonly AdminRepository _adminRepository;
-        private readonly UserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AdminManager(AdminRepository adminRepository, UserRepository userRepository)
+        public AdminManager(IUnitOfWork unitOfWork)
         {
-            _adminRepository = adminRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public void AddAdmin(string username, string firstName, string lastName)
+        public void AddAdmin(string username, string firstname, string lastname)
         {
-            // Check if user exists first
-            var user = _userRepository.GetByUsername(username);
-            if (user == null)
-                throw new InvalidOperationException("The user does not exist in the system.");
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(firstname) || string.IsNullOrWhiteSpace(lastname))
+                throw new ArgumentException("Username and password are required.");
 
-            // Create new admin
-            var admin = new Admin
-            {
-                Username = username,
-                FirstName = firstName,
-                LastName = lastName,
-                UsernameNavigation = user
-            };
-
-            _adminRepository.Add(admin);
+            var admin = new Admin { Username = username, FirstName = firstname, LastName = lastname };
+            _unitOfWork.Admins.Add(admin);
+            _unitOfWork.SaveChanges();
         }
 
-        public void UpdateAdmin(string username, string firstName, string lastName)
+        public Admin GetByUsername(string username)
         {
-            var admin = _adminRepository.GetByUsername(username);
-            if (admin == null)
-                throw new InvalidOperationException("Admin not found.");
-
-            admin.FirstName = firstName;
-            admin.LastName = lastName;
-
-            _adminRepository.Update(admin);
-        }
-
-        public void RemoveAdmin(string username)
-        {
-            var admin = _adminRepository.GetByUsername(username);
-            if (admin == null)
-                throw new InvalidOperationException("Admin not found.");
-
-            _adminRepository.Remove(username);
-        }
-
-        public Admin GetAdminByUsername(string username)
-        {
-            return _adminRepository.GetByUsername(username);
+            return _unitOfWork.Admins.GetByUsername(username);
         }
 
         public List<Admin> GetAllAdmins()
         {
-            return _adminRepository.GetAll();
+            return _unitOfWork.Admins.GetAll();
         }
+
+        public int Count()
+        {
+            return _unitOfWork.Admins.GetAll().Count();
+        }
+
     }
 }

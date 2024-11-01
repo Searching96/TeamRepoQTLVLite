@@ -19,44 +19,96 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class UserDialog : UserControl
     {
+        private readonly UserManager _userManager;
+        private readonly ReaderManager _readerManager;
         public User User { get; private set; }
-
-        private UserRepository _userRepository = new();
-
-        private ReaderRepository _readerContext = new();
-
         public EventHandler<bool> CloseDialog;
 
-        public UserDialog(User? user = null)
+        public UserDialog(UserManager userManager, ReaderManager readerManager, User? user = null)
         {
             InitializeComponent();
+            _userManager = userManager;
+            _readerManager = readerManager;
             User = user ?? new User();
+
+            if (user != null)
+            {
+                PopulateFields(user);
+            }
+        }
+
+        private void PopulateFields(User user)
+        {
+            txbUsername.Text = user.Username;
+            txbPassword.Text = user.Password;
+            txbEmail.Text = user.Email;
+            // Add other fields as needed
         }
 
         private void UserSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txbUsername.Text) || string.IsNullOrWhiteSpace(txbPassword.Text))
+            if (ValidateInputs())
             {
-                MessageBox.Show("Please fill in all fields.");
+                try
+                {
+                    User.Username = txbUsername.Text;
+                    User.Password = txbPassword.Text;
+                    User.Email = txbEmail.Text;
+                    User.TypeOfUser = "Reader"; // Default type for new users
+
+                    if (User.Username != null && _userManager.GetByUsername(User.Username) != null)
+                    {
+                        _userManager.UpdateUser(User.Username,User.Password,User.TypeOfUser, User.Email);
+                    }
+                    else
+                    {
+                        _userManager.AddUser(User.Username, User.Password, User.TypeOfUser, User.Email);
+                        
+                        // Create associated reader
+                        var reader = new Reader 
+                        { 
+                            Username = User.Username,
+                            // Add other reader properties as needed
+                        };
+                        _readerManager.AddReader(reader.Username,reader.FirstName, reader.LastName, reader.ReaderTypeId,reader.StartDate);
+                    }
+
+                    MessageBox.Show("User saved successfully!", "Success", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CloseDialog?.Invoke(this, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error saving user: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txbUsername.Text))
             {
-                User.Username = txbUsername.Text;
-                User.Password = txbPassword.Text;
-                User.Email = txbEmail.Text;
-                User.TypeOfUser = "Reader";
-                if (_userRepository.GetByUsername(txbUsername.Text) != null)
-                {
-                    _userRepository.Update(User);
-                }
-                else
-                {
-                    _userRepository.Add(User);
-                    Reader newReader = new Reader {Username = User.Username};
-                    _readerContext.Add(newReader);
-                }
+                MessageBox.Show("Please enter a username.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
-            CloseDialog?.Invoke(this, true);
+
+            if (string.IsNullOrWhiteSpace(txbPassword.Text))
+            {
+                MessageBox.Show("Please enter a password.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txbEmail.Text))
+            {
+                MessageBox.Show("Please enter an email address.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
         }
 
         private void UserCancelButton_Click(object sender, RoutedEventArgs e)
