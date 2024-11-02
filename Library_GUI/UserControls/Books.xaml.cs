@@ -19,13 +19,40 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class Books : UserControl, INotifyPropertyChanged
     {
-        private BookManager _bookManager;
-        private BookRepository _bookRepository = new();
-
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly BookManager _bookManager;
         private ObservableCollection<Book> _allBooks;
         private ObservableCollection<Book> _currentPageBooks;
-        private int _itemsPerPage = 10;
+        private readonly int _itemsPerPage = 10;
         private int _currentPage = 1;
+        private string _search;
+        private List<Book> _selectedBooks;
+        private Visibility _multiSelect;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Books(IUnitOfWork unitOfWork, BookManager bookManager)
+        {
+            InitializeComponent();
+            DataContext = this;
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _bookManager = bookManager ?? throw new ArgumentNullException(nameof(bookManager));
+            
+            LoadBooks();
+            MultiSelect = Visibility.Hidden;
+            GeneratePageButtons();
+        }
+
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                _search = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<Book> CurrentPageBooks
         {
             get => _currentPageBooks;
@@ -36,42 +63,6 @@ namespace Library_GUI.UserControls
             }
         }
 
-        public int CurrentPage
-        {
-            get => _currentPage;
-            set
-            {
-                _currentPage = value;
-                OnPropertyChanged();
-                UpdateCurrentPageBooks();
-            }
-        }
-
-        private void UpdateCurrentPageBooks()
-        {
-            CurrentPageBooks = new ObservableCollection<Book>(
-                _allBooks.Skip((CurrentPage - 1) * _itemsPerPage)
-                           .Take(_itemsPerPage)
-                           .ToList());
-        }
-
-        public int TotalPages => (int)Math.Ceiling((double)_allBooks.Count / _itemsPerPage);
-
-        private string _search;
-        public string Search
-        {
-            get => _search;
-            set
-            {
-                if (_search != value)
-                {
-                    _search = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private List<Book> _selectedBooks;
         public List<Book> SelectedBooks
         {
             get => _selectedBooks;
@@ -79,128 +70,141 @@ namespace Library_GUI.UserControls
             {
                 _selectedBooks = value;
                 OnPropertyChanged();
+                MultiSelect = value?.Count > 1 ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public Visibility MultiSelect
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _multiSelect;
+            set
+            {
+                _multiSelect = value;
+                OnPropertyChanged();
+            }
         }
 
-        public Books()
+        public int CurrentPage
         {
-            InitializeComponent();
-            DataContext = this;
-            _bookManager = new(_bookRepository);
-            LoadBooks();
-            MultiSelect = Visibility.Visible;
-            GeneratePageButtons();
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                UpdateCurrentPageBooks();
+                OnPropertyChanged();
+            }
         }
+
+        public int TotalPages => (int)Math.Ceiling((_allBooks?.Count ?? 0) / (double)_itemsPerPage);
 
         private void LoadBooks()
         {
-            using (var context = new LibraryManagementContext())
+            try
             {
-                _allBooks = new ObservableCollection<Book>(
-                    context.Books.ToList());
+                _allBooks = new ObservableCollection<Book>(_bookManager.GetAllBooks());
                 UpdateCurrentPageBooks();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading books: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void UpdateCurrentPageBooks()
+        {
+            if (_allBooks == null) return;
+
+            var filteredBooks = string.IsNullOrEmpty(Search)
+                ? _allBooks
+                : new ObservableCollection<Book>(
+                    _allBooks.Where(b => 
+                        b.Title.Contains(Search, StringComparison.OrdinalIgnoreCase)));
+
+            CurrentPageBooks = new ObservableCollection<Book>(
+                filteredBooks
+                    .Skip((CurrentPage - 1) * _itemsPerPage)
+                    .Take(_itemsPerPage));
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is Books viewModel)
-            {
-                viewModel.UpdateSelectedBooks(BooksDataGrid.SelectedItems);
-            }
+            UpdateSelectedBooks(BooksDataGrid.SelectedItems);
         }
-
-        public void UpdateSelectedBooks(IList selectedItems)
-        {
-            SelectedBooks = selectedItems.Cast<Book>().ToList();
-        }
-
-        public System.Windows.Visibility MultiSelect { get; set; }
 
         private void btn_AddBook_Click(object sender, RoutedEventArgs e)
         {
-            var _book = new Book();
-            var bookDialog = new SecondaryWindow(_book);
+            var book = new Book();
+            var bookDialog = new SecondaryWindow(_unitOfWork, _bookManager, book);
             if (bookDialog.ShowDialog() == true)
             {
-                _bookManager.AddBook(_book.Title);
                 LoadBooks();
+                GeneratePageButtons();
             }
         }
 
         private void btn_UpdateBook_Click(object sender, RoutedEventArgs e)
         {
-            if (BooksDataGrid.SelectedItems.Count > 1 || BooksDataGrid.SelectedItems.Count == 0) return;
-            var selectedBook = BooksDataGrid.SelectedItem as Book;
-            var bookDialog = new SecondaryWindow(selectedBook);
-            if (bookDialog.ShowDialog() == true)
+            if (sender is Button button && button.DataContext is Book selectedBook)
             {
-                _bookManager.UpdateBook(selectedBook.BookId, selectedBook.Title);
-                LoadBooks();
-            }
-
-        }
-
-        private void btn_DeleteBook_Click (object sender, RoutedEventArgs e)
-        {
-            foreach (var Book in SelectedBooks)
-            {
-                if (Book == null)
+                var bookDialog = new SecondaryWindow(_unitOfWork, _bookManager, selectedBook);
+                if (bookDialog.ShowDialog() == true)
                 {
-                    MessageBox.Show("Please select a book to delete.");
-                    continue;
-                }
-                else if (Book.BookId != 0)
-                {
-                    MessageBox.Show("Book is borrowed, unable to delete.");
-                    continue;
-                }
-                else
-                {
-                    _bookManager.RemoveBook(Book.BookId);
                     LoadBooks();
+                    GeneratePageButtons();
                 }
-                //else if (selectedBook.Debt != 0)
-                //{
-                //    MessageBox.Show("Book owes debt, unable to delete.");
-                //    continue;
-                //}
-
             }
         }
 
-        private void Books_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btn_DeleteBook_Click(object sender, RoutedEventArgs e)
         {
-            if (BooksDataGrid.SelectedItems.Count > 1)
-                MultiSelect = Visibility.Visible;
-            else
-                MultiSelect = Visibility.Hidden;
+            if (sender is Button button)
+            {
+                var bookToDelete = button.DataContext as Book ?? SelectedBooks?.FirstOrDefault();
+                if (bookToDelete == null)
+                {
+                    MessageBox.Show("Please select a book to delete.", "Warning",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (bookToDelete.BorrowId.HasValue)
+                {
+                    MessageBox.Show("Cannot delete a borrowed book.", "Warning",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var result = MessageBox.Show("Are you sure you want to delete this book?", "Confirm Delete",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _bookManager.RemoveBook(bookToDelete.BookId);
+                        LoadBooks();
+                        GeneratePageButtons();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting book: {ex.Message}", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
 
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new LibraryManagementContext())
-            {
-                var query = context.Books.AsQueryable();
+            CurrentPage = 1;
+            UpdateCurrentPageBooks();
+            GeneratePageButtons();
+        }
 
-                if (!string.IsNullOrEmpty(Search))
-                {
-                    query = query.Where(r =>
-                    r.Title.Contains(Search));
-                    _allBooks = new ObservableCollection<Book>(query.ToList());
-                }
-                else
-                {
-                    _allBooks = new ObservableCollection<Book>(
-                        context.Books.ToList());
-                }
-            }
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         //Pagination
@@ -288,6 +292,11 @@ namespace Library_GUI.UserControls
             };
             button.Click += clickHandler;
             return button;
+        }
+
+        public void UpdateSelectedBooks(IList selectedItems)
+        {
+            SelectedBooks = selectedItems.Cast<Book>().ToList();
         }
     }
 }

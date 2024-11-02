@@ -6,9 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using MessageBox = System.Windows.Forms.MessageBox;
-using UserControl = System.Windows.Controls.UserControl;
 
 namespace Library_GUI.UserControls
 {
@@ -20,13 +17,11 @@ namespace Library_GUI.UserControls
         public EventHandler<bool> CloseDialog;
         private List<Book> selectedBooks = new List<Book>();
 
-        public BookBorrowDialog(BorrowManager borrowManager, ReaderManager readerManager, BookManager bookManager)
+        public BookBorrowDialog(BorrowManager borrowManager)
         {
             InitializeComponent();
 
             _borrowManager = borrowManager;
-            _readerManager = readerManager;
-            _bookManager = bookManager;
             DataContext = this;
 
             // Set default dates
@@ -52,13 +47,13 @@ namespace Library_GUI.UserControls
                 else
                 {
                     MessageBox.Show("No available books found.", "Information",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading books: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -76,13 +71,13 @@ namespace Library_GUI.UserControls
                 else
                 {
                     MessageBox.Show("No readers found.", "Information",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading readers: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -99,7 +94,7 @@ namespace Library_GUI.UserControls
                     if (!_readerManager.CanBorrow(selectedReader))
                     {
                         MessageBox.Show("This reader cannot borrow more books.", "Validation Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
@@ -111,14 +106,14 @@ namespace Library_GUI.UserControls
                     _borrowManager.ProcessBorrow(selectedReader, bookList, borrowDate);
 
                     MessageBox.Show("Books borrowed successfully!", "Success",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBoxButton.OK, MessageBoxImage.Information);
 
                     CloseDialog?.Invoke(this, true);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error processing borrow: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -140,35 +135,35 @@ namespace Library_GUI.UserControls
             if (!selectedBooks.Any())
             {
                 MessageBox.Show("Please select at least one book.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
             if (cmbReaders.SelectedItem == null)
             {
                 MessageBox.Show("Please select a reader.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
             if (!dpBorrowDate.SelectedDate.HasValue)
             {
                 MessageBox.Show("Please select a borrow date.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
             if (!dpDueDate.SelectedDate.HasValue)
             {
                 MessageBox.Show("Please select a due date.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
             if (dpDueDate.SelectedDate < dpBorrowDate.SelectedDate)
             {
                 MessageBox.Show("Due date cannot be earlier than borrow date.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 

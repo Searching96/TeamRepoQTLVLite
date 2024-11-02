@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Library_GUI;
+using Library_BUS;
 
 namespace Library_GUI
 {
@@ -29,25 +30,27 @@ namespace Library_GUI
         {
             InitializeComponent();
             LoadSettings();
-
+            _unitOfWork = new(_libraryContext);
+            _userManager = new(_unitOfWork);
         }
         public event EventHandler<string> SwitchControlRequested;
         public event EventHandler<User> LoginSucceeded;
-        private UserRepository context;
+        private UserManager _userManager;
+        private LibraryContext _libraryContext = new();
+        private UnitOfWork _unitOfWork;
 
         public bool Remember { get; set; }
 
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
             //login code
-            User user = new User { Username = txbUsername.Text, Password = txbPassword.Password };
-            context = new();
-            if (context.CheckExist(user))
+            if (_userManager.ValidateUser(txbUsername.Text, txbPassword.Password))
             {
                 MessageBox.Show("Login succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 if (Remember)
                     SaveSettings();
                 else ClearSettings();
+                User user = _userManager.GetByUsername(txbUsername.Text);
                 LoginSucceeded?.Invoke(this, user);
             }
             else

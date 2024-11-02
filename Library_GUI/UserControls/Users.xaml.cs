@@ -20,6 +20,7 @@ namespace Library_GUI.UserControls
     public partial class Users : UserControl, INotifyPropertyChanged
     {
         private UserManager _userManager;
+        private ReaderManager _readerManager;
         private LibraryContext _context = new();
         private UnitOfWork _unitOfWork;
 
@@ -89,12 +90,13 @@ namespace Library_GUI.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Users()
+        public Users(IUnitOfWork unitOfWork)
         {
             InitializeComponent();
             DataContext = this;
             _unitOfWork = new(_context);
             _userManager = new(_unitOfWork);
+            _readerManager = new(_unitOfWork);
             LoadReaders();
             MultiSelect = Visibility.Visible;
             GeneratePageButtons();
@@ -130,7 +132,7 @@ namespace Library_GUI.UserControls
         private void btn_AddUser_Click(object sender, RoutedEventArgs e)
         {
             var _user = new User();
-            var userDialog = new SecondaryWindow(_user);
+            var userDialog = new SecondaryWindow(_unitOfWork, _userManager);
             if (userDialog.ShowDialog() == true)
             {
                 LoadReaders();
@@ -143,7 +145,7 @@ namespace Library_GUI.UserControls
             var selectedUser = UsersDataGrid.SelectedItem as Reader;
             if (selectedUser != null && selectedUser.CurrentBorrows == 0)
             {
-                var userDialog = new SecondaryWindow(selectedUser.UsernameNavigation);
+                var userDialog = new SecondaryWindow(_unitOfWork, _userManager, _readerManager, selectedUser.UsernameNavigation);
                 if (userDialog.ShowDialog() == true)
                 {
                     LoadReaders();

@@ -28,8 +28,8 @@ namespace Library_GUI
         private LibraryContext _context = new();
         private UnitOfWork _unitOfWork;
 
-        private UserManager _userContext = new();
-        private ReaderManager _readerContext = new();
+        private UserManager _userContext;
+        private ReaderManager _readerContext;
         public event EventHandler<string> SwitchControlRequested;
         public event EventHandler<User> LoginSucceeded;
         public InputSignUp()
@@ -48,8 +48,7 @@ namespace Library_GUI
             if (_userContext.GetByUsername(newUser.Username) == null)
             {
                 _userContext.AddUser(txbUsername.Text, txbPassword.Password, txbEmail.Text, "Reader");
-                Reader newReader = new Reader { Username = newUser.Username };
-                _readerContext.Add(newReader);
+                _readerContext.AddReader(newUser.Username, "", "", 1, DateTime.Now);
                 MessageBox.Show("Register succesfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoginSucceeded?.Invoke(this, newUser);
             }

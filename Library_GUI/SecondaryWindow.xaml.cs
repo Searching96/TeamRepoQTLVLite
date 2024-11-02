@@ -36,28 +36,41 @@ namespace Library_GUI
             InitializeComponent();
         }
 
-        // Constructor for User Dialog
-        public SecondaryWindow(User selectedUser) : this()
+        // Constructor for Borrow Dialog
+        public SecondaryWindow(
+            IUnitOfWork unitOfWork,
+            BorrowManager borrowManager) : this()
         {
-            CurrentContent = new UserDialog(_userManager, _readerManager, selectedUser);
-            (CurrentContent as UserDialog).CloseDialog += OnCloseDialog;
+            InitializeComponent();
+            
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _borrowManager = borrowManager ?? throw new ArgumentNullException(nameof(borrowManager));
+
+            CurrentContent = new BookBorrowDialog(_borrowManager);
+            (CurrentContent as BookBorrowDialog).CloseDialog += OnCloseDialog;
         }
 
-        // Constructor for Book Dialog
-        public SecondaryWindow(Book selectedBook) : this()
+        // Constructor for book dialog
+        public SecondaryWindow(IUnitOfWork unitOfWork, BookManager bookManager, Book? selectedBook)
         {
+            InitializeComponent();
+            
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _bookManager = bookManager ?? throw new ArgumentNullException(nameof(bookManager));
+
             CurrentContent = new BookDialog(_bookManager, selectedBook);
             (CurrentContent as BookDialog).CloseDialog += OnCloseDialog;
         }
 
-        // Constructor for Borrow Dialog
-        public SecondaryWindow(bool isBorrowDialog) : this()
+        // Constructor for user dialog
+        public SecondaryWindow(IUnitOfWork unitOfWork, UserManager userManager, ReaderManager readerManager, User? selectedUser)
         {
-            if (isBorrowDialog)
-            {
-                CurrentContent = new BookBorrowDialog(_borrowManager, _readerManager, _bookManager);
-                (CurrentContent as BookBorrowDialog).CloseDialog += OnCloseDialog;
-            }
+            InitializeComponent();
+            
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+
+            CurrentContent = new UserDialog(userManager, readerManager, selectedUser);
+            (CurrentContent as UserDialog).CloseDialog += OnCloseDialog;
         }
 
         private void OnCloseDialog(object? sender, bool e = false)

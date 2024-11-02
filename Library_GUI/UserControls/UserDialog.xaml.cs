@@ -8,9 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using MessageBox = System.Windows.Forms.MessageBox;
-using UserControl = System.Windows.Controls.UserControl;
 
 namespace Library_GUI.UserControls
 {
@@ -74,13 +71,13 @@ namespace Library_GUI.UserControls
                     }
 
                     MessageBox.Show("User saved successfully!", "Success", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     CloseDialog?.Invoke(this, true);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error saving user: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -90,21 +87,21 @@ namespace Library_GUI.UserControls
             if (string.IsNullOrWhiteSpace(txbUsername.Text))
             {
                 MessageBox.Show("Please enter a username.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txbPassword.Text))
             {
                 MessageBox.Show("Please enter a password.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txbEmail.Text))
             {
                 MessageBox.Show("Please enter an email address.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 

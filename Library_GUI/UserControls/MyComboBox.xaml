@@ -1,0 +1,54 @@
+<UserControl x:Class="Library_GUI.UserControls.MyComboBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="lblCaption" 
+                   Text="{Binding Caption}" 
+                   Foreground="#69717D" 
+                   FontSize="13" 
+                   Margin="0,0,0,8"/>
+
+        <Border Background="#ffffff" 
+                CornerRadius="5" 
+                BorderThickness="1" 
+                BorderBrush="#E1E6EB">
+            
+            <Grid>
+                <ComboBox x:Name="comboBox"
+                         ItemsSource="{Binding ItemsSource}"
+                         SelectedItem="{Binding SelectedItem}"
+                         DisplayMemberPath="{Binding DisplayMemberPath}"
+                         SelectedValuePath="{Binding SelectedValuePath}"
+                         Height="40"
+                         BorderThickness="0"
+                         VerticalContentAlignment="Center"
+                         Padding="15,0,35,0">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White"/>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#7950F2"/>
+                    </ComboBox.Resources>
+                    <ComboBox.Style>
+                        <Style TargetType="ComboBox">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Style>
+                </ComboBox>
+
+                <Icon:PackIconMaterial Kind="ChevronDown"
+                                     Width="15" Height="15"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Right"
+                                     Margin="0,0,10,0"
+                                     Foreground="#B0B9C6"/>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl> 

@@ -86,6 +86,11 @@ namespace Library_BUS
             _unitOfWork.SaveChanges();
         }
 
+        public bool CanBorrow(Reader reader)
+        {
+            return true;
+        }
+
         public void RemoveReader(string username)
         {
             if (string.IsNullOrWhiteSpace(username))

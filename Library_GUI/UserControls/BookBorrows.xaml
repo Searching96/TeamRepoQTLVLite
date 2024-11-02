@@ -39,13 +39,6 @@
                         <TextBlock Text="New Borrowing"/>
                     </StackPanel>
                 </Button>
-
-                <Button Style="{StaticResource addButton}" Visibility="{Binding MultiSelect}" Click="btn_DeleteBorrow_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Delete" VerticalAlignment="Center" Margin="0 1 8 0" Width="15" Height="11"/>
-                        <TextBlock Text="Delete Records"/>
-                    </StackPanel>
-                </Button>
             </StackPanel>
 
             <!--Separator-->
@@ -89,28 +82,11 @@
                       Style="{DynamicResource DataGridStyle1}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" Binding="{Binding BorrowId}" IsReadOnly="True" Width="0.2*"/>
-                    <DataGridTextColumn Header="Book Title" Binding="{Binding BookTitle}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Member Name" Binding="{Binding MemberName}" IsReadOnly="True" Width="0.8*"/>
-                    <DataGridTextColumn Header="Borrow Date" Binding="{Binding BorrowDate}" IsReadOnly="True" Width="0.6*"/>
-                    <DataGridTextColumn Header="Due Date" Binding="{Binding DueDate}" IsReadOnly="True" Width="0.6*"/>
+                    <DataGridTextColumn Header="Books" Binding="{Binding BookTitles}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Member" Binding="{Binding Username}" IsReadOnly="True" Width="0.8*"/>
+                    <DataGridTextColumn Header="Borrow Date" Binding="{Binding BorrowDate, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="0.6*"/>
+                    <DataGridTextColumn Header="Due Date" Binding="{Binding DueDate, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="0.6*"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" IsReadOnly="True" Width="0.4*"/>
-                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource gridEditButton}" ToolTip="Edit Record">
-                                        <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                    <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" ToolTip="Delete Record">
-                                        <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                    <Button Margin="5 0 0 0" Style="{StaticResource gridEditButton}" ToolTip="Mark as Returned">
-                                        <Icon:PackIconMaterial Kind="BookCheck" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

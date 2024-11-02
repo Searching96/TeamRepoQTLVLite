@@ -18,14 +18,26 @@ namespace Library_GUI.UserControls
     /// </summary>
     public partial class BookBorrows : UserControl, INotifyPropertyChanged
     {
-        private LibraryContext _context = new();
-        private UnitOfWork _unitOfWork;
-
-        private BorrowManager _borrowManager;
-
-        public System.Windows.Visibility MultiSelect { get; set; }
-
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly BorrowManager _borrowManager;
+        private ObservableCollection<BorrowViewModel> _allBookBorrows;
+        private ObservableCollection<BorrowViewModel> _currentPageBookBorrows;
+        private readonly int _itemsPerPage = 10;
+        private int _currentPage = 1;
         private string _search;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public BookBorrows(IUnitOfWork unitOfWork, BorrowManager borrowManager)
+        {
+            InitializeComponent();
+            DataContext = this;
+            _unitOfWork = unitOfWork;
+            _borrowManager = borrowManager;
+            LoadBookBorrows();
+            GeneratePageButtons();
+        }
+
         public string Search
         {
             get => _search;
@@ -39,100 +51,7 @@ namespace Library_GUI.UserControls
             }
         }
 
-        private List<Borrow> _selectedBookBorrows;
-        public List<Borrow> SelectedBookBorrows
-        {
-            get => _selectedBookBorrows;
-            set
-            {
-                _selectedBookBorrows = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public BookBorrows()
-        {
-            InitializeComponent();
-            DataContext = this;
-            _unitOfWork = new(_context);
-            _borrowManager = new(_unitOfWork);
-            LoadBookBorrows();
-            MultiSelect = Visibility.Visible;
-            GeneratePageButtons();
-        }
-
-        private void LoadBookBorrows()
-        {
-            _allBookBorrows = new ObservableCollection<Borrow>(_borrowManager.GetAllBorrows());
-            UpdateCurrentPageBookBorrows();
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (DataContext is BookBorrows viewModel)
-            {
-                viewModel.UpdateSelectedBookBorrows(BookBorrowsDataGrid.SelectedItems);
-            }
-        }
-
-        public void UpdateSelectedBookBorrows(IList selectedItems)
-        {
-            SelectedBookBorrows = selectedItems.Cast<Borrow>().ToList();
-        }
-
-        private void btn_AddBorrow_Click(object sender, RoutedEventArgs e)
-        {
-            var borrowDialog = new SecondaryWindow(true);
-            if (borrowDialog.ShowDialog() == true)
-            {
-                LoadBookBorrows();
-            }
-        }
-
-        private void BookBorrows_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (BookBorrowsDataGrid.SelectedItems.Count > 1)
-                MultiSelect = Visibility.Visible;
-            else
-                MultiSelect = Visibility.Hidden;
-        }
-
-
-        private void btn_Search_Click(object sender, RoutedEventArgs e)
-        {
-            using (var context = new LibraryManagementContext())
-            {
-                var query = context.Borrows.AsQueryable();
-
-                if (!string.IsNullOrEmpty(Search))
-                {
-                    query = query.Where(r =>
-                        r.Username.Contains(Search));
-                }
-
-                _allBookBorrows = new ObservableCollection<Borrow>(
-                    query.ToList());
-
-                CurrentPage = 1;
-                UpdateCurrentPageBookBorrows();
-                GeneratePageButtons();
-            }
-        }
-
-        /* Pagination */
-
-        private ObservableCollection<Borrow> _allBookBorrows;
-        private ObservableCollection<Borrow> _currentPageBookBorrows;
-        private int _itemsPerPage = 10;
-        private int _currentPage = 1;
-
-        public ObservableCollection<Borrow> CurrentPageBookBorrows
+        public ObservableCollection<BorrowViewModel> CurrentPageBookBorrows
         {
             get => _currentPageBookBorrows;
             set
@@ -155,14 +74,82 @@ namespace Library_GUI.UserControls
 
         public int TotalPages => (int)Math.Ceiling((double)_allBookBorrows.Count / _itemsPerPage);
 
-        private void UpdateCurrentPageBookBorrows()
+        private void LoadBookBorrows()
         {
-            CurrentPageBookBorrows = new ObservableCollection<Borrow>(
-                _allBookBorrows.Skip((CurrentPage - 1) * _itemsPerPage)
-                           .Take(_itemsPerPage)
-                           .ToList());
+            try
+            {
+                var borrows = _borrowManager.GetAllBorrows();
+                var borrowsWithDetails = borrows.Select(b => new BorrowViewModel
+                {
+                    BorrowId = b.BorrowId,
+                    Username = b.Username,
+                    BorrowDate = b.Date,
+                    Books = _unitOfWork.BorrowDetails
+                        .GetByBorrowId(b.BorrowId)
+                        .Select(bd => _unitOfWork.Books.GetById(bd.BookId))
+                        .ToList(),
+                    DueDate = _unitOfWork.BorrowDetails
+                        .GetByBorrowId(b.BorrowId)
+                        .FirstOrDefault()?.EndDate ?? DateTime.MinValue
+                }).ToList();
+
+                _allBookBorrows = new ObservableCollection<BorrowViewModel>(borrowsWithDetails);
+                UpdateCurrentPageBookBorrows();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading borrows: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+        private void UpdateCurrentPageBookBorrows()
+        {
+            var filteredBorrows = string.IsNullOrEmpty(Search)
+                ? _allBookBorrows
+                : new ObservableCollection<BorrowViewModel>(
+                    _allBookBorrows.Where(b =>
+                        b.Username.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
+                        b.BookTitles.Contains(Search, StringComparison.OrdinalIgnoreCase)));
+
+            CurrentPageBookBorrows = new ObservableCollection<BorrowViewModel>(
+                filteredBorrows
+                    .Skip((CurrentPage - 1) * _itemsPerPage)
+                    .Take(_itemsPerPage));
+        }
+
+        private void btn_Search_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPage = 1;
+            UpdateCurrentPageBookBorrows();
+            GeneratePageButtons();
+        }
+
+        private void btn_AddBorrow_Click(object sender, RoutedEventArgs e)
+        {
+            var borrowDialog = new SecondaryWindow(_unitOfWork, _borrowManager);
+            if (borrowDialog.ShowDialog() == true)
+            {
+                LoadBookBorrows();
+                GeneratePageButtons();
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is DataGrid grid)
+            {
+                var selectedBorrows = grid.SelectedItems.Cast<BorrowViewModel>().ToList();
+                // Handle selection change if needed
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // Pagination methods remain the same but use BorrowViewModel instead of Borrow
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentPage > 1)
@@ -246,6 +233,33 @@ namespace Library_GUI.UserControls
             };
             button.Click += clickHandler;
             return button;
+        }
+    }
+
+    public class BorrowViewModel : INotifyPropertyChanged
+    {
+        public int BorrowId { get; set; }
+        public string Username { get; set; }
+        public DateTime BorrowDate { get; set; }
+        private List<Book> _books;
+        public List<Book> Books
+        {
+            get => _books;
+            set
+            {
+                _books = value;
+                OnPropertyChanged(nameof(Books));
+                OnPropertyChanged(nameof(BookTitles));
+            }
+        }
+        public DateTime DueDate { get; set; }
+        public string BookTitles => string.Join(", ", Books?.Select(b => b.Title) ?? Array.Empty<string>());
+        public string Status => DateTime.Now > DueDate ? "Overdue" : "Active";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

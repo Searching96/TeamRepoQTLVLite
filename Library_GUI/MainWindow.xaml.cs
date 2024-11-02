@@ -13,20 +13,27 @@ namespace Library_GUI
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private UnitOfWork _unitOfWork;
-        LibraryContext _context = new();
-        private ReaderManager _readerManager;
-        private AdminManager _adminManager;
+        // Example of creating BookBorrows control
+        UnitOfWork unitOfWork;
+        BorrowManager _borrowManager;
+        BookManager _bookManager;
+        ReaderManager _readerManager;
+        AdminManager _adminManager;
+        UserManager _userManager;
 
         public MainWindow(User user)
         {
             InitializeComponent();
-            _unitOfWork = new(_context);
-            _readerManager = new(_unitOfWork);
+            unitOfWork = new(new LibraryContext());
+            _borrowManager = new(unitOfWork);
+            _bookManager = new(unitOfWork);
+            _readerManager = new(unitOfWork);
+            _adminManager = new(unitOfWork);
+            _userManager = new(unitOfWork);
             var _reader = _readerManager.GetByUsername(user.Username);
             if (_reader == null)
             {
-                _adminManager = new(_unitOfWork);
+                _adminManager = new(unitOfWork);
                 _user = _adminManager.GetByUsername(user.Username);
                 DisplayName = (_user as Admin).LastName;
                 CurrentContent = new Dashboard(_user as Admin);
@@ -98,7 +105,7 @@ namespace Library_GUI
 
         private void btn_Users_Click(object sender, RoutedEventArgs e)
         {
-            CurrentContent = new Users();
+            CurrentContent = new Users(unitOfWork, _userManager, _readerManager);
             (CurrentButton as Button).Style = this.FindResource("menuButton") as Style;
             (sender as Button).Style = this.FindResource("menuButtonActive") as Style;
             CurrentButton = sender;
@@ -116,7 +123,7 @@ namespace Library_GUI
 
         private void btn_Borrows_Click(object sender, RoutedEventArgs e)
         {
-            CurrentContent = new BookBorrows();
+            CurrentContent = new BookBorrows(unitOfWork,_borrowManager);
             (CurrentButton as Button).Style = this.FindResource("menuButton") as Style;
             (sender as Button).Style = this.FindResource("menuButtonActive") as Style;
             CurrentButton = sender;
@@ -124,7 +131,7 @@ namespace Library_GUI
 
         private void btn_Books_Click(object sender, RoutedEventArgs e)
         {
-            CurrentContent = new Books();
+            CurrentContent = new Books(unitOfWork, _bookManager);
             (CurrentButton as Button).Style = this.FindResource("menuButton") as Style;
             (sender as Button).Style = this.FindResource("menuButtonActive") as Style;
             CurrentButton = sender;
