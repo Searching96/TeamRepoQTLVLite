@@ -87,7 +87,7 @@ namespace LMS {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/LMS;component/viewbook.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/LMS;V1.0.0.0;component/viewbook.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ViewBook.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

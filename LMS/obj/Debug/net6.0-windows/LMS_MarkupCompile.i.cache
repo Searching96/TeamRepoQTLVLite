@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Visual studio\Project\LMS\obj\Debug\net6.0-windows\
+E:\LTTQ\TeamRepoQTLVLite\LMS\obj\Debug\net6.0-windows\
 LMS
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-E:\Visual studio\Project\LMS\App.xaml
+E:\LTTQ\TeamRepoQTLVLite\LMS\App.xaml
 121428289738
 
 21-425189566
 1971815133506
 AddBook.xaml;BookFinder.xaml;LoginScreen.xaml;MainWindow.xaml;PDashBoard.xaml;PQuanLiMuonTra.xaml;UpdateBook.xaml;UserWindow.xaml;ViewBook.xaml;WAddAuthor.xaml;WAddNewAuthor.xaml;WBorrowBookCard.xaml;
 
-True
+False
 

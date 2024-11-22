@@ -1,62 +1,62 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Visual studio\\Project\\LMS\\",
+  "WorkspaceRootPath": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\updatebook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:updatebook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\viewbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:viewbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\viewbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:viewbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\addbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:addbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\addbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:addbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\pquanlimuontra.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:pquanlimuontra.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\pquanlimuontra.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:pquanlimuontra.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\cphieumuon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:cphieumuon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\userwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:userwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\bookfinder.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:bookfinder.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\userwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:userwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\visual studio\\project\\lms\\userwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:userwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\viewbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:viewbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\viewbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:viewbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\updatebook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:updatebook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\addbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:addbook.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\addbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:addbook.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\pquanlimuontra.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:pquanlimuontra.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\pquanlimuontra.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:pquanlimuontra.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\cphieumuon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:cphieumuon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\userwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:userwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|e:\\lttq\\teamrepoqtlvlite\\lms\\bookfinder.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB3BFEAB-628E-4555-B57D-4673F3EA626E}|LMS.csproj|solutionrelative:bookfinder.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,15 +66,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 225,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Book.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\Book.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\Book.cs",
               "RelativeDocumentMoniker": "Book.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\Book.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\Book.cs",
               "RelativeToolTip": "Book.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -91,22 +91,22 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "PQuanLiMuonTra.xaml",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\PQuanLiMuonTra.xaml",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\PQuanLiMuonTra.xaml",
               "RelativeDocumentMoniker": "PQuanLiMuonTra.xaml",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\PQuanLiMuonTra.xaml",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\PQuanLiMuonTra.xaml",
               "RelativeToolTip": "PQuanLiMuonTra.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-10-17T06:50:56.217Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "PQuanLiMuonTra.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\PQuanLiMuonTra.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\PQuanLiMuonTra.xaml.cs",
               "RelativeDocumentMoniker": "PQuanLiMuonTra.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\PQuanLiMuonTra.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\PQuanLiMuonTra.xaml.cs",
               "RelativeToolTip": "PQuanLiMuonTra.xaml.cs",
               "ViewState": "AgIAAMgAAAAAAAAAAAA4wN4AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -114,11 +114,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "CPhieuMuon.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\CPhieuMuon.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\CPhieuMuon.cs",
               "RelativeDocumentMoniker": "CPhieuMuon.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\CPhieuMuon.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\CPhieuMuon.cs",
               "RelativeToolTip": "CPhieuMuon.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -126,34 +126,36 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\MainWindow.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\MainWindow.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
               "ViewState": "AgIAAFQAAAAAAAAAAAAqwGkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T08:30:52.463Z"
+              "WhenOpened": "2024-10-17T08:30:52.463Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\MainWindow.xaml",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\MainWindow.xaml",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-17T06:39:52.186Z"
+              "WhenOpened": "2024-10-17T06:39:52.186Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "AddBook.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\AddBook.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\AddBook.xaml.cs",
               "RelativeDocumentMoniker": "AddBook.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\AddBook.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\AddBook.xaml.cs",
               "RelativeToolTip": "AddBook.xaml.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAAwGMAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -161,33 +163,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "AddBook.xaml",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\AddBook.xaml",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\AddBook.xaml",
               "RelativeDocumentMoniker": "AddBook.xaml",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\AddBook.xaml",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\AddBook.xaml",
               "RelativeToolTip": "AddBook.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-10-17T03:51:34.996Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ViewBook.xaml",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\ViewBook.xaml",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\ViewBook.xaml",
               "RelativeDocumentMoniker": "ViewBook.xaml",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\ViewBook.xaml",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\ViewBook.xaml",
               "RelativeToolTip": "ViewBook.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-10-17T03:50:28.609Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "BookFinder.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\BookFinder.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\BookFinder.xaml.cs",
               "RelativeDocumentMoniker": "BookFinder.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\BookFinder.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\BookFinder.xaml.cs",
               "RelativeToolTip": "BookFinder.xaml.cs",
               "ViewState": "AgIAAEMAAAAAAAAAAAAwwDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -195,51 +197,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 2,
               "Title": "UserWindow.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\UserWindow.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\UserWindow.xaml.cs",
               "RelativeDocumentMoniker": "UserWindow.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\UserWindow.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\UserWindow.xaml.cs",
               "RelativeToolTip": "UserWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T07:19:37.902Z"
+              "WhenOpened": "2024-10-16T07:19:37.902Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "UserWindow.xaml",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\UserWindow.xaml",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\UserWindow.xaml",
               "RelativeDocumentMoniker": "UserWindow.xaml",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\UserWindow.xaml",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\UserWindow.xaml",
               "RelativeToolTip": "UserWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-10-16T07:19:38.675Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "UpdateBook.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\UpdateBook.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\UpdateBook.xaml.cs",
               "RelativeDocumentMoniker": "UpdateBook.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\UpdateBook.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\UpdateBook.xaml.cs",
               "RelativeToolTip": "UpdateBook.xaml.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAEUAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T07:01:26.842Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T07:01:26.842Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "ViewBook.xaml.cs",
-              "DocumentMoniker": "E:\\Visual studio\\Project\\LMS\\ViewBook.xaml.cs",
+              "DocumentMoniker": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\ViewBook.xaml.cs",
               "RelativeDocumentMoniker": "ViewBook.xaml.cs",
-              "ToolTip": "E:\\Visual studio\\Project\\LMS\\ViewBook.xaml.cs",
+              "ToolTip": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\ViewBook.xaml.cs",
               "RelativeToolTip": "ViewBook.xaml.cs",
-              "ViewState": "AgIAAH8AAAAAAAAAAAAEwJEAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAmwCsAAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T15:28:37.661Z"
+              "WhenOpened": "2024-10-14T15:28:37.661Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -249,11 +252,19 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             }
           ]
         }

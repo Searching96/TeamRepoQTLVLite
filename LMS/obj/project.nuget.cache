@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FyuGQux4z5Y=",
+  "dgSpecHash": "eVOYwH51zGM=",
   "success": true,
-  "projectFilePath": "E:\\Visual studio\\Project\\LMS\\LMS.csproj",
+  "projectFilePath": "E:\\LTTQ\\TeamRepoQTLVLite\\LMS\\LMS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ACER\\.nuget\\packages\\mahapps.metro.iconpacks.core\\5.0.0\\mahapps.metro.iconpacks.core.5.0.0.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\mahapps.metro.iconpacks.material\\5.0.0\\mahapps.metro.iconpacks.material.5.0.0.nupkg.sha512",

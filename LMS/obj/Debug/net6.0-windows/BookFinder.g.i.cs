@@ -63,7 +63,7 @@ namespace LMS {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/LMS;component/bookfinder.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/LMS;V1.0.0.0;component/bookfinder.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\BookFinder.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
